@@ -96,7 +96,7 @@ class Constants {
         phoneNumber: '01012345678',
         address: 'مدينة نصر، القاهرة',
         linkId: 'link-1',
-        photo: null,
+        photo: placeholderProfileImage,
         isOnline: true,
         cars: [
           Car(id: '1-1', model: 'Hyundai Elantra', plateNumber: 'س ن ر 1234'),
@@ -109,7 +109,7 @@ class Constants {
         phoneNumber: '01122334455',
         address: 'المعادي، القاهرة',
         linkId: 'link-2',
-        photo: null,
+        photo: placeholderProfileImage,
         isOnline: false,
         cars: [
           Car(id: '2-1', model: 'Kia Sportage', plateNumber: 'م ل ي 4455'),
@@ -123,7 +123,7 @@ class Constants {
         phoneNumber: '01234567890',
         address: 'سموحة، الإسكندرية',
         linkId: 'link-3',
-        photo: null,
+        photo: placeholderProfileImage,
         isOnline: true,
         cars: [
           Car(id: '3-1', model: 'Chevrolet Optra', plateNumber: 'ب و ج 6622'),
@@ -136,7 +136,7 @@ class Constants {
         phoneNumber: '01099988776',
         address: 'الهرم، الجيزة',
         linkId: 'link-4',
-        photo: null,
+        photo: placeholderProfileImage,
         isOnline: false,
         cars: [
           Car(id: '4-1', model: 'Toyota Corolla', plateNumber: 'ع س ب 1100'),
@@ -149,7 +149,7 @@ class Constants {
         phoneNumber: '01555544433',
         address: 'وسط البلد، القاهرة',
         linkId: 'link-5',
-        photo: null,
+        photo: placeholderProfileImage,
         isOnline: true,
         cars: [
           Car(id: '5-1', model: 'Nissan Sunny', plateNumber: 'ر ك م 7788'),
@@ -162,7 +162,7 @@ class Constants {
         phoneNumber: '01055667788',
         address: 'مدينتي، القاهرة الجديدة',
         linkId: 'link-6',
-        photo: null,
+        photo: placeholderProfileImage,
         isOnline: false,
         cars: [Car(id: '6-1', model: 'Honda Civic', plateNumber: 'ط و ف 3344')],
       ),
@@ -173,7 +173,7 @@ class Constants {
         phoneNumber: '01234543210',
         address: 'شبرا، القاهرة',
         linkId: 'link-7',
-        photo: null,
+        photo: placeholderProfileImage,
         isOnline: true,
         cars: [Car(id: '7-1', model: 'BMW 320i', plateNumber: 'ع ي ن 2020')],
       ),
@@ -184,7 +184,7 @@ class Constants {
         phoneNumber: '01114141414',
         address: 'المنصورة، الدقهلية',
         linkId: 'link-8',
-        photo: null,
+        photo: placeholderProfileImage,
         isOnline: false,
         cars: [
           Car(id: '8-1', model: 'Renault Logan', plateNumber: 'د ه م 6677'),
@@ -197,7 +197,7 @@ class Constants {
         phoneNumber: '01221212121',
         address: 'طنطا، الغربية',
         linkId: 'link-9',
-        photo: null,
+        photo: placeholderProfileImage,
         isOnline: true,
         cars: [
           Car(id: '9-1', model: 'Mercedes C180', plateNumber: 'م ب ل 8899'),
@@ -211,7 +211,7 @@ class Constants {
         phoneNumber: '01078787878',
         address: 'العصافرة، الإسكندرية',
         linkId: 'link-10',
-        photo: null,
+        photo: placeholderProfileImage,
         isOnline: false,
         cars: [
           Car(id: '10-1', model: 'Peugeot 301', plateNumber: 'ف ط ب 5566'),

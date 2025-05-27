@@ -113,7 +113,7 @@ class UserWidget extends StatelessWidget {
         ],
       ),
     ).withPressEffect(
-      onTap: () => context.push(Routes.userDetails , extra: user),
+      onTap: () => context.push(Routes.userDetails, extra: user),
       onLongPress: () {},
     );
   }
