@@ -6,7 +6,7 @@ import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
-import 'package:must_invest_service_man/core/static/icons.dart';
+import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/dialogs/error_toast.dart';
@@ -18,7 +18,6 @@ import 'package:must_invest_service_man/features/all/auth/data/models/login_para
 import 'package:must_invest_service_man/features/all/auth/data/models/user.dart';
 import 'package:must_invest_service_man/features/all/auth/presentation/cubit/auth_cubit.dart';
 import 'package:must_invest_service_man/features/all/auth/presentation/cubit/user_cubit/user_cubit.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/widgets/sign_up_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -134,162 +133,52 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           40.gap,
-          Row(
-            children: [
-              Expanded(
-                child: BlocConsumer<AuthCubit, AuthState>(
-                  listener: (BuildContext context, AuthState state) async {
-                    if (state is AuthSuccess) {
-                      UserCubit.get(context).setCurrentUser(state.user);
-                      if (state.user.type == UserType.user) {
-                        context.go(Routes.homeUser);
-                      } else {
-                        context.go(Routes.homeParkingMan);
-                      }
-                    }
-                    if (state is AuthError) {
-                      showErrorToast(context, state.message);
-                    }
-                  },
-                  builder:
-                      (BuildContext context, AuthState state) =>
-                          CustomElevatedButton(
-                            heroTag: 'button',
-                            loading: state is AuthLoading,
-                            title: LocaleKeys.login.tr(),
-                            onPressed: () {
-                              // if (_formKey.currentState!.validate()) {
-                              AuthCubit.get(context).login(
-                                LoginParams(
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                  isRemembered: isRemembered,
-                                ),
-                              );
-                              // }
-                            },
-                          ),
-                ),
-              ),
-              20.gap,
-              Expanded(
-                child: BlocConsumer<AuthCubit, AuthState>(
-                  listener: (BuildContext context, AuthState state) async {
-                    if (state is AuthSuccess) {
-                      UserCubit.get(context).setCurrentUser(state.user);
-                      if (state.user.type == UserType.user) {
-                        context.go(Routes.homeUser);
-                      } else {
-                        context.go(Routes.homeParkingMan);
-                      }
-                    }
-                    if (state is AuthError) {
-                      showErrorToast(context, state.message);
-                    }
-                  },
-                  builder:
-                      (BuildContext context, AuthState state) =>
-                          CustomElevatedButton(
-                            heroTag: 'faceId',
-                            icon: AppIcons.faceIdIc,
-                            title: LocaleKeys.face_id.tr(),
-                            onPressed: () {
-                              // if (_formKey.currentState!.validate()) {
-                              AuthCubit.get(context).login(
-                                LoginParams(
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                  isRemembered: isRemembered,
-                                ),
-                              );
-                              // }
-                            },
-                          ),
-                ),
-              ),
-            ],
-          ),
-          71.gap,
+
+          // 71.gap,
+
           // or login with divider
-          Row(
-            children: [
-              Expanded(
-                child: Divider(
-                  color: AppColors.grey60.withOpacity(0.3),
-                  thickness: 1,
-                ),
-              ),
-              16.gap,
-              Text(
-                LocaleKeys.or_login_with.tr(),
-                style: context.bodyMedium.s12.regular,
-              ),
-              16.gap,
-              Expanded(
-                child: Divider(
-                  color: AppColors.grey60.withOpacity(0.3),
-                  thickness: 1,
-                ),
-              ),
-            ],
-          ),
-          20.gap,
-          const SocialMediaButtons(),
-          20.gap,
-          SignUpButton(
-            isLogin: true,
-            onTap: () {
-              context.push(Routes.accountType);
-            },
-          ),
-          30.gap, // Add extra bottom padding
+          // 20.gap,
+          // SignUpButton(
+          //   isLogin: true,
+          //   onTap: () {
+          //     context.push(Routes.accountType);
+          //   },
+          // ),
+          // 30.gap, // Add extra bottom padding
         ],
       ),
-    );
-  }
-
-  // Optional: Add this method if you want to include upper content
-  // Widget _buildWelcomeSection() {
-  //   return
-  // }
-}
-
-class SocialMediaButtons extends StatelessWidget {
-  const SocialMediaButtons({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: CustomElevatedButton(
-            heroTag: 'google',
-            height: 48,
-            icon: AppIcons.google,
-            iconColor: null,
-            textColor: AppColors.black,
-            isBordered: true,
-            backgroundColor: AppColors.white,
-            title: LocaleKeys.google.tr(),
-            onPressed: () {},
-          ),
-        ),
-        20.gap,
-        Expanded(
-          child: CustomElevatedButton(
-            heroTag: 'facebook',
-            height: 48,
-            isBordered: true,
-            icon: AppIcons.facebook,
-            iconColor: null,
-            textColor: AppColors.black,
-            backgroundColor: AppColors.white,
-            title: LocaleKeys.facebook.tr(),
-            onPressed: () {},
-          ),
-        ),
-      ],
+      bottomNavigationBar: BlocConsumer<AuthCubit, AuthState>(
+        listener: (BuildContext context, AuthState state) async {
+          if (state is AuthSuccess) {
+            UserCubit.get(context).setCurrentUser(state.user);
+            if (state.user.type == UserType.user) {
+              context.go(Routes.homeUser);
+            } else {
+              context.go(Routes.homeParkingMan);
+            }
+          }
+          if (state is AuthError) {
+            showErrorToast(context, state.message);
+          }
+        },
+        builder:
+            (BuildContext context, AuthState state) => CustomElevatedButton(
+              heroTag: 'button',
+              loading: state is AuthLoading,
+              title: LocaleKeys.login.tr(),
+              onPressed: () {
+                // if (_formKey.currentState!.validate()) {
+                AuthCubit.get(context).login(
+                  LoginParams(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    isRemembered: isRemembered,
+                  ),
+                );
+                // }
+              },
+            ),
+      ).paddingAll(32),
     );
   }
 }
