@@ -6,30 +6,29 @@ import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
 import 'package:must_invest_service_man/core/observers/router_observer.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/pages/account_type_screen.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/pages/check_your_email_screen.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/pages/forget_password_screen.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/pages/login_screen.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/pages/otp_screen.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/pages/register_screen.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/pages/register_step_three.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/pages/register_step_two.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/pages/reset_password.dart';
-import 'package:must_invest_service_man/features/all/notifications/presentation/pages/notifications_screen.dart';
-import 'package:must_invest_service_man/features/all/on_boarding/presentation/pages/on_boarding_screen.dart';
-import 'package:must_invest_service_man/features/all/splash/presentation/pages/splash.dart';
-import 'package:must_invest_service_man/features/parking_man/home/presentation/pages/home_parking_man.dart';
-import 'package:must_invest_service_man/features/user/explore/presentation/pages/explore_screen.dart';
-import 'package:must_invest_service_man/features/user/explore/presentation/pages/map_screen.dart';
-import 'package:must_invest_service_man/features/user/explore/presentation/pages/parking_details_screen.dart';
-import 'package:must_invest_service_man/features/user/explore/presentation/pages/routing_parking_screen.dart';
-import 'package:must_invest_service_man/features/user/history/presentation/pages/history_screen.dart';
-import 'package:must_invest_service_man/features/user/home/data/models/parking_model.dart';
-import 'package:must_invest_service_man/features/user/home/presentation/pages/home_user.dart';
-import 'package:must_invest_service_man/features/user/my_cards/presentation/pages/my_cards_screen.dart';
-import 'package:must_invest_service_man/features/user/profile/presentation/pages/edit_profile_screen.dart';
-import 'package:must_invest_service_man/features/user/profile/presentation/pages/my_qr_code_screen.dart';
-import 'package:must_invest_service_man/features/user/profile/presentation/pages/profile_screen.dart';
+import 'package:must_invest_service_man/features/auth/presentation/pages/account_type_screen.dart';
+import 'package:must_invest_service_man/features/auth/presentation/pages/check_your_email_screen.dart';
+import 'package:must_invest_service_man/features/auth/presentation/pages/forget_password_screen.dart';
+import 'package:must_invest_service_man/features/auth/presentation/pages/login_screen.dart';
+import 'package:must_invest_service_man/features/auth/presentation/pages/otp_screen.dart';
+import 'package:must_invest_service_man/features/auth/presentation/pages/register_screen.dart';
+import 'package:must_invest_service_man/features/auth/presentation/pages/register_step_three.dart';
+import 'package:must_invest_service_man/features/auth/presentation/pages/register_step_two.dart';
+import 'package:must_invest_service_man/features/auth/presentation/pages/reset_password.dart';
+import 'package:must_invest_service_man/features/explore/presentation/pages/explore_screen.dart';
+import 'package:must_invest_service_man/features/explore/presentation/pages/map_screen.dart';
+import 'package:must_invest_service_man/features/explore/presentation/pages/parking_details_screen.dart';
+import 'package:must_invest_service_man/features/explore/presentation/pages/routing_parking_screen.dart';
+import 'package:must_invest_service_man/features/history/presentation/pages/history_screen.dart';
+import 'package:must_invest_service_man/features/home/data/models/parking_model.dart';
+import 'package:must_invest_service_man/features/home/presentation/pages/home_user.dart';
+import 'package:must_invest_service_man/features/my_cards/presentation/pages/my_cards_screen.dart';
+import 'package:must_invest_service_man/features/notifications/presentation/pages/notifications_screen.dart';
+import 'package:must_invest_service_man/features/on_boarding/presentation/pages/on_boarding_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/edit_profile_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/my_qr_code_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/profile_screen.dart';
+import 'package:must_invest_service_man/features/splash/presentation/pages/splash.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -116,7 +115,7 @@ class AppRouter {
         path: Routes.homeUser,
         builder: (context, state) {
           // Return the HomeUser widget
-          return const HomeUser();
+          return const HomeParkingMan();
         },
       ),
       GoRoute(

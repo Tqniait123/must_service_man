@@ -8,9 +8,9 @@ import 'package:must_invest_service_man/config/routes/app_router.dart';
 import 'package:must_invest_service_man/core/services/di.dart';
 import 'package:must_invest_service_man/core/static/strings.dart';
 import 'package:must_invest_service_man/core/theme/light_theme.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/cubit/auth_cubit.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/cubit/user_cubit/user_cubit.dart';
-import 'package:must_invest_service_man/features/all/auth/presentation/languages_cubit/languages_cubit.dart';
+import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:must_invest_service_man/features/auth/presentation/cubit/user_cubit/user_cubit.dart';
+import 'package:must_invest_service_man/features/auth/presentation/languages_cubit/languages_cubit.dart';
 
 class MustInvestServiceMan extends StatelessWidget {
   MustInvestServiceMan({super.key});
