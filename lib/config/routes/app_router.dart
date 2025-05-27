@@ -21,7 +21,7 @@ import 'package:must_invest_service_man/features/explore/presentation/pages/park
 import 'package:must_invest_service_man/features/explore/presentation/pages/routing_parking_screen.dart';
 import 'package:must_invest_service_man/features/history/presentation/pages/history_screen.dart';
 import 'package:must_invest_service_man/features/home/data/models/parking_model.dart';
-import 'package:must_invest_service_man/features/home/presentation/pages/home_user.dart';
+import 'package:must_invest_service_man/features/home/presentation/pages/home_screen.dart';
 import 'package:must_invest_service_man/features/my_cards/presentation/pages/my_cards_screen.dart';
 import 'package:must_invest_service_man/features/notifications/presentation/pages/notifications_screen.dart';
 import 'package:must_invest_service_man/features/on_boarding/presentation/pages/on_boarding_screen.dart';
