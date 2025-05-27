@@ -12,7 +12,7 @@ import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_b
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
-import 'package:must_invest_service_man/features/home/presentation/pages/home_screen.dart';
+import 'package:must_invest_service_man/features/home/presentation/widgets/user_widget.dart';
 import 'package:must_invest_service_man/features/new_lists/presentation/widgets/filter_option_widget.dart';
 
 class NewListScreen extends StatefulWidget {
