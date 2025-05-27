@@ -90,8 +90,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           'name': 'محمود الدنجاوي',
           'email': 'eldengaawy@gmail.com',
           'link_id': '#565678',
-          'type':
-              (params.email == 'parkingMan@gmail.com') ? 'parkingMan' : 'user',
+          'type': (params.email == 'user@gmail.com') ? 'user' : 'parkingMan',
           'badges': (params.email == 'parent@gmail.com') ? [] : ['gold'],
           'phone': '01012345678',
           'photo':
