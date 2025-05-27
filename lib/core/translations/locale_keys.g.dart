@@ -154,5 +154,8 @@ abstract class  LocaleKeys {
   static const re_generate = 're_generate';
   static const generating = 'generating';
   static const new_list = 'new_list';
+  static const new_title = 'new_title';
+  static const current = 'current';
+  static const last = 'last';
 
 }

@@ -1,50 +1,42 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/string_to_icon.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
 import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
+import 'package:must_invest_service_man/core/static/constants.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
+import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
+import 'package:must_invest_service_man/features/home/presentation/pages/home_screen.dart';
 import 'package:must_invest_service_man/features/new_lists/presentation/widgets/filter_option_widget.dart';
-import 'package:must_invest_service_man/features/home/data/models/parking_model.dart';
-import 'package:must_invest_service_man/features/home/presentation/widgets/parking_widget.dart';
 
-class ExploreScreen extends StatefulWidget {
-  const ExploreScreen({super.key});
+class NewListScreen extends StatefulWidget {
+  const NewListScreen({super.key});
 
   @override
-  State<ExploreScreen> createState() => _ExploreScreenState();
+  State<NewListScreen> createState() => _NewListScreenState();
 }
 
-class _ExploreScreenState extends State<ExploreScreen> {
+class _NewListScreenState extends State<NewListScreen> {
   final TextEditingController _searchController = TextEditingController();
   int _selectedFilterId = 1;
 
   final List<Map<String, dynamic>> _filters = [
-    {'id': 2, 'title': LocaleKeys.nearst.tr()},
-    {'id': 3, 'title': LocaleKeys.most_popular.tr()},
-    {'id': 4, 'title': LocaleKeys.most_wanted.tr()},
+    {'id': 2, 'title': LocaleKeys.new_title.tr()},
+    {'id': 3, 'title': LocaleKeys.current.tr()},
+    {'id': 4, 'title': LocaleKeys.last.tr()},
   ];
 
   @override
   Widget build(BuildContext context) {
-    final parkingList = Parking.getFakeArabicParkingList();
+    final usersList = Constants.getRealisticFakeUsers();
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.push(Routes.maps);
-        },
-        backgroundColor: AppColors.primary,
-        child: Icon(Icons.my_location_rounded, color: AppColors.white),
-      ),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -55,12 +47,23 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 children: [
                   CustomBackButton(),
                   Text(
-                    LocaleKeys.explore.tr(),
+                    LocaleKeys.new_list.tr(),
                     style: context.titleLarge.copyWith(),
                   ),
-                  NotificationsButton(
-                    color: Color(0xffEAEAF3),
-                    iconColor: AppColors.primary,
+                  Row(
+                    children: [
+                      CustomIconButton(
+                        iconAsset: AppIcons.cameraIc,
+                        color: Color(0xffEAEAF3),
+                        iconColor: AppColors.primary,
+                        onPressed: () {},
+                      ),
+                      10.gap,
+                      NotificationsButton(
+                        color: Color(0xffEAEAF3),
+                        iconColor: AppColors.primary,
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -108,14 +111,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       false, // Don't use shrinkWrap as we've set a height
                   padding:
                       EdgeInsets.zero, // Remove padding to avoid extra space
-                  itemCount: parkingList.length,
+                  itemCount: usersList.length,
                   separatorBuilder:
                       (context, index) => const SizedBox(height: 16),
                   itemBuilder: (context, index) {
-                    return ParkingCard(parking: parkingList[index]);
+                    return UserWidget(user: usersList[index]);
                   },
                 ),
               ),
+              30.gap, // Add some padding at the bottom
             ],
           ),
         ).paddingHorizontal(20),

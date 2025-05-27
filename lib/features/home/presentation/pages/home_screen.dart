@@ -66,7 +66,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
               ).withPressEffect(
                 onTap: () {
                   // Handle "See More" button tap
-                  context.push(Routes.explore);
+                  context.push(Routes.newList);
                 },
               ),
             ],

@@ -168,7 +168,10 @@ class CodegenLoader extends AssetLoader{
   "my_qr": "My QR",
   "re_generate": "Re Generate",
   "generating": "Generating",
-  "new_list": "New List"
+  "new_list": "New List",
+  "new_title": "New",
+  "current": "Current",
+  "last": "Last"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -324,7 +327,10 @@ static const Map<String,dynamic> _ar = {
   "my_qr": "QR الخاص بي",
   "re_generate": "إعادة توليد",
   "generating": "توليد",
-  "new_list": "قائمة جديدة"
+  "new_list": "قائمة جديدة",
+  "new_title": "جديد",
+  "current": "حاضِر",
+  "last": "آخر"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

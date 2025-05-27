@@ -145,10 +145,10 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: Routes.explore,
+        path: Routes.newList,
         builder: (context, state) {
           // Return the ExploreScreen widget
-          return ExploreScreen();
+          return NewListScreen();
         },
       ),
 

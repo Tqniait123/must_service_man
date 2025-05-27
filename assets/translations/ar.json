@@ -152,5 +152,8 @@
   "my_qr": "QR الخاص بي",
   "re_generate": "إعادة توليد",
   "generating": "توليد",
-  "new_list": "قائمة جديدة"
+  "new_list": "قائمة جديدة",
+  "new_title": "جديد",
+  "current": "حاضِر",
+  "last": "آخر"
 }

@@ -152,5 +152,8 @@
   "my_qr": "My QR",
   "re_generate": "Re Generate",
   "generating": "Generating",
-  "new_list": "New List"
+  "new_list": "New List",
+  "new_title": "New",
+  "current": "Current",
+  "last": "Last"
 }

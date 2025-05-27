@@ -16,10 +16,10 @@ class Routes {
 
   static const String notifications = '/notifications';
   static const String checkYourEmail = '/checkYourEmail';
-  static const String explore = '/explore';
+  static const String newList = '/newList';
 
   static const String parkingDetails = '/parkingDetails';
- 
+
   static const String myCards = '/myCards';
   static const String profile = '/profile';
   static const String editProfile = '/editProfile';
