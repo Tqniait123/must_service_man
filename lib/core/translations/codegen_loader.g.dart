@@ -171,7 +171,20 @@ class CodegenLoader extends AssetLoader{
   "new_list": "New List",
   "new_title": "New",
   "current": "Current",
-  "last": "Last"
+  "last": "Last",
+  "scan_qr_code": "Scan QR Code",
+  "scan_qr_instructions": "Point your camera at a QR code to scan it. Make sure the QR code is clearly visible and well-lit.",
+  "processing": "Processing...",
+  "qr_scanned_successfully": "QR Code Scanned Successfully",
+  "scanned_data": "Scanned Data:",
+  "scan_another": "Scan Another",
+  "done": "Done",
+  "error": "Error",
+  "invalid_qr_code": "Invalid QR code. Please try scanning a valid QR code.",
+  "error_processing_qr": "Error occurred while processing QR code. Please try again.",
+  "try_again": "Try Again",
+  "rescan": "Rescan",
+  "ready_to_scan": "Ready to Scan"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -330,7 +343,20 @@ static const Map<String,dynamic> _ar = {
   "new_list": "قائمة جديدة",
   "new_title": "جديد",
   "current": "حاضِر",
-  "last": "آخر"
+  "last": "آخر",
+  "scan_qr_code": "مسح رمز الاستجابة السريعة",
+  "scan_qr_instructions": "وجه الكاميرا نحو رمز الاستجابة السريعة لمسحه. تأكد من أن الرمز واضح ومضاء جيداً.",
+  "processing": "جاري المعالجة...",
+  "qr_scanned_successfully": "تم مسح رمز الاستجابة السريعة بنجاح",
+  "scanned_data": "البيانات الممسوحة:",
+  "scan_another": "مسح آخر",
+  "done": "تم",
+  "error": "خطأ",
+  "invalid_qr_code": "رمز استجابة سريعة غير صالح. يرجى محاولة مسح رمز صالح.",
+  "error_processing_qr": "حدث خطأ أثناء معالجة رمز الاستجابة السريعة. يرجى المحاولة مرة أخرى.",
+  "try_again": "حاول مرة أخرى",
+  "rescan": "إعادة المسح",
+  "ready_to_scan": "جاهز للمسح"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

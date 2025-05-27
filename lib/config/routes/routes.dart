@@ -23,6 +23,6 @@ class Routes {
   static const String myCards = '/myCards';
   static const String profile = '/profile';
   static const String editProfile = '/editProfile';
-  static const String myQrCode = '/myQrCode';
+  static const String scanQr = '/scanQr';
   static const String history = '/history';
 }

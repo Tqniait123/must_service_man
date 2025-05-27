@@ -60,11 +60,15 @@ class UserHomeHeaderWidget extends StatelessWidget {
             15.gap,
             Row(
               children: [
-                CustomIconButton(
-                  iconAsset: AppIcons.cameraIc,
-                  color: Color(0xff6468AC),
-                  onPressed: () {},
-                ),
+                context.user.type == UserType.parkingMan
+                    ? CustomIconButton(
+                      iconAsset: AppIcons.cameraIc,
+                      color: Color(0xff6468AC),
+                      onPressed: () {
+                        context.push(Routes.scanQr);
+                      },
+                    )
+                    : SizedBox.shrink(),
                 10.gap,
                 NotificationsButton(),
               ],
@@ -95,7 +99,7 @@ class UserHomeHeaderWidget extends StatelessWidget {
                         iconAsset: AppIcons.qrCodeIc,
                         color: AppColors.primary,
                         onPressed: () {
-                          context.push(Routes.myQrCode);
+                          context.push(Routes.scanQr);
                         },
                       ),
                     ],

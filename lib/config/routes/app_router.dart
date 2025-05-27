@@ -24,8 +24,8 @@ import 'package:must_invest_service_man/features/new_lists/presentation/pages/pa
 import 'package:must_invest_service_man/features/notifications/presentation/pages/notifications_screen.dart';
 import 'package:must_invest_service_man/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/edit_profile_screen.dart';
-import 'package:must_invest_service_man/features/profile/presentation/pages/my_qr_code_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/profile_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/scan_qr_code_screen.dart';
 import 'package:must_invest_service_man/features/splash/presentation/pages/splash.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -189,10 +189,10 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: Routes.myQrCode,
+        path: Routes.scanQr,
         builder: (context, state) {
           // Return the MyQrCodeScreen widget
-          return MyQrCodeScreen();
+          return ScanQrCodeScreen();
         },
       ),
       GoRoute(
