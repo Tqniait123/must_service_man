@@ -9,6 +9,7 @@ import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
+import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 
@@ -37,9 +38,21 @@ class _UserDetailsState extends State<UserDetails> {
                     LocaleKeys.details.tr(),
                     style: context.titleLarge.copyWith(),
                   ),
-                  NotificationsButton(
-                    color: Color(0xffEAEAF3),
-                    iconColor: AppColors.primary,
+
+                  Row(
+                    children: [
+                      CustomIconButton(
+                        iconAsset: AppIcons.cameraIc,
+                        color: Color(0xffEAEAF3),
+                        iconColor: AppColors.primary,
+                        onPressed: () {},
+                      ),
+                      10.gap,
+                      NotificationsButton(
+                        color: Color(0xffEAEAF3),
+                        iconColor: AppColors.primary,
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -47,7 +60,7 @@ class _UserDetailsState extends State<UserDetails> {
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   children: [
-                    22.gap,
+                    39.gap,
 
                     // Rounded Parking image
                     Stack(
@@ -56,46 +69,50 @@ class _UserDetailsState extends State<UserDetails> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(15),
-                          child: Image.network(widget.user.photo ?? ''),
-                        ),
-                        Positioned(
-                          bottom: -20,
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              // context.push(
-                              //   Routes.routing,
-                              //   extra: widget.parking,
-                              // );
-                            },
-                            backgroundColor: AppColors.primary,
-                            child: Icon(
-                              Icons.my_location_rounded,
-                              color: AppColors.white,
-                            ),
+                          child: Image.network(
+                            widget.user.photo ?? '',
+                            height: 100, // Decreased height
+                            width: 100, // Decreased width
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ],
                     ),
                     30.gap,
                     // Parking Name
-                    Text(
-                      widget.user.name,
-                      style: context.titleLarge.copyWith(),
-                    ),
-                    // Parking Address
-                    10.gap,
-                    Text(
-                      widget.user.address ?? '',
-                      style: context.bodyMedium.s12.regular.copyWith(
-                        color: AppColors.primary.withValues(alpha: 0.5),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              widget.user.name,
+                              style: context.titleLarge.copyWith(),
+                            ),
+                            // Parking Address
+                            10.gap,
+                            Text(
+                              widget.user.address ?? '',
+                              style: context.bodyMedium.s12.regular.copyWith(
+                                color: AppColors.primary.withValues(alpha: 0.5),
+                              ),
+                            ),
+                          ],
+                        ),
+                        CustomIconButton(
+                          color: Color(0xff6468AC),
+                          iconColor: AppColors.white,
+                          iconAsset: AppIcons.qrCodeIc,
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
                     30.gap,
                     // Parking Details
                     Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             CustomDetailsInfo(
                               title: '500 m away',
@@ -110,7 +127,7 @@ class _UserDetailsState extends State<UserDetails> {
                         ),
                         15.gap,
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             CustomDetailsInfo(
                               title: '200 \$',
@@ -123,7 +140,9 @@ class _UserDetailsState extends State<UserDetails> {
                     // Parking Description
                     30.gap,
                     Text(
-                      widget.user.type.toString(),
+                      '''
+  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+''',
                       style: context.bodyMedium.s12.regular.copyWith(
                         color: AppColors.black,
                       ),
