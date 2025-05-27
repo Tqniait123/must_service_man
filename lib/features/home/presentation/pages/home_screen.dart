@@ -7,7 +7,6 @@ import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/string_to_icon.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
-import 'package:must_invest_service_man/core/static/app_assets.dart';
 import 'package:must_invest_service_man/core/static/constants.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
@@ -43,7 +42,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
         contentPadding: const EdgeInsets.symmetric(horizontal: 24),
 
         upperContent: UserHomeHeaderWidget(searchController: _searchController),
-        backgroundPatternAssetPath: AppImages.homePattern,
+        // backgroundPatternAssetPath: AppImages.homePattern,
         scrollPhysics: const NeverScrollableScrollPhysics(),
 
         children: [
