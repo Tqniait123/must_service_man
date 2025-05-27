@@ -6,6 +6,7 @@ import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
 import 'package:must_invest_service_man/core/observers/router_observer.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
+import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/account_type_screen.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/check_your_email_screen.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/forget_password_screen.dart';
@@ -16,11 +17,10 @@ import 'package:must_invest_service_man/features/auth/presentation/pages/registe
 import 'package:must_invest_service_man/features/auth/presentation/pages/register_step_two.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/reset_password.dart';
 import 'package:must_invest_service_man/features/history/presentation/pages/history_screen.dart';
-import 'package:must_invest_service_man/features/home/data/models/parking_model.dart';
 import 'package:must_invest_service_man/features/home/presentation/pages/home_screen.dart';
 import 'package:must_invest_service_man/features/my_cards/presentation/pages/my_cards_screen.dart';
 import 'package:must_invest_service_man/features/new_lists/presentation/pages/new_list_screen.dart';
-import 'package:must_invest_service_man/features/new_lists/presentation/pages/parking_details_screen.dart';
+import 'package:must_invest_service_man/features/new_lists/presentation/pages/user_details_screen.dart';
 import 'package:must_invest_service_man/features/notifications/presentation/pages/notifications_screen.dart';
 import 'package:must_invest_service_man/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/edit_profile_screen.dart';
@@ -153,10 +153,10 @@ class AppRouter {
       ),
 
       GoRoute(
-        path: Routes.parkingDetails,
+        path: Routes.userDetails,
         builder: (context, state) {
           // Return the ParkingDetails widget
-          return ParkingDetailsScreen(parking: state.extra as Parking);
+          return UserDetails(user: state.extra as User);
         },
       ),
 

@@ -18,7 +18,7 @@ class Routes {
   static const String checkYourEmail = '/checkYourEmail';
   static const String newList = '/newList';
 
-  static const String parkingDetails = '/parkingDetails';
+  static const String userDetails = '/userDetails';
 
   static const String myCards = '/myCards';
   static const String profile = '/profile';

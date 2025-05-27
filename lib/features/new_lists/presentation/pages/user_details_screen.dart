@@ -10,17 +10,17 @@ import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
-import 'package:must_invest_service_man/features/home/data/models/parking_model.dart';
+import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 
-class ParkingDetailsScreen extends StatefulWidget {
-  final Parking parking;
-  const ParkingDetailsScreen({super.key, required this.parking});
+class UserDetails extends StatefulWidget {
+  final User user;
+  const UserDetails({super.key, required this.user});
 
   @override
-  State<ParkingDetailsScreen> createState() => _ParkingDetailsScreenState();
+  State<UserDetails> createState() => _UserDetailsState();
 }
 
-class _ParkingDetailsScreenState extends State<ParkingDetailsScreen> {
+class _UserDetailsState extends State<UserDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +56,7 @@ class _ParkingDetailsScreenState extends State<ParkingDetailsScreen> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(15),
-                          child: Image.network(widget.parking.imageUrl),
+                          child: Image.network(widget.user.photo ?? ''),
                         ),
                         Positioned(
                           bottom: -20,
@@ -79,13 +79,13 @@ class _ParkingDetailsScreenState extends State<ParkingDetailsScreen> {
                     30.gap,
                     // Parking Name
                     Text(
-                      widget.parking.title,
+                      widget.user.name,
                       style: context.titleLarge.copyWith(),
                     ),
                     // Parking Address
                     10.gap,
                     Text(
-                      widget.parking.address,
+                      widget.user.address ?? '',
                       style: context.bodyMedium.s12.regular.copyWith(
                         color: AppColors.primary.withValues(alpha: 0.5),
                       ),
@@ -123,7 +123,7 @@ class _ParkingDetailsScreenState extends State<ParkingDetailsScreen> {
                     // Parking Description
                     30.gap,
                     Text(
-                      widget.parking.information,
+                      widget.user.type.toString(),
                       style: context.bodyMedium.s12.regular.copyWith(
                         color: AppColors.black,
                       ),

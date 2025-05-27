@@ -4,6 +4,7 @@ import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/string_to_icon.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
 import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
+import 'package:must_invest_service_man/core/static/constants.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
@@ -11,15 +12,14 @@ import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_b
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
-import 'package:must_invest_service_man/features/home/data/models/parking_model.dart';
-import 'package:must_invest_service_man/features/home/presentation/widgets/parking_widget.dart';
+import 'package:must_invest_service_man/features/home/presentation/widgets/user_widget.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final parkingList = Parking.getFakeArabicParkingList();
+    final usersList = Constants.getRealisticFakeUsers();
     return Scaffold(
       backgroundColor: Color(0xffF4F4FA),
       body: SafeArea(
@@ -68,11 +68,11 @@ class HistoryScreen extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                 padding: EdgeInsets.zero, // Remove padding to avoid extra space
-                itemCount: parkingList.length,
+                itemCount: usersList.length,
                 separatorBuilder:
                     (context, index) => const SizedBox(height: 16),
                 itemBuilder: (context, index) {
-                  return ParkingCard(parking: parkingList[index]);
+                  return UserWidget(user: usersList[index]);
                 },
               ),
             ),
