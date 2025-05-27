@@ -15,14 +15,12 @@ import 'package:must_invest_service_man/features/auth/presentation/pages/registe
 import 'package:must_invest_service_man/features/auth/presentation/pages/register_step_three.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/register_step_two.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/reset_password.dart';
-import 'package:must_invest_service_man/features/explore/presentation/pages/explore_screen.dart';
-import 'package:must_invest_service_man/features/explore/presentation/pages/map_screen.dart';
-import 'package:must_invest_service_man/features/explore/presentation/pages/parking_details_screen.dart';
-import 'package:must_invest_service_man/features/explore/presentation/pages/routing_parking_screen.dart';
 import 'package:must_invest_service_man/features/history/presentation/pages/history_screen.dart';
 import 'package:must_invest_service_man/features/home/data/models/parking_model.dart';
 import 'package:must_invest_service_man/features/home/presentation/pages/home_screen.dart';
 import 'package:must_invest_service_man/features/my_cards/presentation/pages/my_cards_screen.dart';
+import 'package:must_invest_service_man/features/new_lists/presentation/pages/new_list_screen.dart';
+import 'package:must_invest_service_man/features/new_lists/presentation/pages/parking_details_screen.dart';
 import 'package:must_invest_service_man/features/notifications/presentation/pages/notifications_screen.dart';
 import 'package:must_invest_service_man/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/edit_profile_screen.dart';
@@ -153,13 +151,7 @@ class AppRouter {
           return ExploreScreen();
         },
       ),
-      GoRoute(
-        path: Routes.maps,
-        builder: (context, state) {
-          // Return the MapsScreen widget
-          return MapScreen();
-        },
-      ),
+
       GoRoute(
         path: Routes.parkingDetails,
         builder: (context, state) {
@@ -167,13 +159,7 @@ class AppRouter {
           return ParkingDetailsScreen(parking: state.extra as Parking);
         },
       ),
-      GoRoute(
-        path: Routes.routing,
-        builder: (context, state) {
-          // Return the Routing widget
-          return RoutingParkingScreen(parking: state.extra as Parking);
-        },
-      ),
+
       GoRoute(
         path: Routes.notifications,
         builder: (context, state) {

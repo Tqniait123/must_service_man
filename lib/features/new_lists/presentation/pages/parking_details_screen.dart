@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/string_to_icon.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
@@ -64,10 +62,10 @@ class _ParkingDetailsScreenState extends State<ParkingDetailsScreen> {
                           bottom: -20,
                           child: FloatingActionButton(
                             onPressed: () {
-                              context.push(
-                                Routes.routing,
-                                extra: widget.parking,
-                              );
+                              // context.push(
+                              //   Routes.routing,
+                              //   extra: widget.parking,
+                              // );
                             },
                             backgroundColor: AppColors.primary,
                             child: Icon(

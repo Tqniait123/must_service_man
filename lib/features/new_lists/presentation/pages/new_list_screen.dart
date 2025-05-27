@@ -12,7 +12,7 @@ import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
-import 'package:must_invest_service_man/features/explore/presentation/widgets/filter_option_widget.dart';
+import 'package:must_invest_service_man/features/new_lists/presentation/widgets/filter_option_widget.dart';
 import 'package:must_invest_service_man/features/home/data/models/parking_model.dart';
 import 'package:must_invest_service_man/features/home/presentation/widgets/parking_widget.dart';
 
