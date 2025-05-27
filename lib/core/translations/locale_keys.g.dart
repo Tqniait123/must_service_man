@@ -153,5 +153,6 @@ abstract class  LocaleKeys {
   static const my_qr = 'my_qr';
   static const re_generate = 're_generate';
   static const generating = 'generating';
+  static const new_list = 'new_list';
 
 }

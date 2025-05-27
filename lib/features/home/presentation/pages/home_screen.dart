@@ -2,14 +2,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:must_invest_service_man/config/routes/routes.dart';
+import 'package:must_invest_service_man/core/extensions/flipped_for_lcale.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
+import 'package:must_invest_service_man/core/extensions/string_to_icon.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
 import 'package:must_invest_service_man/core/static/app_assets.dart';
 import 'package:must_invest_service_man/core/static/constants.dart';
+import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custom_layout.dart';
+import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/long_press_effect.dart';
 import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 import 'package:must_invest_service_man/features/home/presentation/widgets/home_user_header_widget.dart';
@@ -48,7 +52,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                LocaleKeys.nearst_parking_spaces.tr(),
+                LocaleKeys.new_list.tr(),
                 style: context.bodyMedium.bold.s16.copyWith(
                   color: AppColors.primary,
                 ),
@@ -106,63 +110,80 @@ class UserWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                    image:
-                        user.photo != null
-                            ? NetworkImage(user.photo!)
-                            : NetworkImage(Constants.placeholderProfileImage),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
-
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
                   children: [
-                    Text(
-                      user.name,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                          image:
+                              user.photo != null
+                                  ? NetworkImage(user.photo!)
+                                  : NetworkImage(
+                                    Constants.placeholderProfileImage,
+                                  ),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    // Text(
-                    //   user.address ?? '',
-                    //   style: co
-                    // ),
+                    const SizedBox(width: 16),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            user.name,
+                            style: context.textTheme.bodyMedium?.s16.bold
+                                .copyWith(color: AppColors.primary),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            user.address ?? '',
+                            style: context.textTheme.bodyMedium?.s12.regular
+                                .copyWith(
+                                  color: AppColors.primary.withValues(
+                                    alpha: 0.5,
+                                  ),
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
+              CustomIconButton(
+                height: 30,
+                width: 30,
+                radius: 10,
+                color: Color(0xffE2E4FF),
+                iconAsset: AppIcons.arrowIc,
+                onPressed: () {},
+              ).flippedForLocale(context),
             ],
           ),
           const SizedBox(height: 16),
 
-          // السيارات
           if (user.cars.isNotEmpty)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "السيارات:",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                const SizedBox(height: 8),
                 ...user.cars.map(
                   (car) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     child: Row(
                       children: [
-                        const Icon(Icons.directions_car, size: 20),
+                        AppIcons.outlinedCarIcsvg.icon(),
                         const SizedBox(width: 8),
-                        Text("${car.model} - ${car.plateNumber}"),
+                        Text(
+                          "${car.model} - ${car.id}",
+                          style: context.textTheme.bodyMedium?.s14.regular
+                              .copyWith(color: AppColors.primary),
+                        ),
                       ],
                     ),
                   ),
