@@ -59,28 +59,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title: LocaleKeys.full_name.tr(),
             ),
             16.gap,
-            Row(
-              children: [
-                Expanded(
-                  child: CustomTextFormField(
-                    controller: TextEditingController(),
-                    margin: 0,
-                    hint: LocaleKeys.type.tr(),
-                    title: LocaleKeys.type.tr(),
-                  ),
-                ),
-                16.gap,
-                Expanded(
-                  child: CustomTextFormField(
-                    controller: TextEditingController(),
-                    margin: 0,
-                    hint: LocaleKeys.id.tr(),
-                    title: LocaleKeys.id.tr(),
-                  ),
-                ),
-              ],
-            ),
-            16.gap,
+
             CustomTextFormField(
               controller: TextEditingController(),
               margin: 0,
@@ -88,13 +67,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title: LocaleKeys.phone_number.tr(),
             ),
             16.gap,
-            CustomTextFormField(
-              controller: TextEditingController(),
-              margin: 0,
-              hint: LocaleKeys.address.tr(),
-              title: LocaleKeys.address.tr(),
-            ),
-            16.gap,
+
             CustomTextFormField(
               controller: TextEditingController(),
               margin: 0,

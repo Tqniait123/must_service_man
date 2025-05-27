@@ -12,7 +12,6 @@ import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custom_layout.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
-import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 import 'package:must_invest_service_man/features/profile/presentation/widgets/profile_item_widget.dart';
@@ -102,18 +101,6 @@ class ProfileScreen extends StatelessWidget {
               context.push(Routes.editProfile);
             },
           ),
-          ProfileItemWidget(
-            title: LocaleKeys.face_id.tr(),
-            iconPath: AppIcons.faceIdIc,
-            trailing: Switch.adaptive(value: true, onChanged: (value) {}),
-          ),
-          ProfileItemWidget(
-            title: LocaleKeys.my_cards.tr(),
-            iconPath: AppIcons.cardIc,
-            onPressed: () {
-              context.push(Routes.myCards);
-            },
-          ),
 
           ProfileItemWidget(
             title: LocaleKeys.terms_and_conditions.tr(),
@@ -138,11 +125,11 @@ class ProfileScreen extends StatelessWidget {
             onPressed: () {},
           ),
           20.gap,
-          CustomElevatedButton(
-            icon: AppIcons.supportIc,
-            onPressed: () {},
-            title: LocaleKeys.how_can_we_help_you.tr(),
-          ),
+          // CustomElevatedButton(
+          //   icon: AppIcons.supportIc,
+          //   onPressed: () {},
+          //   title: LocaleKeys.how_can_we_help_you.tr(),
+          // ),
         ],
       ),
     );

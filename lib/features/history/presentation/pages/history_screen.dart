@@ -21,7 +21,7 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final usersList = Constants.getRealisticFakeUsers();
     return Scaffold(
-      backgroundColor: Color(0xffF4F4FA),
+      // backgroundColor: Color(0xffF4F4FA),
       body: SafeArea(
         child: Column(
           children: [
