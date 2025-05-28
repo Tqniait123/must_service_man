@@ -25,4 +25,5 @@ class Routes {
   static const String editProfile = '/editProfile';
   static const String scanQr = '/scanQr';
   static const String history = '/history';
+  static const String withdrawRequest = '/withdrawRequest';
 }

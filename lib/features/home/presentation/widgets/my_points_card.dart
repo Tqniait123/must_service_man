@@ -104,9 +104,9 @@ class MyPointsCard extends StatelessWidget {
               Expanded(
                 child: CustomElevatedButton(
                   height: 44,
-                  title: LocaleKeys.add_points.tr(),
+                  title: LocaleKeys.withdraw.tr(),
                   onPressed: () {
-                    context.push(Routes.myCards);
+                    context.push(Routes.withdrawRequest);
                   },
                 ),
               ),

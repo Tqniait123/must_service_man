@@ -170,5 +170,13 @@ abstract class  LocaleKeys {
   static const try_again = 'try_again';
   static const rescan = 'rescan';
   static const ready_to_scan = 'ready_to_scan';
+  static const withdraw = 'withdraw';
+  static const withdrawal_request = 'withdrawal_request';
+  static const points = 'points';
+  static const cash = 'cash';
+  static const note = 'note';
+  static const enter_the_number_of_points = 'enter_the_number_of_points';
+  static const enter_the_number_of_cash = 'enter_the_number_of_cash';
+  static const enter_withdrawal_method = 'enter_withdrawal_method';
 
 }

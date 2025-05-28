@@ -18,6 +18,7 @@ import 'package:must_invest_service_man/features/auth/presentation/pages/registe
 import 'package:must_invest_service_man/features/auth/presentation/pages/reset_password.dart';
 import 'package:must_invest_service_man/features/history/presentation/pages/history_screen.dart';
 import 'package:must_invest_service_man/features/home/presentation/pages/home_screen.dart';
+import 'package:must_invest_service_man/features/home/presentation/widgets/withdraw_request_screen.dart';
 import 'package:must_invest_service_man/features/my_cards/presentation/pages/my_cards_screen.dart';
 import 'package:must_invest_service_man/features/new_lists/presentation/pages/new_list_screen.dart';
 import 'package:must_invest_service_man/features/new_lists/presentation/pages/user_details_screen.dart';
@@ -200,6 +201,13 @@ class AppRouter {
         builder: (context, state) {
           // Return the HistoryScreen widget
           return HistoryScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.withdrawRequest,
+        builder: (context, state) {
+          // Return the WithdrawRequestScreen widget
+          return WithdrawRequestScreen();
         },
       ),
     ],

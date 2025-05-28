@@ -184,7 +184,15 @@ class CodegenLoader extends AssetLoader{
   "error_processing_qr": "Error occurred while processing QR code. Please try again.",
   "try_again": "Try Again",
   "rescan": "Rescan",
-  "ready_to_scan": "Ready to Scan"
+  "ready_to_scan": "Ready to Scan",
+  "withdraw": "Withdraw",
+  "withdrawal_request": "Withdrawal Request",
+  "points": "Points",
+  "cash": "Cash",
+  "note": "Note",
+  "enter_the_number_of_points": "Enter the number of points",
+  "enter_the_number_of_cash": "Enter the amount of cash",
+  "enter_withdrawal_method": "Enter the withdrawal method"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -356,7 +364,15 @@ static const Map<String,dynamic> _ar = {
   "error_processing_qr": "حدث خطأ أثناء معالجة رمز الاستجابة السريعة. يرجى المحاولة مرة أخرى.",
   "try_again": "حاول مرة أخرى",
   "rescan": "إعادة المسح",
-  "ready_to_scan": "جاهز للمسح"
+  "ready_to_scan": "جاهز لمسح الكود",
+  "withdraw": "سحب",
+  "withdrawal_request": "طلب سحب الرصيد",
+  "points": "النقاط",
+  "cash": "المبلغ النقدي",
+  "note": "ملاحظة",
+  "enter_the_number_of_points": "برجاء إدخال عدد النقاط المراد سحبها",
+  "enter_the_number_of_cash": "برجاء إدخال المبلغ المراد سحبه",
+  "enter_withdrawal_method": "برجاء اختيار طريقة السحب المناسبة"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

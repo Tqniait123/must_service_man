@@ -53,6 +53,15 @@ class CustomLayout extends StatelessWidget {
   final ScrollController? scrollController;
   final ScrollPhysics? scrollPhysics;
 
+  // NEW: Stacked widget control
+  final Widget? stackedWidget;
+  final double? stackedWidgetHeight;
+  final EdgeInsets? stackedWidgetMargin;
+  final BorderRadius? stackedWidgetBorderRadius;
+  final List<BoxShadow>? stackedWidgetShadows;
+  final Color? stackedWidgetBackgroundColor;
+  final double stackedWidgetOverlap;
+
   const CustomLayout({
     super.key,
     required this.children,
@@ -95,6 +104,18 @@ class CustomLayout extends StatelessWidget {
     this.scrollType = ScrollType.scrollable, // Default is scrollable
     this.scrollController,
     this.scrollPhysics,
+
+    // NEW: Stacked widget parameters
+    this.stackedWidget,
+    this.stackedWidgetHeight = 100,
+    this.stackedWidgetMargin = const EdgeInsets.symmetric(horizontal: 20),
+    this.stackedWidgetBorderRadius = const BorderRadius.all(
+      Radius.circular(20),
+    ),
+    this.stackedWidgetShadows,
+    this.stackedWidgetBackgroundColor,
+    this.stackedWidgetOverlap =
+        0.5, // 0.5 means half above upper content, half above main content
   });
 
   @override
@@ -136,6 +157,8 @@ class CustomLayout extends StatelessWidget {
                       ),
                     ),
                   ),
+
+            // Main content layout
             Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,13 +171,16 @@ class CustomLayout extends StatelessWidget {
                 // Upper content section
                 if (upperContent != null) _buildUpperContent(),
 
-                // Spacer
-                SizedBox(height: spacerHeight),
+                // Spacer - adjusted for stacked widget if present
+                SizedBox(height: _getAdjustedSpacerHeight()),
 
                 // Main content container
-                _buildMainContent(),
+                Expanded(child: _buildMainContent()),
               ],
             ),
+
+            // NEW: Stacked widget positioned between upper content and main content
+            if (stackedWidget != null) _buildStackedWidget(context),
           ],
         ),
       ),
@@ -164,6 +190,16 @@ class CustomLayout extends StatelessWidget {
   bool _shouldShowDefaultPattern() {
     return backgroundPattern ==
         null; // Show default pattern if no custom pattern
+  }
+
+  double _getAdjustedSpacerHeight() {
+    if (stackedWidget != null) {
+      // Ensure we don't return negative height
+      final reduction = ((stackedWidgetHeight ?? 100) * stackedWidgetOverlap);
+      final adjustedHeight = spacerHeight - reduction;
+      return adjustedHeight > 0 ? adjustedHeight : 10; // Minimum 10px height
+    }
+    return spacerHeight;
   }
 
   Widget _buildHeader(BuildContext context) {
@@ -215,32 +251,82 @@ class CustomLayout extends StatelessWidget {
   }
 
   Widget _buildMainContent() {
-    return Expanded(
-      child: AnimatedContainer(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: containerColor ?? AppColors.white,
-          borderRadius:
-              containerBorderRadius ??
-              const BorderRadius.only(
-                topLeft: Radius.circular(40),
-                topRight: Radius.circular(40),
+    return AnimatedContainer(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: containerColor ?? AppColors.white,
+        borderRadius:
+            containerBorderRadius ??
+            const BorderRadius.only(
+              topLeft: Radius.circular(40),
+              topRight: Radius.circular(40),
+            ),
+        boxShadow:
+            containerShadows ??
+            [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, -3),
               ),
-          boxShadow:
-              containerShadows ??
-              [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 10,
-                  offset: const Offset(0, -3),
-                ),
-              ],
+            ],
+      ),
+      duration: animationDuration ?? const Duration(milliseconds: 700),
+      child: Padding(
+        padding: EdgeInsets.only(
+          top:
+              stackedWidget != null
+                  ? (16 +
+                          ((stackedWidgetHeight ?? 100) *
+                              (1 - stackedWidgetOverlap)))
+                      .clamp(16.0, double.infinity)
+                  : 16,
         ),
-        duration: animationDuration ?? const Duration(milliseconds: 700),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16),
-          child: _buildContentByScrollType(),
-        ),
+        child: _buildContentByScrollType(),
+      ),
+    );
+  }
+
+  // NEW: Build the stacked widget that spans between upper content and main content
+  Widget _buildStackedWidget(BuildContext context) {
+    return Positioned(
+      top: 50, // We'll calculate this inside LayoutBuilder
+      left: 0,
+      right: 0,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          // Calculate position: after header, upper content, and partial spacer
+          double topPosition = topPadding;
+
+          if (title != null || customHeader != null) {
+            topPosition += 60; // Approximate header height
+          }
+
+          if (upperContent != null) {
+            topPosition += 80; // Approximate upper content height
+          }
+
+          topPosition += _getAdjustedSpacerHeight();
+          topPosition -= ((stackedWidgetHeight ?? 100) * stackedWidgetOverlap);
+
+          // Ensure the position is not negative
+          topPosition = topPosition.clamp(
+            topPadding + 50,
+            constraints.maxHeight - (stackedWidgetHeight ?? 100) - 50,
+          );
+
+          return Container(
+            margin: EdgeInsets.only(
+              top: topPosition,
+              left: stackedWidgetMargin?.left ?? 20,
+              right: stackedWidgetMargin?.right ?? 20,
+            ),
+            height: stackedWidgetHeight ?? 100,
+
+            // ... rest of your container properties
+            child: stackedWidget!,
+          );
+        },
       ),
     );
   }
@@ -290,6 +376,9 @@ extension CustomLayoutPresets on CustomLayout {
     bool showNotification = true,
     VoidCallback? onNotificationTap,
     ScrollType scrollType = ScrollType.scrollable,
+    Widget? stackedWidget, // NEW: Added stacked widget support
+    double? stackedWidgetHeight,
+    EdgeInsets? stackedWidgetMargin,
   }) {
     return CustomLayout(
       title: title,
@@ -298,6 +387,9 @@ extension CustomLayoutPresets on CustomLayout {
       onNotificationTap: onNotificationTap,
       spacerHeight: 150,
       scrollType: scrollType,
+      stackedWidget: stackedWidget, // NEW
+      stackedWidgetHeight: stackedWidgetHeight,
+      stackedWidgetMargin: stackedWidgetMargin,
       children: children,
     );
   }
@@ -308,12 +400,16 @@ extension CustomLayoutPresets on CustomLayout {
     Widget? customHeader,
     Widget? upperContent,
     ScrollType scrollType = ScrollType.scrollable,
+    Widget? stackedWidget, // NEW: Added stacked widget support
+    double? stackedWidgetHeight,
   }) {
     return CustomLayout(
       customHeader: customHeader,
       upperContent: upperContent,
       spacerHeight: 100,
       scrollType: scrollType,
+      stackedWidget: stackedWidget, // NEW
+      stackedWidgetHeight: stackedWidgetHeight,
       containerBorderRadius: const BorderRadius.only(
         topLeft: Radius.circular(30),
         topRight: Radius.circular(30),
@@ -328,12 +424,14 @@ extension CustomLayoutPresets on CustomLayout {
     Color? backgroundColor,
     double spacerHeight = 50,
     ScrollType scrollType = ScrollType.scrollable,
+    Widget? stackedWidget, // NEW: Added stacked widget support
   }) {
     return CustomLayout(
       backgroundColor: backgroundColor,
       spacerHeight: spacerHeight,
       backgroundPattern: const SizedBox.shrink(),
       scrollType: scrollType,
+      stackedWidget: stackedWidget, // NEW
       children: children, // No pattern
     );
   }
@@ -345,6 +443,7 @@ extension CustomLayoutPresets on CustomLayout {
     Widget? upperContent,
     bool showNotification = false,
     VoidCallback? onNotificationTap,
+    Widget? stackedWidget, // NEW: Added stacked widget support
   }) {
     return CustomLayout(
       title: title,
@@ -353,6 +452,37 @@ extension CustomLayoutPresets on CustomLayout {
       onNotificationTap: onNotificationTap,
       spacerHeight: 150,
       scrollType: ScrollType.nonScrollable, // Perfect for ListView/Expanded
+      stackedWidget: stackedWidget, // NEW
+      children: children,
+    );
+  }
+
+  // NEW: Preset specifically designed for layouts with stacked widgets
+  static CustomLayout withStackedWidget({
+    required List<Widget> children,
+    required Widget stackedWidget,
+    String? title,
+    Widget? upperContent,
+    double stackedWidgetHeight = 120,
+    double stackedWidgetOverlap = 0.5,
+    EdgeInsets? stackedWidgetMargin,
+    BorderRadius? stackedWidgetBorderRadius,
+    Color? stackedWidgetBackgroundColor,
+    List<BoxShadow>? stackedWidgetShadows,
+    ScrollType scrollType = ScrollType.scrollable,
+  }) {
+    return CustomLayout(
+      title: title,
+      upperContent: upperContent,
+      spacerHeight: 180, // Increased to accommodate stacked widget
+      scrollType: scrollType,
+      stackedWidget: stackedWidget,
+      stackedWidgetHeight: stackedWidgetHeight,
+      stackedWidgetOverlap: stackedWidgetOverlap,
+      stackedWidgetMargin: stackedWidgetMargin,
+      stackedWidgetBorderRadius: stackedWidgetBorderRadius,
+      stackedWidgetBackgroundColor: stackedWidgetBackgroundColor,
+      stackedWidgetShadows: stackedWidgetShadows,
       children: children,
     );
   }

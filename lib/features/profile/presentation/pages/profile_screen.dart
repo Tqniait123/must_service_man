@@ -14,6 +14,7 @@ import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custo
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
+import 'package:must_invest_service_man/features/home/presentation/widgets/my_points_card.dart';
 import 'package:must_invest_service_man/features/profile/presentation/widgets/profile_item_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -24,10 +25,15 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       body: CustomLayout(
         withPadding: true,
-        patternOffset: const Offset(-150, -400),
-        spacerHeight: 35,
+        patternOffset: const Offset(-150, -200),
+        // spacerHeight: 200,
         topPadding: 70,
+
         contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+        stackedWidgetHeight: 160,
+        stackedWidgetOverlap: 0.3,
+
+        stackedWidget: MyPointsCard(),
 
         upperContent: Column(
           children: [
