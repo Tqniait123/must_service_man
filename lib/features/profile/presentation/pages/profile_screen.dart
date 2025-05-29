@@ -30,10 +30,10 @@ class ProfileScreen extends StatelessWidget {
         topPadding: 70,
 
         contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-        stackedWidgetHeight: 160,
+        stackedWidgetHeight: 180,
         stackedWidgetOverlap: 0.3,
 
-        stackedWidget: MyPointsCard(),
+        stackedWidget: MyPointsCardMinimal(),
 
         upperContent: Column(
           children: [

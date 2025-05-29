@@ -117,3 +117,137 @@ class MyPointsCard extends StatelessWidget {
     );
   }
 }
+
+// Design 2: Minimalist Card with Accent
+class MyPointsCardMinimal extends StatelessWidget {
+  const MyPointsCardMinimal({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        // border: Border.all(color: AppColors.primary, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withOpacity(0.2),
+            spreadRadius: 0,
+            blurRadius: 20,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(20),
+      width: MediaQuery.sizeOf(context).width,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 4,
+                height: 48,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [AppColors.primary, AppColors.primary],
+                  ),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              16.gap,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      LocaleKeys.my_points.tr(),
+                      style: context.bodyMedium.s14.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    4.gap,
+                    Row(
+                      children: [
+                        Text(
+                          "12,000",
+                          style: context.bodyMedium.copyWith(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary,
+                          ),
+                        ),
+                        8.gap,
+                        Text(
+                          LocaleKeys.point.tr(),
+                          style: context.bodyMedium.s14.copyWith(
+                            color: AppColors.primary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.arrow_upward,
+                      color: AppColors.primary,
+                      size: 14,
+                    ),
+                    2.gap,
+                    Text(
+                      "15%",
+                      style: context.bodyMedium.s12.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          20.gap,
+          Container(
+            width: double.infinity,
+            height: 44,
+            decoration: BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () => context.push(Routes.withdrawRequest),
+                child: Center(
+                  child: Text(
+                    LocaleKeys.withdraw.tr(),
+                    style: context.bodyMedium.s14.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
