@@ -26,4 +26,5 @@ class Routes {
   static const String scanQr = '/scanQr';
   static const String history = '/history';
   static const String withdrawRequest = '/withdrawRequest';
+  static const String myQrcode = '/myQrcode';
 }

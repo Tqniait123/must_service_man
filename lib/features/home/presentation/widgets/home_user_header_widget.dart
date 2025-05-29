@@ -64,7 +64,9 @@ class UserHomeHeaderWidget extends StatelessWidget {
                   color: Color(0xff6468AC),
                   iconColor: AppColors.white,
                   iconAsset: AppIcons.qrCodeIc,
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push(Routes.myQrcode);
+                  },
                 ),
                 10.gap,
                 context.user.type == UserType.parkingMan
