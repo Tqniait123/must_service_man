@@ -178,5 +178,7 @@ abstract class  LocaleKeys {
   static const enter_the_number_of_points = 'enter_the_number_of_points';
   static const enter_the_number_of_cash = 'enter_the_number_of_cash';
   static const enter_withdrawal_method = 'enter_withdrawal_method';
+  static const situation_completed_request_sent_successfully = 'situation_completed_request_sent_successfully';
+  static const complete_switch_label = 'complete_switch_label';
 
 }

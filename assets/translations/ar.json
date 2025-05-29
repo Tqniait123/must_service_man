@@ -176,5 +176,7 @@
   "note": "ملاحظة",
   "enter_the_number_of_points": "برجاء إدخال عدد النقاط المراد سحبها",
   "enter_the_number_of_cash": "برجاء إدخال المبلغ المراد سحبه",
-  "enter_withdrawal_method": "برجاء اختيار طريقة السحب المناسبة"
+  "enter_withdrawal_method": "برجاء اختيار طريقة السحب المناسبة",
+  "situation_completed_request_sent_successfully": "تم ارسال طلب اكتمال الموقف بنجاح",
+  "complete_switch_label": "وضع علامة مكتمل"
 }

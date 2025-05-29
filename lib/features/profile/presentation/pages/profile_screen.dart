@@ -22,6 +22,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentState = SituationStatus.pending;
     return Scaffold(
       body: CustomLayout(
         withPadding: true,
@@ -130,6 +131,18 @@ class ProfileScreen extends StatelessWidget {
             iconPath: AppIcons.settingsIc,
             onPressed: () {},
           ),
+          ProfileItemWidget(
+            title: LocaleKeys.complete_switch_label.tr(),
+            iconPath: AppIcons.editIc,
+            trailing: Switch.adaptive(
+              value: currentState != SituationStatus.notComplete,
+              activeColor:
+                  currentState == SituationStatus.completed
+                      ? AppColors.primary
+                      : Colors.orange,
+              onChanged: (value) {},
+            ),
+          ),
           20.gap,
           // CustomElevatedButton(
           //   icon: AppIcons.supportIc,
@@ -141,3 +154,5 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
+enum SituationStatus { completed, pending, notComplete }

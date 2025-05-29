@@ -192,7 +192,9 @@ class CodegenLoader extends AssetLoader{
   "note": "Note",
   "enter_the_number_of_points": "Enter the number of points",
   "enter_the_number_of_cash": "Enter the amount of cash",
-  "enter_withdrawal_method": "Enter the withdrawal method"
+  "enter_withdrawal_method": "Enter the withdrawal method",
+  "situation_completed_request_sent_successfully": "Situation Completed, Request Sent Successfully",
+  "complete_switch_label": "Mark as Completed"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -372,7 +374,9 @@ static const Map<String,dynamic> _ar = {
   "note": "ملاحظة",
   "enter_the_number_of_points": "برجاء إدخال عدد النقاط المراد سحبها",
   "enter_the_number_of_cash": "برجاء إدخال المبلغ المراد سحبه",
-  "enter_withdrawal_method": "برجاء اختيار طريقة السحب المناسبة"
+  "enter_withdrawal_method": "برجاء اختيار طريقة السحب المناسبة",
+  "situation_completed_request_sent_successfully": "تم ارسال طلب اكتمال الموقف بنجاح",
+  "complete_switch_label": "وضع علامة مكتمل"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }
