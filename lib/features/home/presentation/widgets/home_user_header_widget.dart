@@ -60,6 +60,13 @@ class UserHomeHeaderWidget extends StatelessWidget {
             15.gap,
             Row(
               children: [
+                CustomIconButton(
+                  color: Color(0xff6468AC),
+                  iconColor: AppColors.white,
+                  iconAsset: AppIcons.qrCodeIc,
+                  onPressed: () {},
+                ),
+                10.gap,
                 context.user.type == UserType.parkingMan
                     ? CustomIconButton(
                       iconAsset: AppIcons.cameraIc,

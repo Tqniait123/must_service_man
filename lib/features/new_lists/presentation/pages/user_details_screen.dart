@@ -99,12 +99,6 @@ class _UserDetailsState extends State<UserDetails> {
                             ),
                           ],
                         ),
-                        CustomIconButton(
-                          color: Color(0xff6468AC),
-                          iconColor: AppColors.white,
-                          iconAsset: AppIcons.qrCodeIc,
-                          onPressed: () {},
-                        ),
                       ],
                     ),
                     30.gap,
