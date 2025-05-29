@@ -18,6 +18,7 @@ import 'package:must_invest_service_man/features/auth/data/models/login_params.d
 import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/user_cubit/user_cubit.dart';
+import 'package:must_invest_service_man/features/auth/presentation/widgets/sign_up_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -147,37 +148,46 @@ class _LoginScreenState extends State<LoginScreen> {
           // 30.gap, // Add extra bottom padding
         ],
       ),
-      bottomNavigationBar: BlocConsumer<AuthCubit, AuthState>(
-        listener: (BuildContext context, AuthState state) async {
-          if (state is AuthSuccess) {
-            UserCubit.get(context).setCurrentUser(state.user);
-            if (state.user.type == UserType.user) {
-              context.go(Routes.homeUser);
-            } else {
-              context.go(Routes.homeParkingMan);
-            }
-          }
-          if (state is AuthError) {
-            showErrorToast(context, state.message);
-          }
-        },
-        builder:
-            (BuildContext context, AuthState state) => CustomElevatedButton(
-              heroTag: 'button',
-              loading: state is AuthLoading,
-              title: LocaleKeys.login.tr(),
-              onPressed: () {
-                // if (_formKey.currentState!.validate()) {
-                AuthCubit.get(context).login(
-                  LoginParams(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                    isRemembered: isRemembered,
-                  ),
-                );
-                // }
-              },
-            ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BlocConsumer<AuthCubit, AuthState>(
+            listener: (BuildContext context, AuthState state) async {
+              if (state is AuthSuccess) {
+                UserCubit.get(context).setCurrentUser(state.user);
+                if (state.user.type == UserType.user) {
+                  context.go(Routes.homeUser);
+                } else {
+                  context.go(Routes.homeParkingMan);
+                }
+              }
+              if (state is AuthError) {
+                showErrorToast(context, state.message);
+              }
+            },
+            builder:
+                (BuildContext context, AuthState state) => CustomElevatedButton(
+                  heroTag: 'button',
+                  loading: state is AuthLoading,
+                  title: LocaleKeys.login.tr(),
+                  onPressed: () {
+                    // if (_formKey.currentState!.validate()) {
+                    AuthCubit.get(context).login(
+                      LoginParams(
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                        isRemembered: isRemembered,
+                      ),
+                    );
+                    // }
+                  },
+                ),
+          ),
+          SignUpButton(
+            isLogin: true,
+            onTap: () => context.push(Routes.register),
+          ),
+        ],
       ).paddingAll(32),
     );
   }

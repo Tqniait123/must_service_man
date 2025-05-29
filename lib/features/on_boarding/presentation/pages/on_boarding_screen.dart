@@ -161,7 +161,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         //     : LocaleKeys.next.tr(),
                         onPressed: () {
                           preferences.setOnBoardingCompleted();
-                          context.pushReplacement(Routes.accountType);
+                          context.pushReplacement(Routes.register);
                         },
                       ),
                     ],

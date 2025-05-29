@@ -105,7 +105,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   showErrorToast(context, state.message);
                 }
                 if (state is ForgetPasswordSentOTP) {
-                  context.push(Routes.otpScreen);
+                  context.push(Routes.otpScreen, extra: emailController.text);
                 }
               },
               builder:
@@ -116,7 +116,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             context.push(
-                              Routes.checkYourEmail,
+                              Routes.otpScreen,
                               extra: emailController.text,
                             );
                             // AuthCubit.get(
