@@ -1,5 +1,11 @@
 enum UserType { user, parkingMan }
 
+enum ParkingStatus {
+  newEntry, // لسه هيدخل
+  inside, // حالياً جوا
+  exited, // خرج
+}
+
 sealed class AppUser {
   final int id;
   final String name;
@@ -36,6 +42,9 @@ sealed class AppUser {
 
 class User extends AppUser {
   final List<Car> cars;
+  final ParkingStatus? status;
+  final String? entryGate;
+  final String? exitGate;
 
   const User({
     required super.id,
@@ -48,6 +57,9 @@ class User extends AppUser {
     super.isOnline,
     super.phoneNumber,
     this.cars = const [],
+    this.status,
+    this.entryGate,
+    this.exitGate,
   }) : super(type: UserType.user);
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -65,7 +77,40 @@ class User extends AppUser {
               ?.map((car) => Car.fromJson(car))
               .toList() ??
           [],
+      status: _parseParkingStatus(json['status']),
+      entryGate: json['entry_gate'],
+      exitGate: json['exit_gate'],
     );
+  }
+
+  static ParkingStatus? _parseParkingStatus(String? status) {
+    switch (status) {
+      case 'new':
+        return ParkingStatus.newEntry;
+      case 'inside':
+        return ParkingStatus.inside;
+      case 'exited':
+        return ParkingStatus.exited;
+      default:
+        return null;
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'photo': photo,
+      'address': address,
+      'link_id': linkId,
+      'is_online': isOnline,
+      'phone_number': phoneNumber,
+      'cars': cars.map((e) => e.toJson()).toList(),
+      'status': status?.name,
+      'entry_gate': entryGate,
+      'exit_gate': exitGate,
+    };
   }
 }
 

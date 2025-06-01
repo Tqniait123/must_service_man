@@ -98,6 +98,8 @@ class Constants {
         linkId: 'link-1',
         photo: placeholderProfileImage,
         isOnline: true,
+        status: ParkingStatus.inside,
+        entryGate: 'بوابة 1',
         cars: [
           Car(id: '1-1', model: 'Hyundai Elantra', plateNumber: 'س ن ر 1234'),
         ],
@@ -111,6 +113,9 @@ class Constants {
         linkId: 'link-2',
         photo: placeholderProfileImage,
         isOnline: false,
+        status: ParkingStatus.exited,
+        entryGate: 'بوابة 2',
+        exitGate: 'بوابة 3',
         cars: [
           Car(id: '2-1', model: 'Kia Sportage', plateNumber: 'م ل ي 4455'),
           Car(id: '2-2', model: 'Fiat Tipo', plateNumber: 'س د ن 8811'),
@@ -125,6 +130,7 @@ class Constants {
         linkId: 'link-3',
         photo: placeholderProfileImage,
         isOnline: true,
+        status: ParkingStatus.newEntry,
         cars: [
           Car(id: '3-1', model: 'Chevrolet Optra', plateNumber: 'ب و ج 6622'),
         ],
@@ -138,6 +144,8 @@ class Constants {
         linkId: 'link-4',
         photo: placeholderProfileImage,
         isOnline: false,
+        status: ParkingStatus.inside,
+        entryGate: 'بوابة 2',
         cars: [
           Car(id: '4-1', model: 'Toyota Corolla', plateNumber: 'ع س ب 1100'),
         ],
@@ -151,6 +159,9 @@ class Constants {
         linkId: 'link-5',
         photo: placeholderProfileImage,
         isOnline: true,
+        status: ParkingStatus.exited,
+        entryGate: 'بوابة 1',
+        exitGate: 'بوابة 1',
         cars: [
           Car(id: '5-1', model: 'Nissan Sunny', plateNumber: 'ر ك م 7788'),
         ],
@@ -164,6 +175,7 @@ class Constants {
         linkId: 'link-6',
         photo: placeholderProfileImage,
         isOnline: false,
+        status: ParkingStatus.newEntry,
         cars: [Car(id: '6-1', model: 'Honda Civic', plateNumber: 'ط و ف 3344')],
       ),
       User(
@@ -175,6 +187,8 @@ class Constants {
         linkId: 'link-7',
         photo: placeholderProfileImage,
         isOnline: true,
+        status: ParkingStatus.inside,
+        entryGate: 'بوابة 3',
         cars: [Car(id: '7-1', model: 'BMW 320i', plateNumber: 'ع ي ن 2020')],
       ),
       User(
@@ -186,6 +200,9 @@ class Constants {
         linkId: 'link-8',
         photo: placeholderProfileImage,
         isOnline: false,
+        status: ParkingStatus.exited,
+        entryGate: 'بوابة 4',
+        exitGate: 'بوابة 2',
         cars: [
           Car(id: '8-1', model: 'Renault Logan', plateNumber: 'د ه م 6677'),
         ],
@@ -199,6 +216,7 @@ class Constants {
         linkId: 'link-9',
         photo: placeholderProfileImage,
         isOnline: true,
+        status: ParkingStatus.newEntry,
         cars: [
           Car(id: '9-1', model: 'Mercedes C180', plateNumber: 'م ب ل 8899'),
           Car(id: '9-2', model: 'Jeep Compass', plateNumber: 'ش س ق 9090'),
@@ -213,6 +231,8 @@ class Constants {
         linkId: 'link-10',
         photo: placeholderProfileImage,
         isOnline: false,
+        status: ParkingStatus.inside,
+        entryGate: 'بوابة 3',
         cars: [
           Car(id: '10-1', model: 'Peugeot 301', plateNumber: 'ف ط ب 5566'),
         ],
