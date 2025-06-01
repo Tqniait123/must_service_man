@@ -178,5 +178,6 @@
   "enter_the_number_of_cash": "Enter the amount of cash",
   "enter_withdrawal_method": "Enter the withdrawal method",
   "situation_completed_request_sent_successfully": "Situation Completed, Request Sent Successfully",
-  "complete_switch_label": "Mark as Completed"
+  "complete_switch_label": "Mark as Completed",
+  "select_your_parking": "Select Your Parking"
 }

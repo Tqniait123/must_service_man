@@ -178,5 +178,6 @@
   "enter_the_number_of_cash": "برجاء إدخال المبلغ المراد سحبه",
   "enter_withdrawal_method": "برجاء اختيار طريقة السحب المناسبة",
   "situation_completed_request_sent_successfully": "تم ارسال طلب اكتمال الموقف بنجاح",
-  "complete_switch_label": "وضع علامة مكتمل"
+  "complete_switch_label": "وضع علامة مكتمل",
+  "select_your_parking": "حدد مواقف السيارات الخاصة بك"
 }

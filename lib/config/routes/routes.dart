@@ -4,6 +4,7 @@ class Routes {
   static const String onBoarding1 = '/onBoarding1';
   static const String onBoarding2 = '/onBoarding2';
   static const String register = '/register';
+  static const String selectParking = '/selectParking';
   static const String registerStepTwo = '/registerStepTwo';
   static const String registerStepThree = '/registerStepThree';
   static const String login = '/login';

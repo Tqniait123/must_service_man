@@ -180,5 +180,6 @@ abstract class  LocaleKeys {
   static const enter_withdrawal_method = 'enter_withdrawal_method';
   static const situation_completed_request_sent_successfully = 'situation_completed_request_sent_successfully';
   static const complete_switch_label = 'complete_switch_label';
+  static const select_your_parking = 'select_your_parking';
 
 }

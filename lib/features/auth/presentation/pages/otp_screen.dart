@@ -155,7 +155,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           );
                           break;
                         case OtpType.register:
-                          context.push(Routes.register);
+                          context.push(Routes.selectParking);
                           break;
                       }
                     }

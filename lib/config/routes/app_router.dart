@@ -17,6 +17,7 @@ import 'package:must_invest_service_man/features/auth/presentation/pages/registe
 import 'package:must_invest_service_man/features/auth/presentation/pages/register_step_three.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/register_step_two.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/reset_password.dart';
+import 'package:must_invest_service_man/features/auth/presentation/pages/select_parking_screen.dart';
 import 'package:must_invest_service_man/features/history/presentation/pages/history_screen.dart';
 import 'package:must_invest_service_man/features/home/presentation/pages/home_screen.dart';
 import 'package:must_invest_service_man/features/home/presentation/widgets/withdraw_request_screen.dart';
@@ -89,6 +90,13 @@ class AppRouter {
         builder: (context, state) {
           // Return the RegisterScreen widget
           return const RegisterScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.selectParking,
+        builder: (context, state) {
+          // Return the SelectParkingScreen widget
+          return const SelectParkingScreen();
         },
       ),
       GoRoute(
