@@ -11,6 +11,7 @@ import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custo
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
 import 'package:must_invest_service_man/core/utils/widgets/logo_widget.dart';
+import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
 import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/user_cubit/user_cubit.dart';
@@ -165,7 +166,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               // );
                               context.push(
                                 Routes.otpScreen,
-                                extra: _emailController.text,
+                                extra: OtpScreenParams(
+                                  otpType: OtpType.register,
+                                  email: _emailController.text,
+                                ),
                               );
                               // }
                             },

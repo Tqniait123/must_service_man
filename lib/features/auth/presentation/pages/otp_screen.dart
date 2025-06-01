@@ -10,11 +10,12 @@ import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
+import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
 import 'package:must_invest_service_man/features/auth/presentation/widgets/custom_pin_field.dart';
 
 class OtpScreen extends StatefulWidget {
-  final String phone;
-  const OtpScreen({super.key, required this.phone});
+  final OtpScreenParams params;
+  const OtpScreen({super.key, required this.params});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -76,7 +77,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     Text(LocaleKeys.otp_code.tr()),
                     Text(
                       LocaleKeys.activation_code_sent.tr(
-                        namedArgs: {"phone_number": widget.phone},
+                        namedArgs: {"phone_number": widget.params.email},
                       ),
                       style: context.bodyMedium.regular.s16.copyWith(
                         color: AppColors.grey60,
@@ -146,7 +147,17 @@ class _OtpScreenState extends State<OtpScreen> {
                   title: LocaleKeys.confirm.tr(),
                   onPressed: () {
                     if (otp.length == pinLength) {
-                      context.push(Routes.resetPassword, extra: widget.phone);
+                      switch (widget.params.otpType) {
+                        case OtpType.forgetPassword:
+                          context.push(
+                            Routes.resetPassword,
+                            extra: widget.params.email,
+                          );
+                          break;
+                        case OtpType.register:
+                          context.push(Routes.register);
+                          break;
+                      }
                     }
                   },
                 ),

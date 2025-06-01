@@ -6,6 +6,7 @@ import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
 import 'package:must_invest_service_man/core/observers/router_observer.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
+import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
 import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/account_type_screen.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/check_your_email_screen.dart';
@@ -101,7 +102,7 @@ class AppRouter {
         path: Routes.otpScreen,
         builder: (context, state) {
           // Return the OtpScreen widget
-          return OtpScreen(phone: state.extra as String);
+          return OtpScreen(params: state.extra as OtpScreenParams);
         },
       ),
       GoRoute(

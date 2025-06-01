@@ -14,6 +14,7 @@ import 'package:must_invest_service_man/core/utils/dialogs/error_toast.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
+import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -105,7 +106,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   showErrorToast(context, state.message);
                 }
                 if (state is ForgetPasswordSentOTP) {
-                  context.push(Routes.otpScreen, extra: emailController.text);
+                  context.push(
+                    Routes.otpScreen,
+                    extra: OtpScreenParams(
+                      otpType: OtpType.forgetPassword,
+                      email: emailController.text,
+                    ),
+                  );
                 }
               },
               builder:
@@ -117,7 +124,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                           if (_formKey.currentState!.validate()) {
                             context.push(
                               Routes.otpScreen,
-                              extra: emailController.text,
+                              extra: OtpScreenParams(
+                                otpType: OtpType.forgetPassword,
+                                email: emailController.text,
+                              ),
                             );
                             // AuthCubit.get(
                             //   context,
