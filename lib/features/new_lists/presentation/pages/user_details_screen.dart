@@ -43,20 +43,18 @@ class _UserDetailsState extends State<UserDetails> {
                 child: Column(
                   children: [
                     20.gap,
+                    DriverDetailsContainer(user: widget.user),
 
                     // User Status Container
-                    UserStatusContainer(user: widget.user),
-
                     15.gap,
 
                     // Car Details Container
                     CarDetailsContainer(user: widget.user),
 
                     15.gap,
+                    UserStatusContainer(user: widget.user),
 
                     // Driver Details Container
-                    DriverDetailsContainer(user: widget.user),
-
                     20.gap,
 
                     // Gates Section
