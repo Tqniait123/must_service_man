@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
+import 'package:must_invest_service_man/core/static/app_assets.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
@@ -121,19 +123,23 @@ class PaymentStatusIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(
-      status == PaymentRequestStatus.pending
-          ? Icons.pending_actions
-          : status == PaymentRequestStatus.accepted
-          ? Icons.check_circle
-          : Icons.cancel,
-      size: 64,
-      color:
+    return SizedBox(
+      height: 200,
+      width: 200,
+      child:
           status == PaymentRequestStatus.pending
-              ? Colors.orange
-              : status == PaymentRequestStatus.accepted
-              ? Colors.green
-              : Colors.red,
+              ? Icon(Icons.pending_actions, size: 64, color: Colors.orange)
+              : Center(
+                child: Lottie.asset(
+                  status == PaymentRequestStatus.accepted
+                      ? AppAnimations.success
+                      : AppAnimations.failed,
+
+                  fit: BoxFit.cover,
+                  repeat: false,
+                  width: 200,
+                ),
+              ),
     );
   }
 }

@@ -9,9 +9,8 @@ class AppImages {
 }
 
 class AppAnimations {
-  static const String _animationsPath = 'assets/images/animations';
+  static const String _animationsPath = 'assets/animations';
 
-  static const String splashAnimation = '$_animationsPath/splash.gif';
-  static const String congratulationsAnimation =
-      '$_animationsPath/congratulations.gif';
+  static const String success = '$_animationsPath/success.json';
+  static const String failed = '$_animationsPath/failed.json';
 }

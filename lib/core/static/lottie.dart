@@ -1,3 +1,3 @@
-class AppAnimations {
-  static const String _animationsPath = 'assets/animations';
-}
+// class AppAnimations {
+//   static const String _animationsPath = 'assets/animations';
+// }

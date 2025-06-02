@@ -65,6 +65,7 @@ dependencies:
   location: ^8.0.0
   qr_flutter: ^4.1.0
   mobile_scanner: ^5.2.3  # Instead of qr_code_scanner
+  lottie: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +96,7 @@ flutter:
     - assets/translations/
     - assets/images/icons/
     - assets/images/photos/
+    - assets/animations/
     - assets/fonts/
   fonts:
     - family: Almarai
