@@ -6,6 +6,7 @@ extension UserCubitX on BuildContext {
   UserCubit get userCubit => UserCubit.get(this);
 
   bool get isLoggedIn => userCubit.isLoggedIn();
-  void setCurrentUser(AppUser user) => userCubit.setCurrentUser(user);
-  AppUser get user => UserCubit.get(this).currentUser!;
+  void setCurrentUser(User user) => userCubit.setCurrentUser(user);
+  User get currentUser => userCubit.currentUser!;
+  User get user => userCubit.currentUser!;
 }

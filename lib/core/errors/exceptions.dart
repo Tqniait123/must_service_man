@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:must_invest_service_man/core/api/response/response.dart';
 import 'package:must_invest_service_man/core/errors/app_exception.dart';
 
 class NoInternetException extends AppException {
@@ -26,11 +25,6 @@ class UnsupportedImageTypeException extends AppException {
 
 class UnauthenticatedException extends AppException {
   UnauthenticatedException() : super("User Unauthenticated");
-}
-
-class BadInputException extends AppException {
-  final Map<String, ResponseCode> errors;
-  BadInputException(this.errors) : super('bad input');
 }
 
 class ServerException extends AppException {

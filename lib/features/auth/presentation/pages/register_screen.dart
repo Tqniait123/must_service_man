@@ -134,11 +134,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   listener: (BuildContext context, AuthState state) async {
                     if (state is AuthSuccess) {
                       UserCubit.get(context).setCurrentUser(state.user);
-                      if (state.user.type == UserType.user) {
-                        context.go(Routes.homeUser);
-                      } else {
+                     
+                       
                         context.go(Routes.homeParkingMan);
-                      }
+                      
                     }
                     if (state is AuthError) {
                       showErrorToast(context, state.message);

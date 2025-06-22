@@ -5,6 +5,7 @@ import 'package:must_invest_service_man/features/auth/data/models/login_params.d
 import 'package:must_invest_service_man/features/auth/data/models/register_params.dart';
 import 'package:must_invest_service_man/features/auth/data/models/reset_password_params.dart';
 import 'package:must_invest_service_man/features/auth/data/models/user.dart';
+import 'package:must_invest_service_man/features/auth/data/models/verify_params.dart';
 import 'package:must_invest_service_man/features/auth/data/repositories/auth_repo.dart';
 
 part 'auth_state.dart';
@@ -22,7 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthLoading());
       final response = await _repo.autoLogin();
       response.fold(
-        (authModel) => emit(AuthSuccess(authModel.user)),
+        (user) => emit(AuthSuccess(user)),
         (error) => emit(AuthError(error.message)),
       );
     } on AppError catch (e) {
@@ -111,7 +112,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthLoading());
       final response = await _repo.register(params);
       response.fold(
-        (authModel) => emit(AuthSuccess(authModel.user)),
+        (authModel) => emit(RegisterSuccess()),
         (error) => emit(AuthError(error.message)),
       );
     } on AppError catch (e) {
@@ -133,7 +134,7 @@ class AuthCubit extends Cubit<AuthState> {
       final response = await _repo.forgetPassword(email);
       response.fold(
         (function) => emit(ForgetPasswordSentOTP()),
-        (error) => emit(AuthError(error.message)),
+        (error) => emit(ForgetPasswordError(error.message)),
       );
     } on AppError catch (e) {
       emit(ForgetPasswordError(e.message));
@@ -155,13 +156,75 @@ class AuthCubit extends Cubit<AuthState> {
       emit(ResetPasswordLoading());
       final response = await _repo.resetPassword(params);
       response.fold(
-        (function) => emit(ResetPasswordSentOTP()),
+        (function) => emit(ResetPasswordSuccess()),
         (error) => emit(AuthError(error.message)),
       );
     } on AppError catch (e) {
       emit(ResetPasswordError(e.message));
     } catch (e) {
       emit(ResetPasswordError(e.toString()));
+    }
+  }
+
+  /// The `verifyRegistration` function handles the verification of user registration by calling the repository
+  /// method and emitting appropriate states based on the response.
+  ///
+  /// Args:
+  ///   params (VerifyParams): Contains the verification details needed for registration verification,
+  /// such as verification code or token.
+  Future<void> verifyRegistration(VerifyParams params) async {
+    try {
+      emit(AuthLoading());
+      final response = await _repo.verifyRegistration(params);
+      response.fold(
+        (authModel) => emit(AuthSuccess(authModel.user)),
+        (error) => emit(AuthError(error.message)),
+      );
+    } on AppError catch (e) {
+      emit(AuthError(e.message));
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  /// The `verifyPasswordReset` function handles the verification of password reset by calling the repository
+  /// method and emitting appropriate states based on the response.
+  ///
+  /// Args:
+  ///   params (VerifyParams): Contains the verification details needed for password reset verification,
+  /// such as verification code or token.
+  Future<void> verifyPasswordReset(VerifyParams params) async {
+    try {
+      emit(AuthLoading());
+      final response = await _repo.verifyPasswordReset(params);
+      response.fold(
+        (authModel) => emit(ResetPasswordSentOTP()),
+        (error) => emit(AuthError(error.message)),
+      );
+    } on AppError catch (e) {
+      emit(AuthError(e.message));
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  /// The `resendOTP` function handles resending OTP verification code by calling the repository
+  /// method and emitting appropriate states based on the response.
+  ///
+  /// Args:
+  ///   phone (String): The phone number to which the OTP should be resent
+  Future<void> resendOTP(String phone) async {
+    try {
+      emit(ResendOTPLoading());
+      final response = await _repo.resendOTP(phone);
+      response.fold(
+        (_) => emit(ResendOTPSuccess()),
+        (error) => emit(ResendOTPError(error.message)),
+      );
+    } on AppError catch (e) {
+      emit(ResendOTPError(e.message));
+    } catch (e) {
+      emit(ResendOTPError(e.toString()));
     }
   }
 }

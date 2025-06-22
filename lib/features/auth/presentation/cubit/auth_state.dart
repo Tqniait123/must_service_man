@@ -12,7 +12,7 @@ class AuthInitial extends AuthState {}
 class AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {
-  final AppUser user;
+  final User user;
 
   const AuthSuccess(this.user);
 
@@ -45,6 +45,7 @@ class ForgetPasswordError extends AuthState {
 class ResetPasswordLoading extends AuthState {}
 
 class ResetPasswordSentOTP extends AuthState {}
+class ResetPasswordSuccess extends AuthState {}
 
 class ResetPasswordError extends AuthState {
   final String message;
@@ -54,3 +55,20 @@ class ResetPasswordError extends AuthState {
   @override
   List<Object> get props => [message];
 }
+
+class RegisterSuccess extends AuthState {}
+
+class ResendOTPLoading extends AuthState {}
+
+class ResendOTPSuccess extends AuthState {}
+
+class ResendOTPError extends AuthState {
+  final String message;
+
+  const ResendOTPError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+// class ResetPasswordSuccess extends AuthState {}

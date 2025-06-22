@@ -14,21 +14,15 @@ class CarDetailsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final car = user.cars.isNotEmpty ? user.cars.first : null;
-
+    // final car = user.cars.isNotEmpty ? user.cars.first : null;
+    final car = Car(id: '123', model: 'Toyota Camry', plateNumber: 'ABC 123');
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 10, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,30 +30,14 @@ class CarDetailsContainer extends StatelessWidget {
           Row(
             children: [
               10.gap,
-              Text(
-                LocaleKeys.car_details.tr(),
-                style: context.titleMedium.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text(LocaleKeys.car_details.tr(), style: context.titleMedium.copyWith(fontWeight: FontWeight.bold)),
             ],
           ),
           16.gap,
-          if (car != null) ...[
-            DetailRow(
-              label: LocaleKeys.car_model.tr(),
-              value: car.model ?? LocaleKeys.not_available.tr(),
-            ),
+          ...[
+            DetailRow(label: LocaleKeys.car_model.tr(), value: car.model ?? LocaleKeys.not_available.tr()),
             8.gap,
-            DetailRow(
-              label: LocaleKeys.car_number.tr(),
-              value: car.plateNumber ?? LocaleKeys.not_available.tr(),
-            ),
-          ] else ...[
-            Text(
-              LocaleKeys.no_car_registered.tr(),
-              style: TextStyle(color: Colors.grey[600], fontSize: 14),
-            ),
+            DetailRow(label: LocaleKeys.car_number.tr(), value: car.plateNumber ?? LocaleKeys.not_available.tr()),
           ],
         ],
       ),

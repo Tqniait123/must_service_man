@@ -172,11 +172,9 @@ class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
                   listener: (BuildContext context, AuthState state) async {
                     if (state is AuthSuccess) {
                       UserCubit.get(context).setCurrentUser(state.user);
-                      if (state.user.type == UserType.user) {
-                        context.go(Routes.homeUser);
-                      } else {
+                  
                         context.go(Routes.homeParkingMan);
-                      }
+                      
                     }
                     if (state is AuthError) {
                       showErrorToast(context, state.message);
@@ -197,7 +195,7 @@ class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
                                   name: _numberOfCarController.text,
                                   phone: _carNameController.text,
                                   passwordConfirmation:
-                                      _carPlateNumberController.text,
+                                      _carPlateNumberController.text, cityId: 0,
 
                                   // address : _AddressController.text,
                                 ),
