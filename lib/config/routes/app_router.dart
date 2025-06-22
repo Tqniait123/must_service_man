@@ -117,7 +117,7 @@ class AppRouter {
         path: Routes.resetPassword,
         builder: (context, state) {
           // Return the OtpScreen widget
-          return ResetPasswordScreen(email: state.extra as String);
+          return ResetPasswordScreen(phone: state.extra as String);
         },
       ),
       GoRoute(
@@ -240,12 +240,7 @@ class AppRouter {
           children: [
             CustomBackButton(),
             100.gap,
-            Center(
-              child: Text(
-                "Un Found Route",
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              ),
-            ),
+            Center(child: Text("Un Found Route", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold))),
           ],
         ),
       ).paddingHorizontal(24),

@@ -52,6 +52,7 @@
   "description": "الوصف",
   "logout": "تسجيل الخروج",
   "login_required": "تسجيل الدخول مطلوب",
+  "passwords_dont_match": "كلمات المرور غير متطابقة",
   "login_to_access_all_features": "للاستمتاع بجميع مميزات التطبيق، يرجى تسجيل الدخول أو إنشاء حساب.",
   "continue_anyway": "المتابعة على أي حال",
   "password_requirement": "يجب أن تتكون كلمة المرور من 8 أحرف/أرقام على الأقل.",
@@ -64,7 +65,7 @@
   "fill_details_create": "املأ بياناتك أدناه لإنشاء حساب الآن!",
   "create_account": "إنشاء حساب",
   "terms_agreement": "بالنقر على التسجيل، فإنك توافق على شروط وأحكام الاستخدام الخاصة بنا.",
-  "password_reset_instructions": "أدخل البريد الإلكتروني المرتبط بحسابك وسنرسل رسالة تحتوي على تعليمات إعادة تعيين كلمة المرور.",
+  "password_reset_instructions": "أدخل رقم الهاتف المرتبط بحسابك وسنرسل رمز لإعادة تعيين كلمة المرور.",
   "activation_code_sent": "تم إرسال رمز التفعيل إلى {phone_number} للتحقق من تسجيلك.",
   "resend": "إعادة الإرسال",
   "didnt_receive_code": "لم تستلم الرمز؟",
@@ -186,8 +187,8 @@
   "exited": "خرج",
   "entry_gate": "بوابة الدخول",
   "exit_gate": "بوابة الخروج",
-  
-    
+
+
     "user_status": "حالة المستخدم",
     "status_new_entry": "جاهز للدخول",
     "status_inside": "حالياً في الداخل",
@@ -205,7 +206,7 @@
     "payment_pending": "الدفع معلق...",
     "duration": "المدة",
     "price": "السعر",
-    
+
     "hours_format": "{hours} ساعة",
     "currency_format": " {amount} ج.م",
     "points_format": "{points} نقطة",
@@ -218,10 +219,10 @@
     "waiting_for_user_response": "في انتظار المستخدم لقبول أو رفض طلب الدفع...",
     "payment_accepted_message": "تم قبول الدفع. يمكنك الآن الخروج من الموقف.",
     "payment_declined_message": "تم رفض الدفع. يرجى المحاولة مرة أخرى أو التواصل مع الدعم.",
-    
+
     "points_required": "النقاط المطلوبة",
     "simulate_decline": "محاكاة الرفض",
     "simulate_accept": "محاكاة القبول",
     "close": "إغلاق"
-  
+
 }

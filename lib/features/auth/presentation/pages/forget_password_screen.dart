@@ -26,7 +26,7 @@ class ForgetPasswordScreen extends StatefulWidget {
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,10 +65,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                           child: Column(
                             children: [
                               CustomTextFormField(
-                                controller: emailController,
+                                controller: phoneController,
                                 margin: 0,
-                                hint: LocaleKeys.email.tr(),
-                                title: LocaleKeys.email.tr(),
+                                hint: LocaleKeys.phone_number.tr(),
+                                title: LocaleKeys.phone_number.tr(),
                                 isRequired: true,
                               ),
                               48.gap,
@@ -97,7 +97,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 if (state is ForgetPasswordSentOTP) {
                   context.push(
                     Routes.otpScreen,
-                    extra: OtpScreenParams(otpType: OtpType.forgetPassword, phone: emailController.text),
+                    extra: OtpScreenParams(otpType: OtpType.forgetPassword, phone: phoneController.text),
                   );
                 }
               },
@@ -107,13 +107,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     title: LocaleKeys.send.tr(),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        context.push(
-                          Routes.otpScreen,
-                          extra: OtpScreenParams(otpType: OtpType.forgetPassword, phone: emailController.text),
-                        );
-                        // AuthCubit.get(
-                        //   context,
-                        // ).forgetPassword(phoneController.text);
+                        AuthCubit.get(context).forgetPassword(phoneController.text);
                       }
                     },
                   ),

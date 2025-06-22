@@ -66,6 +66,7 @@ abstract class  LocaleKeys {
   static const create_account = 'create_account';
   static const terms_agreement = 'terms_agreement';
   static const password_reset_instructions = 'password_reset_instructions';
+  static const passwords_dont_match = 'passwords_dont_match';
   static const activation_code_sent = 'activation_code_sent';
   static const resend = 'resend';
   static const didnt_receive_code = 'didnt_receive_code';

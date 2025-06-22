@@ -64,7 +64,8 @@
   "fill_details_create": "Fill in your details below to create an account now!",
   "create_account": "Create An Account",
   "terms_agreement": "By clicking Register, you agree to our Terms and Conditions of Use.",
-  "password_reset_instructions": "Enter the email associated with your account and we'll send an email with instructions to reset your password.",
+  "password_reset_instructions": "Enter the phone number associated with your account and we'll send a code to reset your password.",
+  "passwords_dont_match": "Passwords don't match",
   "activation_code_sent": "An activation code has been sent to {phone_number} to verify your registration.",
   "resend": "Resend",
   "didnt_receive_code": "Didn't receive code?",
@@ -186,20 +187,20 @@
   "exited": "Exited",
   "entry_gate": "Entry Gate",
   "exit_gate": "Exit Gate",
-  
+
   "user_status": "User Status",
   "status_new_entry": "Ready to Enter",
   "status_inside": "Currently Inside",
   "status_exited": "Exited",
   "status_unknown": "Unknown Status",
   "car_details": "Car Details",
-  
+
   "car_number": "Car Number",
   "not_available": "N/A",
   "no_car_registered": "No car registered",
   "driver_details": "Driver Details",
   "name": "Name",
-  
+
   "phone": "Phone",
   "gate_information": "Gate Information",
   "enter_parking": "Enter Parking",
@@ -218,7 +219,7 @@
   "waiting_for_user_response": "Waiting for user to accept or decline the payment request...",
   "payment_accepted_message": "The payment has been accepted. You can now exit the parking.",
   "payment_declined_message": "The payment was declined. Please try again or contact support.",
-  
+
   "points_required": "Points Required",
   "simulate_decline": "Simulate Decline",
   "simulate_accept": "Simulate Accept",
