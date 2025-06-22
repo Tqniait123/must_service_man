@@ -13,7 +13,6 @@ sealed class AppUser {
   final String email;
   final bool hasSubscription;
   final String? address;
-  final String linkId;
   final bool? isOnline;
   final bool? isActivated;
 
@@ -28,7 +27,6 @@ sealed class AppUser {
     this.photo,
     this.hasSubscription = false,
     this.address,
-    required this.linkId,
 
     this.isOnline = false,
     this.phoneNumber,
@@ -55,7 +53,6 @@ class User extends AppUser {
     super.photo,
     super.hasSubscription,
     super.address,
-    required super.linkId,
     super.isOnline,
     super.phoneNumber,
     this.cars = const [],
@@ -71,7 +68,6 @@ class User extends AppUser {
       email: json['email'],
       photo: json['photo'],
       address: json['address'],
-      linkId: json['link_id'],
       isOnline: json['is_online'],
       phoneNumber: json['phone_number'],
       // type: json['type'] == 'user' ? UserType.user : UserType.parkingMan,
@@ -102,7 +98,6 @@ class User extends AppUser {
       'email': email,
       'photo': photo,
       'address': address,
-      'link_id': linkId,
       'is_online': isOnline,
       'phone_number': phoneNumber,
       'cars': cars.map((e) => e.toJson()).toList(),
@@ -121,7 +116,6 @@ class ParkingMan extends AppUser {
     super.photo,
     super.hasSubscription,
     super.address,
-    required super.linkId,
     super.isOnline,
     super.phoneNumber,
   }) : super(type: UserType.parkingMan);
@@ -133,7 +127,6 @@ class ParkingMan extends AppUser {
       email: json['email'],
       photo: json['photo'],
       address: json['address'],
-      linkId: json['link_id'],
       isOnline: json['is_online'],
       phoneNumber: json['phone_number'],
     );

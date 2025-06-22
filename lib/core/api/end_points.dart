@@ -1,13 +1,13 @@
 class EndPoints {
   const EndPoints._();
+  static const String employerTag = 'employer';
 
   // Authentication Endpoints
-  static const String baseUrl = 'https://must.dev2.tqnia.me/';
-  static const String employerTag = 'employer';
-  static const String login = '$employerTag/login';
+  static const String baseUrl = 'https://must.dev2.tqnia.me/$employerTag/';
+  static const String login = 'login';
   static const String loginWithGoogle = 'auth/google/callback';
   static const String loginWithApple = 'login/apple';
-  static const String autoLogin = '$employerTag/profile';
+  static const String autoLogin = 'profile';
   static const String register = 'register';
   static const String verifyRegistration = 'register/verify_phone';
   static const String verifyPasswordReset = 'check_reset_code';

@@ -12,7 +12,7 @@ class AuthInitial extends AuthState {}
 class AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {
-  final User user;
+  final ParkingMan user;
 
   const AuthSuccess(this.user);
 
@@ -45,6 +45,7 @@ class ForgetPasswordError extends AuthState {
 class ResetPasswordLoading extends AuthState {}
 
 class ResetPasswordSentOTP extends AuthState {}
+
 class ResetPasswordSuccess extends AuthState {}
 
 class ResetPasswordError extends AuthState {

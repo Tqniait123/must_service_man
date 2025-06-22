@@ -13,7 +13,7 @@ import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 import 'package:must_invest_service_man/features/auth/data/models/verify_params.dart';
 
 abstract class AuthRepo {
-  Future<Either<User, AppError>> autoLogin();
+  Future<Either<ParkingMan, AppError>> autoLogin();
   Future<Either<AuthModel, AppError>> login(LoginParams params);
   Future<Either<AuthModel, AppError>> loginWithGoogle();
   Future<Either<AuthModel, AppError>> loginWithApple();
@@ -24,12 +24,8 @@ abstract class AuthRepo {
   Future<Either<void, AppError>> forgetPassword(String email);
   Future<Either<void, AppError>> resetPassword(ResetPasswordParams params);
   Future<Either<List<Country>, AppError>> getCountries(); // List<Country>
-  Future<Either<List<Governorate>, AppError>> getGovernorates(
-    int countryId,
-  ); // List<Governorate>
-  Future<Either<List<City>, AppError>> getCities(
-    int governorateId,
-  ); // List<City>
+  Future<Either<List<Governorate>, AppError>> getGovernorates(int countryId); // List<Governorate>
+  Future<Either<List<City>, AppError>> getCities(int governorateId); // List<City>
 }
 
 class AuthRepoImpl implements AuthRepo {
@@ -39,7 +35,7 @@ class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl(this._remoteDataSource, this._localDataSource);
 
   @override
-  Future<Either<User, AppError>> autoLogin() async {
+  Future<Either<ParkingMan, AppError>> autoLogin() async {
     try {
       final token = _localDataSource.getToken();
       final response = await _remoteDataSource.autoLogin(token ?? '');
@@ -47,13 +43,7 @@ class AuthRepoImpl implements AuthRepo {
       if (response.isSuccess) {
         return Left(response.data!);
       } else {
-        return Right(
-          AppError(
-            message: response.errorMessage,
-            apiResponse: response,
-            type: ErrorType.api,
-          ),
-        );
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
     } catch (e) {
       return Right(AppError(message: e.toString(), type: ErrorType.unknown));
@@ -71,13 +61,7 @@ class AuthRepoImpl implements AuthRepo {
         }
         return Left(response.data!);
       } else {
-        return Right(
-          AppError(
-            message: response.errorMessage,
-            apiResponse: response,
-            type: ErrorType.api,
-          ),
-        );
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
     } catch (e) {
       return Right(AppError(message: e.toString(), type: ErrorType.unknown));
@@ -142,13 +126,7 @@ class AuthRepoImpl implements AuthRepo {
         _localDataSource.saveToken(response.accessToken ?? '');
         return Left(null);
       } else {
-        return Right(
-          AppError(
-            message: response.errorMessage,
-            apiResponse: response,
-            type: ErrorType.api,
-          ),
-        );
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
     } catch (e) {
       return Right(AppError(message: e.toString(), type: ErrorType.unknown));
@@ -163,13 +141,7 @@ class AuthRepoImpl implements AuthRepo {
       if (response.isSuccess) {
         return const Left(null);
       } else {
-        return Right(
-          AppError(
-            message: response.errorMessage,
-            apiResponse: response,
-            type: ErrorType.api,
-          ),
-        );
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
     } catch (e) {
       return Right(AppError(message: e.toString(), type: ErrorType.unknown));
@@ -177,22 +149,14 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<void, AppError>> resetPassword(
-    ResetPasswordParams params,
-  ) async {
+  Future<Either<void, AppError>> resetPassword(ResetPasswordParams params) async {
     try {
       final response = await _remoteDataSource.resetPassword(params);
 
       if (response.isSuccess) {
         return const Left(null);
       } else {
-        return Right(
-          AppError(
-            message: response.errorMessage,
-            apiResponse: response,
-            type: ErrorType.api,
-          ),
-        );
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
     } catch (e) {
       return Right(AppError(message: e.toString(), type: ErrorType.unknown));
@@ -207,13 +171,7 @@ class AuthRepoImpl implements AuthRepo {
       if (response.isSuccess) {
         return Left(response.data!);
       } else {
-        return Right(
-          AppError(
-            message: response.errorMessage,
-            apiResponse: response,
-            type: ErrorType.api,
-          ),
-        );
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
     } catch (e) {
       return Right(AppError(message: e.toString(), type: ErrorType.unknown));
@@ -228,13 +186,7 @@ class AuthRepoImpl implements AuthRepo {
       if (response.isSuccess) {
         return Left(response.data!);
       } else {
-        return Right(
-          AppError(
-            message: response.errorMessage,
-            apiResponse: response,
-            type: ErrorType.api,
-          ),
-        );
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
     } catch (e) {
       return Right(AppError(message: e.toString(), type: ErrorType.unknown));
@@ -242,22 +194,14 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<List<Governorate>, AppError>> getGovernorates(
-    int countryId,
-  ) async {
+  Future<Either<List<Governorate>, AppError>> getGovernorates(int countryId) async {
     try {
       final response = await _remoteDataSource.getGovernorates(countryId);
 
       if (response.isSuccess) {
         return Left(response.data!);
       } else {
-        return Right(
-          AppError(
-            message: response.errorMessage,
-            apiResponse: response,
-            type: ErrorType.api,
-          ),
-        );
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
     } catch (e) {
       return Right(AppError(message: e.toString(), type: ErrorType.unknown));
@@ -265,9 +209,7 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<AuthModel, AppError>> verifyRegistration(
-    VerifyParams params,
-  ) async {
+  Future<Either<AuthModel, AppError>> verifyRegistration(VerifyParams params) async {
     try {
       final response = await _remoteDataSource.verifyRegistration(params);
 
@@ -275,13 +217,7 @@ class AuthRepoImpl implements AuthRepo {
         _localDataSource.saveToken(response.data?.token ?? '');
         return Left(response.data!);
       } else {
-        return Right(
-          AppError(
-            message: response.errorMessage,
-            apiResponse: response,
-            type: ErrorType.api,
-          ),
-        );
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
     } catch (e) {
       return Right(AppError(message: e.toString(), type: ErrorType.unknown));
@@ -296,13 +232,7 @@ class AuthRepoImpl implements AuthRepo {
       if (response.isSuccess) {
         return const Left(null);
       } else {
-        return Right(
-          AppError(
-            message: response.errorMessage,
-            apiResponse: response,
-            type: ErrorType.api,
-          ),
-        );
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
     } catch (e) {
       return Right(AppError(message: e.toString(), type: ErrorType.unknown));
@@ -310,22 +240,14 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<void, AppError>> verifyPasswordReset(
-    VerifyParams params,
-  ) async {
+  Future<Either<void, AppError>> verifyPasswordReset(VerifyParams params) async {
     try {
       final response = await _remoteDataSource.verifyPasswordReset(params);
 
       if (response.isSuccess) {
         return const Left(null);
       } else {
-        return Right(
-          AppError(
-            message: response.errorMessage,
-            apiResponse: response,
-            type: ErrorType.api,
-          ),
-        );
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
     } catch (e) {
       return Right(AppError(message: e.toString(), type: ErrorType.unknown));

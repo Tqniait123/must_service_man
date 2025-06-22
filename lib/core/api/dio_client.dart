@@ -13,8 +13,7 @@ class DioClient {
   final MustInvestServiceManPreferences _preferences;
   final Dio _dio;
 
-  DioClient(this._preferences)
-    : _dio = Dio(BaseOptions(baseUrl: EndPoints.baseUrl)) {
+  DioClient(this._preferences) : _dio = Dio(BaseOptions(baseUrl: EndPoints.baseUrl)) {
     _dio.interceptors.add(
       PrettyDioLogger(
         error: true,
@@ -67,13 +66,7 @@ class DioClient {
     CancelToken? cancelToken,
   }) async {
     return _sendRequest(
-      () => _dio.get(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-      ),
+      () => _dio.get(path, data: data, queryParameters: queryParameters, options: options, cancelToken: cancelToken),
     );
   }
 
@@ -83,14 +76,7 @@ class DioClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    return _sendRequest(
-      () => _dio.post(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-      ),
-    );
+    return _sendRequest(() => _dio.post(path, data: data, queryParameters: queryParameters, options: options));
   }
 
   Future<Map<String, dynamic>> patch(
@@ -99,14 +85,7 @@ class DioClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    return _sendRequest(
-      () => _dio.patch(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-      ),
-    );
+    return _sendRequest(() => _dio.patch(path, data: data, queryParameters: queryParameters, options: options));
   }
 
   Future<Map<String, dynamic>> put(
@@ -115,14 +94,7 @@ class DioClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    return _sendRequest(
-      () => _dio.put(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-      ),
-    );
+    return _sendRequest(() => _dio.put(path, data: data, queryParameters: queryParameters, options: options));
   }
 
   Future<Map<String, dynamic>> delete(
@@ -131,14 +103,7 @@ class DioClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    return _sendRequest(
-      () => _dio.delete(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-      ),
-    );
+    return _sendRequest(() => _dio.delete(path, data: data, queryParameters: queryParameters, options: options));
   }
 
   Future<ApiResponse<T>> request<T>(
@@ -154,11 +119,7 @@ class DioClient {
 
     switch (method) {
       case RequestMethod.get:
-        response = await get(
-          endpoint,
-          queryParameters: queryParams,
-          options: options,
-        );
+        response = await get(endpoint, queryParameters: queryParams, options: options);
         break;
       case RequestMethod.post:
         response = await post(endpoint, data: data, options: options);
@@ -176,10 +137,7 @@ class DioClient {
 
     // Check if the response contains an error message
     if (response['status'] == false) {
-      throw AppError(
-        message: handleResponseErrors(response),
-        type: ErrorType.api,
-      );
+      throw AppError(message: handleResponseErrors(response), type: ErrorType.api);
     }
 
     // Call onSuccess callback if provided
@@ -189,9 +147,7 @@ class DioClient {
     return ApiResponse.fromJson(response, (json) => fromJson(json));
   }
 
-  Future<Map<String, dynamic>> _sendRequest(
-    Future<Response> Function() request,
-  ) async {
+  Future<Map<String, dynamic>> _sendRequest(Future<Response> Function() request) async {
     late final Response response;
 
     // Update the localization header before every request

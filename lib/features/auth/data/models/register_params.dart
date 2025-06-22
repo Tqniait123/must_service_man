@@ -4,7 +4,7 @@ class RegisterParams {
   final String phone;
   final String password;
   final String passwordConfirmation;
-  final int cityId;
+  // final int cityId;
 
   RegisterParams({
     required this.name,
@@ -12,14 +12,13 @@ class RegisterParams {
     required this.phone,
     required this.password,
     required this.passwordConfirmation,
-    required this.cityId,
   });
 
   Map<String, dynamic> toJson() => {
     'name': name,
     'email': email,
     'phone': phone,
-    'city_id': cityId,
+    // 'city_id': cityId,
     'password': password,
     'password_confirmation': passwordConfirmation,
   };

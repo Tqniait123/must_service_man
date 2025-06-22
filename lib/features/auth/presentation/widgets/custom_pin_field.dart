@@ -61,8 +61,8 @@ class CustomPinField extends StatelessWidget {
         negativeText: LocaleKeys.cancel.tr(),
       ),
       pinTheme: PinTheme(
-        fieldWidth: 50.r,
-        fieldHeight: 50.r,
+        fieldWidth: 40.r,
+        fieldHeight: 40.r,
 
         shape: PinCodeFieldShape.underline,
         activeBorderWidth: 2,

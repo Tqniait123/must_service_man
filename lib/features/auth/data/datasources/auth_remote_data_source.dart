@@ -16,14 +16,10 @@ import 'package:must_invest_service_man/features/auth/data/models/verify_params.
 
 abstract class AuthRemoteDataSource {
   // Future<ApiResponse> login();
-  Future<ApiResponse<User>> autoLogin(String token);
+  Future<ApiResponse<ParkingMan>> autoLogin(String token);
   Future<ApiResponse<AuthModel>> login(LoginParams params);
-  Future<ApiResponse<AuthModel>> loginWithGoogle(
-    LoginWithGoogleParams loginWithGoogleParams,
-  );
-  Future<ApiResponse<AuthModel>> loginWithApple(
-    LoginWithAppleParams loginWithAppleParams,
-  );
+  Future<ApiResponse<AuthModel>> loginWithGoogle(LoginWithGoogleParams loginWithGoogleParams);
+  Future<ApiResponse<AuthModel>> loginWithApple(LoginWithAppleParams loginWithAppleParams);
   Future<ApiResponse<void>> register(RegisterParams params);
   Future<ApiResponse<AuthModel>> verifyRegistration(VerifyParams params);
   Future<ApiResponse<void>> verifyPasswordReset(VerifyParams params);
@@ -52,12 +48,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   /// Returns:
   ///   A `Future` of type `ApiResponse<AppUser>` is being returned.
   @override
-  Future<ApiResponse<User>> autoLogin(String token) async {
-    return dioClient.request<User>(
+  Future<ApiResponse<ParkingMan>> autoLogin(String token) async {
+    return dioClient.request<ParkingMan>(
       method: RequestMethod.get,
       EndPoints.autoLogin,
       options: token.toAuthorizationOptions(),
-      fromJson: (json) => User.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) => ParkingMan.fromJson(json as Map<String, dynamic>),
     );
   }
 
@@ -97,9 +93,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   ///   A Future that resolves to an ApiResponse containing an AuthModel object with the authenticated
   /// user's data and tokens.
   @override
-  Future<ApiResponse<AuthModel>> loginWithGoogle(
-    LoginWithGoogleParams loginWithGoogleParams,
-  ) async {
+  Future<ApiResponse<AuthModel>> loginWithGoogle(LoginWithGoogleParams loginWithGoogleParams) async {
     // final deviceToken = await fcmService.getDeviceToken();
     return dioClient.request<AuthModel>(
       method: RequestMethod.post,
@@ -123,9 +117,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   ///   A Future that resolves to an ApiResponse containing an AuthModel object with the authenticated
   /// user's data and tokens.
   @override
-  Future<ApiResponse<AuthModel>> loginWithApple(
-    LoginWithAppleParams loginWithAppleParams,
-  ) async {
+  Future<ApiResponse<AuthModel>> loginWithApple(LoginWithAppleParams loginWithAppleParams) async {
     // final deviceToken = await fcmService.getDeviceToken();
     return dioClient.request<AuthModel>(
       method: RequestMethod.post,
@@ -216,12 +208,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     return dioClient.request<List<City>>(
       method: RequestMethod.get,
       EndPoints.cities(governorateId),
-      fromJson:
-          (json) => List<City>.from(
-            (json as List).map(
-              (city) => City.fromJson(city as Map<String, dynamic>),
-            ),
-          ),
+      fromJson: (json) => List<City>.from((json as List).map((city) => City.fromJson(city as Map<String, dynamic>))),
     );
   }
 
@@ -236,11 +223,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       method: RequestMethod.get,
       EndPoints.countries,
       fromJson:
-          (json) => List<Country>.from(
-            (json as List).map(
-              (country) => Country.fromJson(country as Map<String, dynamic>),
-            ),
-          ),
+          (json) =>
+              List<Country>.from((json as List).map((country) => Country.fromJson(country as Map<String, dynamic>))),
     );
   }
 
@@ -261,10 +245,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       EndPoints.governorates(countryId),
       fromJson:
           (json) => List<Governorate>.from(
-            (json as List).map(
-              (governorate) =>
-                  Governorate.fromJson(governorate as Map<String, dynamic>),
-            ),
+            (json as List).map((governorate) => Governorate.fromJson(governorate as Map<String, dynamic>)),
           ),
     );
   }
