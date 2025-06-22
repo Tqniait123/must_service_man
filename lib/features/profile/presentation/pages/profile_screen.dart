@@ -42,57 +42,52 @@ class ProfileScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomBackButton(),
-                Text(
-                  LocaleKeys.profile.tr(),
-                  style: context.titleLarge.copyWith(color: AppColors.white),
-                ),
-                NotificationsButton(
-                  color: Color(0xffEAEAF3),
-                  iconColor: AppColors.primary,
-                ),
+                Text(LocaleKeys.profile.tr(), style: context.titleLarge.copyWith(color: AppColors.white)),
+                NotificationsButton(color: Color(0xffEAEAF3), iconColor: AppColors.primary),
               ],
             ),
             30.gap,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 43,
-                      backgroundImage: NetworkImage(
-                        Constants.placeholderProfileImage,
+                Expanded(
+                  child: Row(
+                    children: [
+                      CircleAvatar(radius: 43, backgroundImage: NetworkImage(Constants.placeholderProfileImage)),
+                      24.gap,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              LocaleKeys.welcome.tr(),
+                              style: context.bodyMedium.copyWith(
+                                color: AppColors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            8.gap,
+                            Text(
+                              context.user.name,
+                              style: context.titleLarge.copyWith(
+                                color: AppColors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    24.gap,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          LocaleKeys.welcome.tr(),
-                          style: context.bodyMedium.copyWith(
-                            color: AppColors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        8.gap,
-                        Text(
-                          context.user.name,
-                          style: context.titleLarge.copyWith(
-                            color: AppColors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 CustomIconButton(
                   color: Color(0xff6468AC),
                   iconAsset: AppIcons.logout,
-                  onPressed: () {},
+                  onPressed: () {
+                    context.go(Routes.login);
+                  },
                 ).flippedForLocale(context),
               ],
             ),
@@ -109,11 +104,7 @@ class ProfileScreen extends StatelessWidget {
             },
           ),
 
-          ProfileItemWidget(
-            title: LocaleKeys.terms_and_conditions.tr(),
-            iconPath: AppIcons.termsIc,
-            onPressed: () {},
-          ),
+          ProfileItemWidget(title: LocaleKeys.terms_and_conditions.tr(), iconPath: AppIcons.termsIc, onPressed: () {}),
           ProfileItemWidget(
             title: LocaleKeys.history.tr(),
             iconPath: AppIcons.historyIc,
@@ -121,25 +112,14 @@ class ProfileScreen extends StatelessWidget {
               context.push(Routes.history);
             },
           ),
-          ProfileItemWidget(
-            title: LocaleKeys.faq.tr(),
-            iconPath: AppIcons.faqIc,
-            onPressed: () {},
-          ),
-          ProfileItemWidget(
-            title: LocaleKeys.settings.tr(),
-            iconPath: AppIcons.settingsIc,
-            onPressed: () {},
-          ),
+          ProfileItemWidget(title: LocaleKeys.faq.tr(), iconPath: AppIcons.faqIc, onPressed: () {}),
+          ProfileItemWidget(title: LocaleKeys.settings.tr(), iconPath: AppIcons.settingsIc, onPressed: () {}),
           ProfileItemWidget(
             title: LocaleKeys.complete_switch_label.tr(),
             iconPath: AppIcons.editIc,
             trailing: Switch.adaptive(
               value: currentState != SituationStatus.notComplete,
-              activeColor:
-                  currentState == SituationStatus.completed
-                      ? AppColors.primary
-                      : Colors.orange,
+              activeColor: currentState == SituationStatus.completed ? AppColors.primary : Colors.orange,
               onChanged: (value) {},
             ),
           ),
