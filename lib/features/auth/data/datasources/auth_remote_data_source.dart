@@ -53,7 +53,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       method: RequestMethod.get,
       EndPoints.autoLogin,
       options: token.toAuthorizationOptions(),
-      fromJson: (json) => ParkingMan.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) => ParkingMan  .fromJson(json as Map<String, dynamic>),
     );
   }
 

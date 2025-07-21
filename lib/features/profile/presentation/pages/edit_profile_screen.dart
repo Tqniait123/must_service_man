@@ -24,6 +24,39 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   PlatformFile? image;
+
+  // Text editing controllers
+  late final TextEditingController _fullNameController;
+  // late final TextEditingController _typeController;
+  late final TextEditingController _idController;
+  late final TextEditingController _phoneController;
+  late final TextEditingController _addressController;
+  late final TextEditingController _passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize controllers with initial values
+    _fullNameController = TextEditingController(text: context.user.name);
+    // _typeController = TextEditingController(text: "Individual");
+    _idController = TextEditingController(text: context.user.id.toString());
+    _phoneController = TextEditingController(text: context.user.phone);
+    _addressController = TextEditingController(text: '');
+    _passwordController = TextEditingController(text: "");
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers
+    _fullNameController.dispose();
+    // _typeController.dispose();
+    _idController.dispose();
+    _phoneController.dispose();
+    _addressController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,10 +67,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomBackButton(),
-                Text(
-                  LocaleKeys.edit_profile.tr(),
-                  style: context.titleLarge.copyWith(),
-                ),
+                Text(LocaleKeys.edit_profile.tr(), style: context.titleLarge.copyWith()),
                 CustomIconButton(
                   color: Color(0xffEAEAF3),
                   iconColor: AppColors.primary,
@@ -48,12 +78,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
             40.gap,
             ImagePickerAvatar(
-              initialImage: context.user.photo,
+              // initialImage: context.user.photo,
               onPick: (image) {},
             ),
             28.gap,
             CustomTextFormField(
-              controller: TextEditingController(),
+              controller: _fullNameController,
               margin: 0,
               hint: LocaleKeys.full_name.tr(),
               title: LocaleKeys.full_name.tr(),
@@ -61,7 +91,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             16.gap,
 
             CustomTextFormField(
-              controller: TextEditingController(),
+              controller: _phoneController,
               margin: 0,
               hint: LocaleKeys.phone_number.tr(),
               title: LocaleKeys.phone_number.tr(),
@@ -69,7 +99,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             16.gap,
 
             CustomTextFormField(
-              controller: TextEditingController(),
+              controller: _passwordController,
               margin: 0,
               isPassword: true,
               hint: LocaleKeys.password.tr(),
