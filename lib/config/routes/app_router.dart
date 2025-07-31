@@ -1,10 +1,12 @@
 // Import necessary packages and files
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
 import 'package:must_invest_service_man/core/observers/router_observer.dart';
+import 'package:must_invest_service_man/core/services/di.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
 import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
 import 'package:must_invest_service_man/features/auth/data/models/user.dart';
@@ -26,10 +28,16 @@ import 'package:must_invest_service_man/features/new_lists/presentation/pages/ne
 import 'package:must_invest_service_man/features/new_lists/presentation/pages/user_details_screen.dart';
 import 'package:must_invest_service_man/features/notifications/presentation/pages/notifications_screen.dart';
 import 'package:must_invest_service_man/features/on_boarding/presentation/pages/on_boarding_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/cubit/pages_cubit.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/about_us_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/contact_us_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/edit_profile_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/faq_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/my_qr_code_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/privacy_policy_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/profile_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/scan_qr_code_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/terms_and_conditions_screen.dart';
 import 'package:must_invest_service_man/features/splash/presentation/pages/splash.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -225,6 +233,41 @@ class AppRouter {
         builder: (context, state) {
           // Return the WithdrawRequestScreen widget
           return WithdrawRequestScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.faq,
+        builder: (context, state) {
+          // Return the FAQscreen widget
+          return BlocProvider(create: (BuildContext context) => PagesCubit(sl()), child: FAQScreen());
+        },
+      ),
+      GoRoute(
+        path: Routes.termsAndConditions,
+        builder: (context, state) {
+          // Return the TermsAnsConditionsScreen widget
+          return BlocProvider(create: (BuildContext context) => PagesCubit(sl()), child: TermsAndConditionsScreen());
+        },
+      ),
+      GoRoute(
+        path: Routes.privacyPolicy,
+        builder: (context, state) {
+          // Return the TermsAnsConditionsScreen widget
+          return BlocProvider(create: (BuildContext context) => PagesCubit(sl()), child: PrivacyPolicyScreen());
+        },
+      ),
+      GoRoute(
+        path: Routes.contactUs,
+        builder: (context, state) {
+          // Return the TermsAnsConditionsScreen widget
+          return BlocProvider(create: (BuildContext context) => PagesCubit(sl()), child: ContactUsScreen());
+        },
+      ),
+      GoRoute(
+        path: Routes.aboutUs,
+        builder: (context, state) {
+          // Return the AboutUsScreen widget
+          return BlocProvider(create: (BuildContext context) => PagesCubit(sl()), child: AboutUsScreen());
         },
       ),
     ],

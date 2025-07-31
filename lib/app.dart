@@ -13,8 +13,7 @@ import 'package:must_invest_service_man/features/auth/presentation/cubit/user_cu
 import 'package:must_invest_service_man/features/auth/presentation/languages_cubit/languages_cubit.dart';
 
 class MustInvestServiceMan extends StatelessWidget {
-  MustInvestServiceMan({super.key});
-  final AppRouter appRouter = AppRouter(); // Create an instance of AppRouter
+  const MustInvestServiceMan({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +48,8 @@ class MustInvestServiceMan extends StatelessWidget {
                             child: FloatingActionButton(
                               child: const Icon(Icons.refresh),
                               onPressed: () async {
-                                await context.setLocale(
-                                  const Locale('en'),
-                                ); // Reload translations
-                                await context.setLocale(
-                                  const Locale('ar'),
-                                ); // Reload translations
+                                await context.setLocale(const Locale('en')); // Reload translations
+                                await context.setLocale(const Locale('ar')); // Reload translations
                               },
                             ),
                           ),
@@ -77,3 +72,5 @@ class MustInvestServiceMan extends StatelessWidget {
 
   // final GoRouter _router = GoRouter
 }
+
+final AppRouter appRouter = AppRouter(); // Create an instance of AppRouter

@@ -5,6 +5,8 @@ import 'package:must_invest_service_man/features/auth/data/datasources/auth_remo
 import 'package:must_invest_service_man/features/auth/data/repositories/auth_repo.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/user_cubit/user_cubit.dart';
+import 'package:must_invest_service_man/features/profile/data/datasources/profile_remote_data_source.dart';
+import 'package:must_invest_service_man/features/profile/data/repositories/profile_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -25,7 +27,9 @@ Future<void> initLocator(SharedPreferences sharedPreferences) async {
 
   //* Repository
   sl.registerLazySingleton<AuthRepo>(() => AuthRepoImpl(sl(), sl()));
+  sl.registerLazySingleton<PagesRepo>(() => PagesRepoImpl(sl(), sl()));
 
   //* Datasources
   sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<PagesRemoteDataSource>(() => PagesRemoteDataSourceImpl(sl()));
 }

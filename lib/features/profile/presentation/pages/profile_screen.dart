@@ -104,7 +104,20 @@ class ProfileScreen extends StatelessWidget {
             },
           ),
 
-          ProfileItemWidget(title: LocaleKeys.terms_and_conditions.tr(), iconPath: AppIcons.termsIc, onPressed: () {}),
+          ProfileItemWidget(
+            title: LocaleKeys.terms_and_conditions.tr(),
+            iconPath: AppIcons.termsIc,
+            onPressed: () {
+              context.push(Routes.termsAndConditions);
+            },
+          ),
+          ProfileItemWidget(
+            title: LocaleKeys.privacy_policy.tr(),
+            iconPath: AppIcons.termsIc,
+            onPressed: () {
+              context.push(Routes.privacyPolicy);
+            },
+          ),
           ProfileItemWidget(
             title: LocaleKeys.history.tr(),
             iconPath: AppIcons.historyIc,
@@ -112,7 +125,20 @@ class ProfileScreen extends StatelessWidget {
               context.push(Routes.history);
             },
           ),
-          ProfileItemWidget(title: LocaleKeys.faq.tr(), iconPath: AppIcons.faqIc, onPressed: () {}),
+          ProfileItemWidget(
+            title: LocaleKeys.faq.tr(),
+            iconPath: AppIcons.faqIc,
+            onPressed: () {
+              context.push(Routes.faq);
+            },
+          ),
+          ProfileItemWidget(
+            title: LocaleKeys.about_us.tr(),
+            iconPath: AppIcons.termsIc,
+            onPressed: () {
+              context.push(Routes.aboutUs);
+            },
+          ),
           ProfileItemWidget(title: LocaleKeys.settings.tr(), iconPath: AppIcons.settingsIc, onPressed: () {}),
           ProfileItemWidget(
             title: LocaleKeys.complete_switch_label.tr(),
