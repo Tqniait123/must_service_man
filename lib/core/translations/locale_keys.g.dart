@@ -274,5 +274,11 @@ abstract class  LocaleKeys {
   static const failed_to_load_about_us = 'failed_to_load_about_us';
   static const no_about_us_available = 'no_about_us_available';
   static const no_about_us_available_description = 'no_about_us_available_description';
+  static const failed_to_load_parking_users = 'failed_to_load_parking_users';
+  static const retry = 'retry';
+  static const no_results_found = 'no_results_found';
+  static const try_adjusting_search_terms = 'try_adjusting_search_terms';
+  static const no_users_currently_in_parking = 'no_users_currently_in_parking';
+  static const users_will_appear_when_enter = 'users_will_appear_when_enter';
 
 }

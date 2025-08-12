@@ -288,7 +288,13 @@ class CodegenLoader extends AssetLoader{
   "please_wait_loading_about_us": "Please wait while we load information about us...",
   "failed_to_load_about_us": "Failed to Load About Us",
   "no_about_us_available": "No About Us Information Available",
-  "no_about_us_available_description": "About us information is currently not available. Please try again later."
+  "no_about_us_available_description": "About us information is currently not available. Please try again later.",
+  "failed_to_load_parking_users": "Failed to load parking users",
+  "retry": "Retry",
+  "no_results_found": "No results found",
+  "try_adjusting_search_terms": "Try adjusting your search terms",
+  "no_users_currently_in_parking": "No users currently in parking",
+  "users_will_appear_when_enter": "Users will appear here when they enter"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -564,7 +570,13 @@ static const Map<String,dynamic> _ar = {
   "please_wait_loading_about_us": "يرجى الانتظار بينما نقوم بتحميل معلومات عنا...",
   "failed_to_load_about_us": "فشل في تحميل معلومات من نحن",
   "no_about_us_available": "معلومات من نحن غير متاحة",
-  "no_about_us_available_description": "معلومات من نحن غير متاحة حالياً. يرجى المحاولة مرة أخرى لاحقاً."
+  "no_about_us_available_description": "معلومات من نحن غير متاحة حالياً. يرجى المحاولة مرة أخرى لاحقاً.",
+  "failed_to_load_parking_users": "فشل في تحميل مستخدمي الموقف",
+  "retry": "إعادة المحاولة",
+  "no_results_found": "لم يتم العثور على نتائج",
+  "try_adjusting_search_terms": "حاول تعديل مصطلحات البحث",
+  "no_users_currently_in_parking": "لا يوجد مستخدمون حالياً في الموقف",
+  "users_will_appear_when_enter": "سيظهر المستخدمون هنا عند دخولهم"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

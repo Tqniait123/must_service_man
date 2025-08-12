@@ -9,7 +9,6 @@ import 'package:must_invest_service_man/core/observers/router_observer.dart';
 import 'package:must_invest_service_man/core/services/di.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
 import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
-import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/account_type_screen.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/check_your_email_screen.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/forget_password_screen.dart';
@@ -21,6 +20,8 @@ import 'package:must_invest_service_man/features/auth/presentation/pages/registe
 import 'package:must_invest_service_man/features/auth/presentation/pages/reset_password.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/select_parking_screen.dart';
 import 'package:must_invest_service_man/features/history/presentation/pages/history_screen.dart';
+import 'package:must_invest_service_man/features/home/data/models/user_model.dart';
+import 'package:must_invest_service_man/features/home/presentation/cubit/home_cubit.dart';
 import 'package:must_invest_service_man/features/home/presentation/pages/home_screen.dart';
 import 'package:must_invest_service_man/features/home/presentation/widgets/withdraw_request_screen.dart';
 import 'package:must_invest_service_man/features/my_cards/presentation/pages/my_cards_screen.dart';
@@ -128,18 +129,18 @@ class AppRouter {
           return ResetPasswordScreen(phone: state.extra as String);
         },
       ),
+      // GoRoute(
+      //   path: Routes.homeUser,
+      //   builder: (context, state) {
+      //     // Return the HomeUser widget
+      //     return const HomeParkingMan();
+      //   },
+      // ),
       GoRoute(
         path: Routes.homeUser,
         builder: (context, state) {
-          // Return the HomeUser widget
-          return const HomeParkingMan();
-        },
-      ),
-      GoRoute(
-        path: Routes.homeParkingMan,
-        builder: (context, state) {
           // Return the HomeParkingMan widget
-          return const HomeParkingMan();
+          return BlocProvider(create: (BuildContext context) => HomeCubit(sl()), child: const HomeParkingMan());
         },
       ),
       GoRoute(
@@ -175,7 +176,7 @@ class AppRouter {
         path: Routes.userDetails,
         builder: (context, state) {
           // Return the ParkingDetails widget
-          return UserDetails(user: state.extra as User);
+          return UserDetails(user: state.extra as UserModel);
         },
       ),
 

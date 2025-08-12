@@ -278,6 +278,12 @@
     "please_wait_loading_about_us": "يرجى الانتظار بينما نقوم بتحميل معلومات عنا...",
     "failed_to_load_about_us": "فشل في تحميل معلومات من نحن",
     "no_about_us_available": "معلومات من نحن غير متاحة",
-    "no_about_us_available_description": "معلومات من نحن غير متاحة حالياً. يرجى المحاولة مرة أخرى لاحقاً."
+    "no_about_us_available_description": "معلومات من نحن غير متاحة حالياً. يرجى المحاولة مرة أخرى لاحقاً.",
+    "failed_to_load_parking_users": "فشل في تحميل مستخدمي الموقف",
+  "retry": "إعادة المحاولة",
+  "no_results_found": "لم يتم العثور على نتائج",
+  "try_adjusting_search_terms": "حاول تعديل مصطلحات البحث",
+  "no_users_currently_in_parking": "لا يوجد مستخدمون حالياً في الموقف",
+  "users_will_appear_when_enter": "سيظهر المستخدمون هنا عند دخولهم"
 
 }

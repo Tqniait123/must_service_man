@@ -8,10 +8,10 @@ import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/long_press_effect.dart';
-import 'package:must_invest_service_man/features/auth/data/models/user.dart';
+import 'package:must_invest_service_man/features/home/data/models/user_model.dart';
 
 class UserWidget extends StatelessWidget {
-  final User user;
+  final UserModel user;
 
   const UserWidget({super.key, required this.user});
 
@@ -51,7 +51,7 @@ class UserWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            user.name,
+                            user.user?.name ?? '',
                             style: context.textTheme.bodyMedium?.s16.bold.copyWith(color: AppColors.primary),
                           ),
                           const SizedBox(height: 4),

@@ -25,4 +25,5 @@ class EndPoints {
   static String terms(String lang) => 'terms/$lang';
   static String privacyPolicy(String lang) => 'privacy_policy/$lang';
   static const String contactUs = 'contact_info';
+  static const String currentUsersInParking = 'current_users/parking';
 }
