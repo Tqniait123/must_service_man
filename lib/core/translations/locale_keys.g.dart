@@ -280,5 +280,21 @@ abstract class  LocaleKeys {
   static const try_adjusting_search_terms = 'try_adjusting_search_terms';
   static const no_users_currently_in_parking = 'no_users_currently_in_parking';
   static const users_will_appear_when_enter = 'users_will_appear_when_enter';
+  static const city = 'city';
+  static const car_color = 'car_color';
+  static const manufacture_year = 'manufacture_year';
+  static const approved = 'approved';
+  static const not_approved = 'not_approved';
+  static const no_car_information = 'no_car_information';
+  static const parking_information = 'parking_information';
+  static const parking_name = 'parking_name';
+  static const entrance = 'entrance';
+  static const start_time = 'start_time';
+  static const cost = 'cost';
+  static const earned_points = 'earned_points';
+  static const currency = 'currency';
+  static const entrance_gate = 'entrance_gate';
+  static const session_ended = 'session_ended';
+  static const error_occurred = 'error_occurred';
 
 }

@@ -1,13 +1,15 @@
+
+// User Status Container Widget
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
-import 'package:must_invest_service_man/features/auth/data/models/user.dart';
+import 'package:must_invest_service_man/features/home/data/models/user_model.dart';
+import 'package:must_invest_service_man/features/new_lists/presentation/widgets/detail_row_widget.dart';
 
-// User Status Container Widget
 class UserStatusContainer extends StatelessWidget {
-  final User user;
+  final UserModel user;
 
   const UserStatusContainer({super.key, required this.user});
 
@@ -34,7 +36,7 @@ class UserStatusContainer extends StatelessWidget {
             children: [
               10.gap,
               Text(
-                LocaleKeys.user_status.tr(),
+                LocaleKeys.parking_information.tr(),
                 style: context.titleMedium.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -42,49 +44,49 @@ class UserStatusContainer extends StatelessWidget {
             ],
           ),
           16.gap,
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: _getStatusColor().withOpacity(0.1),
-              borderRadius: BorderRadius.circular(20),
+          if (user.parking != null) ...[
+            DetailRow(
+              label: LocaleKeys.parking_name.tr(),
+              value: user.parking!
             ),
-            child: Text(
-              _getStatusText(),
-              style: TextStyle(
-                color: _getStatusColor(),
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
+            8.gap,
+          ],
+          if (user.entrance != null) ...[
+            DetailRow(
+              label: LocaleKeys.entrance.tr(),
+              value: user.entrance!
             ),
-          ),
+            8.gap,
+          ],
+          if (user.startTime != null) ...[
+            DetailRow(
+              label: LocaleKeys.start_time.tr(),
+              value: user.startTime!
+            ),
+            8.gap,
+          ],
+          if (user.duration != null) ...[
+            DetailRow(
+              label: LocaleKeys.duration.tr(),
+              value: user.duration!
+            ),
+            8.gap,
+          ],
+          if (user.cost != null) ...[
+            DetailRow(
+              label: LocaleKeys.cost.tr(),
+              value: "${user.cost!} ${LocaleKeys.currency.tr()}"
+            ),
+            8.gap,
+          ],
+          if (user.points != null) ...[
+            DetailRow(
+              label: LocaleKeys.earned_points.tr(),
+              value: user.points!.toStringAsFixed(0)
+            ),
+          ],
         ],
       ),
     );
-  }
-
-  Color _getStatusColor() {
-    switch (user.status) {
-      case ParkingStatus.newEntry:
-        return Colors.blue;
-      case ParkingStatus.inside:
-        return Colors.green;
-      case ParkingStatus.exited:
-        return Colors.grey;
-      default:
-        return Colors.grey;
-    }
-  }
-
-  String _getStatusText() {
-    switch (user.status) {
-      case ParkingStatus.newEntry:
-        return LocaleKeys.status_new_entry.tr();
-      case ParkingStatus.inside:
-        return LocaleKeys.status_inside.tr();
-      case ParkingStatus.exited:
-        return LocaleKeys.status_exited.tr();
-      default:
-        return LocaleKeys.status_unknown.tr();
-    }
   }
 }

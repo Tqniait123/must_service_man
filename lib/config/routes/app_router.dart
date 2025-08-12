@@ -20,7 +20,7 @@ import 'package:must_invest_service_man/features/auth/presentation/pages/registe
 import 'package:must_invest_service_man/features/auth/presentation/pages/reset_password.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/select_parking_screen.dart';
 import 'package:must_invest_service_man/features/history/presentation/pages/history_screen.dart';
-import 'package:must_invest_service_man/features/home/data/models/user_model.dart';
+import 'package:must_invest_service_man/features/home/presentation/cubit/cubit/user_details_cubit_cubit.dart';
 import 'package:must_invest_service_man/features/home/presentation/cubit/home_cubit.dart';
 import 'package:must_invest_service_man/features/home/presentation/pages/home_screen.dart';
 import 'package:must_invest_service_man/features/home/presentation/widgets/withdraw_request_screen.dart';
@@ -176,7 +176,10 @@ class AppRouter {
         path: Routes.userDetails,
         builder: (context, state) {
           // Return the ParkingDetails widget
-          return UserDetails(user: state.extra as UserModel);
+          return BlocProvider(
+            create: (BuildContext context) => UserDetailsCubit(sl()),
+            child: UserDetails(userId: state.extra as int),
+          );
         },
       ),
 

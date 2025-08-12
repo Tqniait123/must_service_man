@@ -6,6 +6,7 @@ import 'package:must_invest_service_man/features/home/data/models/user_model.dar
 
 abstract class HomeRemoteDataSource {
   Future<ApiResponse<UserListResponse>> getCurrentUsersInParking(String token);
+  Future<ApiResponse<UserModel>> getUserDetails(String token, int userId);
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
@@ -20,6 +21,16 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       EndPoints.currentUsersInParking,
       options: token.toAuthorizationOptions(),
       fromJson: (json) => UserListResponse.fromJson(json as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  Future<ApiResponse<UserModel>> getUserDetails(String token, int userId) async {
+    return dioClient.request<UserModel>(
+      method: RequestMethod.get,
+      EndPoints.userDetails(userId),
+      options: token.toAuthorizationOptions(),
+      fromJson: (json) => UserModel.fromJson((json as Map<String, dynamic>)),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/flipped_for_lcale.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
+import 'package:must_invest_service_man/core/static/constants.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
@@ -28,22 +29,31 @@ class UserWidget extends StatelessWidget {
               Expanded(
                 child: Row(
                   children: [
-                    // Container(
-                    //   width: 80,
-                    //   height: 80,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(15),
-                    //     image: DecorationImage(
-                    //       image:
-                    //           user.photo != null
-                    //               ? NetworkImage(user.photo!)
-                    //               : NetworkImage(
-                    //                 Constants.placeholderProfileImage,
-                    //               ),
-                    //       fit: BoxFit.cover,
-                    //     ),
-                    //   ),
-                    // ),
+                    SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.network(
+                          user.user?.image ?? Constants.placeholderProfileImage,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.network(Constants.placeholderProfileImage, fit: BoxFit.cover);
+                          },
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value:
+                                    loadingProgress.expectedTotalBytes != null
+                                        ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                        : null,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                     const SizedBox(width: 16),
 
                     Expanded(
@@ -107,6 +117,6 @@ class UserWidget extends StatelessWidget {
           //   ),
         ],
       ),
-    ).withPressEffect(onTap: () => context.push(Routes.userDetails, extra: user), onLongPress: () {});
+    ).withPressEffect(onTap: () => context.push(Routes.userDetails, extra: user.id), onLongPress: () {});
   }
 }

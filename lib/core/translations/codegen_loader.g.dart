@@ -294,7 +294,23 @@ class CodegenLoader extends AssetLoader{
   "no_results_found": "No results found",
   "try_adjusting_search_terms": "Try adjusting your search terms",
   "no_users_currently_in_parking": "No users currently in parking",
-  "users_will_appear_when_enter": "Users will appear here when they enter"
+  "users_will_appear_when_enter": "Users will appear here when they enter",
+  "city": "City",
+  "car_color": "Color",
+  "manufacture_year": "Manufacture Year",
+  "approved": "Approved",
+  "not_approved": "Not Approved",
+  "no_car_information": "No Car Information",
+  "parking_information": "Parking Information",
+  "parking_name": "Parking",
+  "entrance": "Entrance",
+  "start_time": "Start Time",
+  "cost": "Cost",
+  "earned_points": "Earned Points",
+  "currency": "EGP",
+  "entrance_gate": "Entrance Gate",
+  "session_ended": "Session Ended",
+  "error_occurred": "Error Occurred"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -576,7 +592,23 @@ static const Map<String,dynamic> _ar = {
   "no_results_found": "لم يتم العثور على نتائج",
   "try_adjusting_search_terms": "حاول تعديل مصطلحات البحث",
   "no_users_currently_in_parking": "لا يوجد مستخدمون حالياً في الموقف",
-  "users_will_appear_when_enter": "سيظهر المستخدمون هنا عند دخولهم"
+  "users_will_appear_when_enter": "سيظهر المستخدمون هنا عند دخولهم",
+  "city": "المدينة",
+  "car_color": "اللون",
+  "manufacture_year": "سنة الصنع",
+  "approved": "معتمد",
+  "not_approved": "غير معتمد",
+  "no_car_information": "لا توجد معلومات عن السيارة",
+  "parking_information": "معلومات الموقف",
+  "parking_name": "الموقف",
+  "entrance": "المدخل",
+  "start_time": "وقت البداية",
+  "cost": "التكلفة",
+  "earned_points": "النقاط المكتسبة",
+  "currency": "ج.م",
+  "entrance_gate": "بوابة الدخول",
+  "session_ended": "انتهت الجلسة",
+  "error_occurred": "حدث خطأ"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

@@ -284,7 +284,26 @@
   "no_results_found": "No results found",
   "try_adjusting_search_terms": "Try adjusting your search terms",
   "no_users_currently_in_parking": "No users currently in parking",
-  "users_will_appear_when_enter": "Users will appear here when they enter"
+  "users_will_appear_when_enter": "Users will appear here when they enter",
+
+  "city": "City",
+  "car_color": "Color",
+  "manufacture_year": "Manufacture Year",
+  "approved": "Approved",
+  "not_approved": "Not Approved",
+  "no_car_information": "No Car Information",
+  "parking_information": "Parking Information",
+  "parking_name": "Parking",
+  "entrance": "Entrance",
+  "start_time": "Start Time",
+  "cost": "Cost",
+  "earned_points": "Earned Points",
+  "currency": "EGP",
+  "entrance_gate": "Entrance Gate",
+  "session_ended": "Session Ended",
+  "error_occurred": "Error Occurred"
+
+
 
 
 }
