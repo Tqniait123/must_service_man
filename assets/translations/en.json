@@ -301,7 +301,49 @@
   "currency": "EGP",
   "entrance_gate": "Entrance Gate",
   "session_ended": "Session Ended",
-  "error_occurred": "Error Occurred"
+  "error_occurred": "Error Occurred",
+
+  "processing": "Processing...",
+  "cancel": "Cancel",
+  "try_again": "Try Again",
+
+  "qr_scan_client_title": "Scan Client QR",
+  "qr_scan_instructions": "Scan the client's QR code to view car details and register entry",
+  "qr_client_qr": "Client QR",
+  "qr_ready_to_scan": "Ready to scan client QR",
+
+  "qr_car_data_found": "Car Data Found",
+  "qr_client_car_details": "Client and Car Details",
+  "qr_client_data": "Client Data",
+  "qr_car_data": "Car Data",
+
+  "qr_client_name": "Client Name",
+  "qr_client_id": "Client ID",
+  "qr_car_type": "Car Type",
+  "qr_plate_number": "Plate Number",
+  "qr_car_id": "Car ID",
+  "qr_car_color": "Color",
+
+  "qr_scan_another": "Scan Another",
+  "qr_confirm_entry": "Confirm Entry",
+
+  "qr_scan_failed": "QR Scan Failed",
+  "qr_processing_error_occurred": "An error occurred while processing the code",
+  "qr_error_details": "Error Details",
+  "qr_failed_to_process": "Failed to process QR code",
+  "qr_error_processing": "Error processing QR code",
+
+  "qr_suggestions": "Suggestions",
+  "qr_suggestion_clear_code": "Make sure the QR code is clear",
+  "qr_suggestion_good_lighting": "Ensure good lighting",
+  "qr_suggestion_adjust_distance": "Move closer or further from the code",
+  "qr_suggestion_correct_type": "Make sure the QR code type is correct",
+
+  "qr_entry_success": "Entry Registered Successfully!",
+  "qr_car_entry_success": "Car entry registered for",
+  "qr_successfully": "successfully",
+  "qr_completed_at": "Completed at",
+  "qr_back_to_home": "Back to Home"
 
 
 

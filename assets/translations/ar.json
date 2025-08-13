@@ -306,6 +306,48 @@
 
   "session_ended": "انتهت الجلسة",
 
-  "error_occurred": "حدث خطأ"
+  "error_occurred": "حدث خطأ",
+
+  "processing": "جاري المعالجة...",
+  "cancel": "إلغاء",
+  "try_again": "حاول مرة أخرى",
+
+  "qr_scan_client_title": "سكان QR العميل",
+  "qr_scan_instructions": "اسكان QR العميل عشان تشوف بيانات العربية وتسجل الدخول",
+  "qr_client_qr": "QR العميل",
+  "qr_ready_to_scan": "جاهز لسكان QR العميل",
+
+  "qr_car_data_found": "تم العثور على بيانات العربية",
+  "qr_client_car_details": "تفاصيل العميل والعربية",
+  "qr_client_data": "بيانات العميل",
+  "qr_car_data": "بيانات العربية",
+
+  "qr_client_name": "اسم العميل",
+  "qr_client_id": "ID العميل",
+  "qr_car_type": "نوع العربية",
+  "qr_plate_number": "رقم اللوحة",
+  "qr_car_id": "ID العربية",
+  "qr_car_color": "اللون",
+
+  "qr_scan_another": "سكان آخر",
+  "qr_confirm_entry": "تأكيد الدخول",
+
+  "qr_scan_failed": "فشل في قراءة الـ QR",
+  "qr_processing_error_occurred": "حدث خطأ أثناء معالجة الكود",
+  "qr_error_details": "تفاصيل الخطأ",
+  "qr_failed_to_process": "فشل في معالجة QR كود",
+  "qr_error_processing": "خطأ في معالجة QR كود",
+
+  "qr_suggestions": "نصائح",
+  "qr_suggestion_clear_code": "تأكد من وضوح الـ QR كود",
+  "qr_suggestion_good_lighting": "تأكد من إضاءة جيدة",
+  "qr_suggestion_adjust_distance": "اقترب أو ابتعد قليلاً عن الكود",
+  "qr_suggestion_correct_type": "تأكد من صحة نوع الـ QR كود",
+
+  "qr_entry_success": "تم تسجيل الدخول بنجاح!",
+  "qr_car_entry_success": "تم تسجيل دخول عربية",
+  "qr_successfully": "بنجاح",
+  "qr_completed_at": "تم في",
+  "qr_back_to_home": "العودة للرئيسية"
 
 }

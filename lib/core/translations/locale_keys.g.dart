@@ -296,5 +296,36 @@ abstract class  LocaleKeys {
   static const entrance_gate = 'entrance_gate';
   static const session_ended = 'session_ended';
   static const error_occurred = 'error_occurred';
+  static const qr_scan_client_title = 'qr_scan_client_title';
+  static const qr_scan_instructions = 'qr_scan_instructions';
+  static const qr_client_qr = 'qr_client_qr';
+  static const qr_ready_to_scan = 'qr_ready_to_scan';
+  static const qr_car_data_found = 'qr_car_data_found';
+  static const qr_client_car_details = 'qr_client_car_details';
+  static const qr_client_data = 'qr_client_data';
+  static const qr_car_data = 'qr_car_data';
+  static const qr_client_name = 'qr_client_name';
+  static const qr_client_id = 'qr_client_id';
+  static const qr_car_type = 'qr_car_type';
+  static const qr_plate_number = 'qr_plate_number';
+  static const qr_car_id = 'qr_car_id';
+  static const qr_car_color = 'qr_car_color';
+  static const qr_scan_another = 'qr_scan_another';
+  static const qr_confirm_entry = 'qr_confirm_entry';
+  static const qr_scan_failed = 'qr_scan_failed';
+  static const qr_processing_error_occurred = 'qr_processing_error_occurred';
+  static const qr_error_details = 'qr_error_details';
+  static const qr_failed_to_process = 'qr_failed_to_process';
+  static const qr_error_processing = 'qr_error_processing';
+  static const qr_suggestions = 'qr_suggestions';
+  static const qr_suggestion_clear_code = 'qr_suggestion_clear_code';
+  static const qr_suggestion_good_lighting = 'qr_suggestion_good_lighting';
+  static const qr_suggestion_adjust_distance = 'qr_suggestion_adjust_distance';
+  static const qr_suggestion_correct_type = 'qr_suggestion_correct_type';
+  static const qr_entry_success = 'qr_entry_success';
+  static const qr_car_entry_success = 'qr_car_entry_success';
+  static const qr_successfully = 'qr_successfully';
+  static const qr_completed_at = 'qr_completed_at';
+  static const qr_back_to_home = 'qr_back_to_home';
 
 }

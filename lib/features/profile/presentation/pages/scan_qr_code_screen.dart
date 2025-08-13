@@ -11,6 +11,7 @@ import 'package:must_invest_service_man/core/services/qr_code_service.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
+import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 
 class ScanQrCodeScreen extends StatefulWidget {
@@ -84,11 +85,11 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
       if (result.isValid && result.userData != null) {
         _showUserDataBottomSheet(context, result.userData!);
       } else {
-        _showErrorBottomSheet(result.error ?? 'Failed to process QR code');
+        _showErrorBottomSheet(result.error ?? LocaleKeys.qr_failed_to_process.tr());
       }
     } catch (e) {
       Navigator.of(context).pop();
-      _showErrorBottomSheet('Error processing QR code: $e');
+      _showErrorBottomSheet('${LocaleKeys.qr_error_processing.tr()}: $e');
     }
   }
 
@@ -164,12 +165,12 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                                 ),
                                 16.gap,
                                 Text(
-                                  'تم العثور على بيانات العربية',
+                                  LocaleKeys.qr_car_data_found.tr(),
                                   style: context.titleLarge.copyWith(fontWeight: FontWeight.bold, color: Colors.green),
                                 ),
                                 8.gap,
                                 Text(
-                                  'تفاصيل العميل والعربية',
+                                  LocaleKeys.qr_client_car_details.tr(),
                                   style: context.bodyMedium.copyWith(color: Colors.grey[600]),
                                 ),
                               ],
@@ -198,7 +199,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                                 ),
                                 12.gap,
                                 Text(
-                                  'بيانات العميل',
+                                  LocaleKeys.qr_client_data.tr(),
                                   style: context.titleMedium.copyWith(color: Colors.blue, fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -207,9 +208,14 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                           16.gap,
 
                           // User Information Cards
-                          _buildModernInfoCard('اسم العميل', userData.userName, Icons.person, Colors.blue),
+                          _buildModernInfoCard(
+                            LocaleKeys.qr_client_name.tr(),
+                            userData.userName,
+                            Icons.person,
+                            Colors.blue,
+                          ),
                           8.gap,
-                          _buildModernInfoCard('ID العميل', userData.userId, Icons.badge, Colors.blue),
+                          _buildModernInfoCard(LocaleKeys.qr_client_id.tr(), userData.userId, Icons.badge, Colors.blue),
                           24.gap,
 
                           // Car Information Section
@@ -236,7 +242,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                                 ),
                                 12.gap,
                                 Text(
-                                  'بيانات العربية',
+                                  LocaleKeys.qr_car_data.tr(),
                                   style: context.titleMedium.copyWith(color: Colors.green, fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -244,82 +250,69 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                           ),
                           16.gap,
 
-                          _buildModernInfoCard('نوع العربية', userData.carName, Icons.car_rental, Colors.green),
+                          _buildModernInfoCard(
+                            LocaleKeys.qr_car_type.tr(),
+                            userData.carName,
+                            Icons.car_rental,
+                            Colors.green,
+                          ),
                           8.gap,
                           _buildModernInfoCard(
-                            'رقم اللوحة',
+                            LocaleKeys.qr_plate_number.tr(),
                             userData.metalPlate,
                             Icons.confirmation_number,
                             Colors.green,
                           ),
                           8.gap,
-                          _buildModernInfoCard('ID العربية', userData.carId, Icons.key, Colors.green),
+                          _buildModernInfoCard(LocaleKeys.qr_car_id.tr(), userData.carId, Icons.key, Colors.green),
                           if (userData.carColor != null) ...[
                             8.gap,
-                            _buildModernInfoCard('اللون', userData.carColor!, Icons.palette, Colors.green),
+                            _buildModernInfoCard(
+                              LocaleKeys.qr_car_color.tr(),
+                              userData.carColor!,
+                              Icons.palette,
+                              Colors.green,
+                            ),
                           ],
 
                           32.gap,
 
                           // Action Buttons
+                          // Action Buttons
                           Row(
                             children: [
                               Expanded(
-                                child: SizedBox(
+                                child: CustomElevatedButton(
+                                  title: LocaleKeys.qr_scan_another.tr(),
                                   height: 52,
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      _resumeScanning();
-                                    },
-                                    style: OutlinedButton.styleFrom(
-                                      side: BorderSide(color: Colors.grey[300]!),
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.qr_code_scanner, size: 20, color: Colors.grey[600]),
-                                        8.gap,
-                                        Text(
-                                          'سكان آخر',
-                                          style: context.bodyLarge.copyWith(
-                                            color: Colors.grey[600],
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  isFilled: false,
+                                  isBordered: true,
+                                  backgroundColor: Colors.transparent,
+                                  textColor: Colors.grey[600],
+                                  iconColor: Colors.grey[600],
+                                  // icon: 'assets/icons/qr_code_scanner.svg', // Replace with your SVG path
+                                  // iconType: IconType.leading,
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    _resumeScanning();
+                                  },
                                 ),
                               ),
                               16.gap,
                               Expanded(
-                                child: SizedBox(
+                                child: CustomElevatedButton(
+                                  title: LocaleKeys.qr_confirm_entry.tr(),
                                   height: 52,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      _handleUserCarEntry(userData);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.green,
-                                      foregroundColor: Colors.white,
-                                      elevation: 0,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.check_circle, size: 20),
-                                        8.gap,
-                                        Text(
-                                          'تأكيد الدخول',
-                                          style: context.bodyLarge.copyWith(fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  isFilled: true,
+                                  backgroundColor: AppColors.primary,
+                                  textColor: Colors.white,
+                                  iconColor: Colors.white,
+                                  // icon: 'assets/icons/check_circle.svg', // Replace with your SVG path
+                                  // iconType: IconType.leading,
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    _handleUserCarEntry(userData);
+                                  },
                                 ),
                               ),
                             ],
@@ -381,13 +374,13 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                           16.gap,
 
                           Text(
-                            'فشل في قراءة الـ QR',
+                            LocaleKeys.qr_scan_failed.tr(),
                             style: context.titleLarge.copyWith(fontWeight: FontWeight.bold, color: Colors.red),
                           ),
                           8.gap,
 
                           Text(
-                            'حدث خطأ أثناء معالجة الكود',
+                            LocaleKeys.qr_processing_error_occurred.tr(),
                             style: context.bodyMedium.copyWith(color: Colors.grey[600]),
                           ),
                           24.gap,
@@ -408,7 +401,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                                     Icon(Icons.info_outline, color: Colors.red, size: 20),
                                     8.gap,
                                     Text(
-                                      'تفاصيل الخطأ',
+                                      LocaleKeys.qr_error_details.tr(),
                                       style: context.bodyMedium.copyWith(
                                         color: Colors.red,
                                         fontWeight: FontWeight.bold,
@@ -444,7 +437,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                                     Icon(Icons.lightbulb_outline, color: Colors.blue, size: 20),
                                     8.gap,
                                     Text(
-                                      'نصائح',
+                                      LocaleKeys.qr_suggestions.tr(),
                                       style: context.bodyMedium.copyWith(
                                         color: Colors.blue,
                                         fontWeight: FontWeight.bold,
@@ -453,10 +446,10 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                                   ],
                                 ),
                                 12.gap,
-                                _buildSuggestionItem('تأكد من وضوح الـ QR كود'),
-                                _buildSuggestionItem('تأكد من إضاءة جيدة'),
-                                _buildSuggestionItem('اقترب أو ابتعد قليلاً عن الكود'),
-                                _buildSuggestionItem('تأكد من صحة نوع الـ QR كود'),
+                                _buildSuggestionItem(LocaleKeys.qr_suggestion_clear_code.tr()),
+                                _buildSuggestionItem(LocaleKeys.qr_suggestion_good_lighting.tr()),
+                                _buildSuggestionItem(LocaleKeys.qr_suggestion_adjust_distance.tr()),
+                                _buildSuggestionItem(LocaleKeys.qr_suggestion_correct_type.tr()),
                               ],
                             ),
                           ),
@@ -590,8 +583,8 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
     print('- User ID للداتابيز: ${userData.userId}');
 
     _showSuccessBottomSheet(
-      title: 'تم تسجيل الدخول بنجاح!',
-      message: 'تم تسجيل دخول عربية ${userData.carName} بنجاح',
+      title: LocaleKeys.qr_entry_success.tr(),
+      message: '${LocaleKeys.qr_car_entry_success.tr()} ${userData.carName} ${LocaleKeys.qr_successfully.tr()}',
       icon: Icons.check_circle,
       color: Colors.green,
     );
@@ -685,7 +678,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'تم في',
+                                        LocaleKeys.qr_completed_at.tr(),
                                         style: context.bodySmall.copyWith(color: color, fontWeight: FontWeight.bold),
                                       ),
                                       4.gap,
@@ -722,7 +715,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                                   Icon(Icons.home, size: 20),
                                   8.gap,
                                   Text(
-                                    'العودة للرئيسية',
+                                    LocaleKeys.qr_back_to_home.tr(),
                                     style: context.bodyLarge.copyWith(fontWeight: FontWeight.bold),
                                   ),
                                 ],
@@ -765,7 +758,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomBackButton(),
-                Text('سكان QR العميل', style: context.titleLarge.copyWith()),
+                Text(LocaleKeys.qr_scan_client_title.tr(), style: context.titleLarge.copyWith()),
                 NotificationsButton(color: Color(0xffEAEAF3), iconColor: AppColors.primary),
               ],
             ).paddingHorizontal(24),
@@ -788,7 +781,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                     12.gap,
                     Expanded(
                       child: Text(
-                        'اسكان QR العميل عشان تشوف بيانات العربية وتسجل الدخول',
+                        LocaleKeys.qr_scan_instructions.tr(),
                         style: context.bodyMedium.copyWith(color: Colors.green, fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -836,7 +829,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                                             Icon(Icons.qr_code_scanner, color: Colors.white, size: 30),
                                             8.gap,
                                             Text(
-                                              'QR العميل',
+                                              LocaleKeys.qr_client_qr.tr(),
                                               style: context.bodySmall.copyWith(color: Colors.white),
                                               textAlign: TextAlign.center,
                                             ),
@@ -915,7 +908,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                   ),
                   8.gap,
                   Text(
-                    _isScanning ? 'جاهز لسكان QR العميل' : 'معالجة...',
+                    _isScanning ? LocaleKeys.qr_ready_to_scan.tr() : LocaleKeys.processing.tr(),
                     style: context.bodyMedium.copyWith(
                       color: _isScanning ? AppColors.primary : Colors.grey[600],
                       fontWeight: FontWeight.w500,
