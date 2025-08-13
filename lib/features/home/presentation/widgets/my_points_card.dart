@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:must_invest_service_man/config/routes/routes.dart';
+import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
@@ -46,10 +47,7 @@ class MyPointsCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: AppColors.borderColor,
-                        width: 1,
-                      ),
+                      border: Border.all(color: AppColors.borderColor, width: 1),
                       boxShadow: [
                         BoxShadow(
                           color: Color(0xff99ABC6).withValues(alpha: 0.2),
@@ -64,16 +62,11 @@ class MyPointsCard extends StatelessWidget {
                   12.gap,
                   Column(
                     children: [
-                      Text(
-                        LocaleKeys.my_points.tr(),
-                        style: context.bodyMedium.bold.s16,
-                      ),
+                      Text(LocaleKeys.my_points.tr(), style: context.bodyMedium.bold.s16),
                       4.gap,
                       Text(
                         "12000 ${LocaleKeys.point.tr()}",
-                        style: context.bodyMedium.s12.regular.copyWith(
-                          color: AppColors.greyAF,
-                        ),
+                        style: context.bodyMedium.s12.regular.copyWith(color: AppColors.greyAF),
                       ),
                     ],
                   ),
@@ -82,18 +75,9 @@ class MyPointsCard extends StatelessWidget {
 
               Row(
                 children: [
-                  Icon(
-                    Icons.arrow_drop_up_rounded,
-                    color: Colors.orange,
-                    size: 20,
-                  ),
+                  Icon(Icons.arrow_drop_up_rounded, color: Colors.orange, size: 20),
                   4.gap,
-                  Text(
-                    "+15%",
-                    style: context.bodyMedium.s14.copyWith(
-                      color: Colors.orange,
-                    ),
-                  ),
+                  Text("+15%", style: context.bodyMedium.s14.copyWith(color: Colors.orange)),
                 ],
               ),
             ],
@@ -130,12 +114,7 @@ class MyPointsCardMinimal extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         // border: Border.all(color: AppColors.primary, width: 1),
         boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withOpacity(0.2),
-            spreadRadius: 0,
-            blurRadius: 20,
-            offset: Offset(0, 4),
-          ),
+          BoxShadow(color: AppColors.primary.withOpacity(0.2), spreadRadius: 0, blurRadius: 20, offset: Offset(0, 4)),
         ],
       ),
       padding: const EdgeInsets.all(20),
@@ -163,16 +142,13 @@ class MyPointsCardMinimal extends StatelessWidget {
                   children: [
                     Text(
                       LocaleKeys.my_points.tr(),
-                      style: context.bodyMedium.s14.copyWith(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: context.bodyMedium.s14.copyWith(color: AppColors.primary, fontWeight: FontWeight.w500),
                     ),
                     4.gap,
                     Row(
                       children: [
                         Text(
-                          "12,000",
+                          context.user.points ?? '0',
                           style: context.bodyMedium.copyWith(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -180,22 +156,14 @@ class MyPointsCardMinimal extends StatelessWidget {
                           ),
                         ),
                         8.gap,
-                        Text(
-                          LocaleKeys.point.tr(),
-                          style: context.bodyMedium.s14.copyWith(
-                            color: AppColors.primary,
-                          ),
-                        ),
+                        Text(LocaleKeys.point.tr(), style: context.bodyMedium.s14.copyWith(color: AppColors.primary)),
                       ],
                     ),
                   ],
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: AppColors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
@@ -203,18 +171,11 @@ class MyPointsCardMinimal extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.arrow_upward,
-                      color: AppColors.primary,
-                      size: 14,
-                    ),
+                    Icon(Icons.arrow_upward, color: AppColors.primary, size: 14),
                     2.gap,
                     Text(
                       "15%",
-                      style: context.bodyMedium.s12.copyWith(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: context.bodyMedium.s12.copyWith(color: AppColors.primary, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -225,10 +186,7 @@ class MyPointsCardMinimal extends StatelessWidget {
           Container(
             width: double.infinity,
             height: 44,
-            decoration: BoxDecoration(
-              color: AppColors.primary,
-              borderRadius: BorderRadius.circular(12),
-            ),
+            decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(12)),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
@@ -237,10 +195,7 @@ class MyPointsCardMinimal extends StatelessWidget {
                 child: Center(
                   child: Text(
                     LocaleKeys.withdraw.tr(),
-                    style: context.bodyMedium.s14.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: context.bodyMedium.s14.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),

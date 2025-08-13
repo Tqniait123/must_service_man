@@ -345,10 +345,20 @@
   "qr_completed_at": "Completed at",
   "qr_back_to_home": "Back to Home",
 
-   
+
   "noNotificationsFound": "No notifications found",
 
-  "pullToRefresh": "Pull to refresh"
+  "pullToRefresh": "Pull to refresh",
+
+
+  "sending": "Sending...",
+  "points_must_be_number": "Points must be a valid number",
+  "points_must_be_positive": "Points must be positive",
+  "cash_required": "Cash amount is required",
+  "cash_must_be_number": "Cash must be a valid number",
+  "cash_must_be_positive": "Cash must be positive",
+  "note_required": "Note is required",
+  "note_too_short": "Note must be at least 10 characters"
 
 
 

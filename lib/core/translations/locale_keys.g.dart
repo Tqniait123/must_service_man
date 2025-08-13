@@ -329,5 +329,13 @@ abstract class  LocaleKeys {
   static const qr_back_to_home = 'qr_back_to_home';
   static const noNotificationsFound = 'noNotificationsFound';
   static const pullToRefresh = 'pullToRefresh';
+  static const sending = 'sending';
+  static const points_must_be_number = 'points_must_be_number';
+  static const points_must_be_positive = 'points_must_be_positive';
+  static const cash_required = 'cash_required';
+  static const cash_must_be_number = 'cash_must_be_number';
+  static const cash_must_be_positive = 'cash_must_be_positive';
+  static const note_required = 'note_required';
+  static const note_too_short = 'note_too_short';
 
 }

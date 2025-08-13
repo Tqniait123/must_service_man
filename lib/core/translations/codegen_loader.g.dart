@@ -343,7 +343,15 @@ class CodegenLoader extends AssetLoader{
   "qr_completed_at": "Completed at",
   "qr_back_to_home": "Back to Home",
   "noNotificationsFound": "No notifications found",
-  "pullToRefresh": "Pull to refresh"
+  "pullToRefresh": "Pull to refresh",
+  "sending": "Sending...",
+  "points_must_be_number": "Points must be a valid number",
+  "points_must_be_positive": "Points must be positive",
+  "cash_required": "Cash amount is required",
+  "cash_must_be_number": "Cash must be a valid number",
+  "cash_must_be_positive": "Cash must be positive",
+  "note_required": "Note is required",
+  "note_too_short": "Note must be at least 10 characters"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -674,7 +682,15 @@ static const Map<String,dynamic> _ar = {
   "qr_completed_at": "تم في",
   "qr_back_to_home": "العودة للرئيسية",
   "noNotificationsFound": "لا توجد إشعارات",
-  "pullToRefresh": "اسحب للتحديث"
+  "pullToRefresh": "اسحب للتحديث",
+  "sending": "جاري الإرسال...",
+  "points_must_be_number": "النقاط يجب أن تكون رقماً صحيحاً",
+  "points_must_be_positive": "النقاط يجب أن تكون موجبة",
+  "cash_required": "مبلغ النقد مطلوب",
+  "cash_must_be_number": "النقد يجب أن يكون رقماً صحيحاً",
+  "cash_must_be_positive": "النقد يجب أن يكون موجباً",
+  "note_required": "الملاحظة مطلوبة",
+  "note_too_short": "الملاحظة يجب أن تكون 10 أحرف على الأقل"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

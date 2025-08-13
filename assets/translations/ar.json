@@ -351,6 +351,16 @@
   "qr_back_to_home": "العودة للرئيسية",
 
   "noNotificationsFound": "لا توجد إشعارات",
-  "pullToRefresh": "اسحب للتحديث"
+  "pullToRefresh": "اسحب للتحديث",
+
+
+  "sending": "جاري الإرسال...",
+  "points_must_be_number": "النقاط يجب أن تكون رقماً صحيحاً",
+  "points_must_be_positive": "النقاط يجب أن تكون موجبة",
+  "cash_required": "مبلغ النقد مطلوب",
+  "cash_must_be_number": "النقد يجب أن يكون رقماً صحيحاً",
+  "cash_must_be_positive": "النقد يجب أن يكون موجباً",
+  "note_required": "الملاحظة مطلوبة",
+  "note_too_short": "الملاحظة يجب أن تكون 10 أحرف على الأقل"
 
 }
