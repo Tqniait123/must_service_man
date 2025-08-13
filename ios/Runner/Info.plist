@@ -47,5 +47,16 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+  <!-- Camera Permission for QR Code Scanning -->
+<key>NSCameraUsageDescription</key>
+<string>This app needs camera access to scan QR codes for parking management</string>
+
+<!-- Internet access for API calls -->
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+</dict>
 </dict>
 </plist>

@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
               if (state is AuthSuccess) {
                 UserCubit.get(context).setCurrentUser(state.user);
 
-                context.go(Routes.homeParkingMan);
+                context.go(Routes.homeUser);
               }
               if (state is AuthError) {
                 showErrorToast(context, state.message);
