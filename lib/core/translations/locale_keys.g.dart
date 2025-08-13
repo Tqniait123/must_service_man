@@ -327,5 +327,7 @@ abstract class  LocaleKeys {
   static const qr_successfully = 'qr_successfully';
   static const qr_completed_at = 'qr_completed_at';
   static const qr_back_to_home = 'qr_back_to_home';
+  static const noNotificationsFound = 'noNotificationsFound';
+  static const pullToRefresh = 'pullToRefresh';
 
 }

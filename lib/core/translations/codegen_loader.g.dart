@@ -341,7 +341,9 @@ class CodegenLoader extends AssetLoader{
   "qr_car_entry_success": "Car entry registered for",
   "qr_successfully": "successfully",
   "qr_completed_at": "Completed at",
-  "qr_back_to_home": "Back to Home"
+  "qr_back_to_home": "Back to Home",
+  "noNotificationsFound": "No notifications found",
+  "pullToRefresh": "Pull to refresh"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -670,7 +672,9 @@ static const Map<String,dynamic> _ar = {
   "qr_car_entry_success": "تم تسجيل دخول عربية",
   "qr_successfully": "بنجاح",
   "qr_completed_at": "تم في",
-  "qr_back_to_home": "العودة للرئيسية"
+  "qr_back_to_home": "العودة للرئيسية",
+  "noNotificationsFound": "لا توجد إشعارات",
+  "pullToRefresh": "اسحب للتحديث"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

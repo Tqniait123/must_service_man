@@ -27,4 +27,5 @@ class EndPoints {
   static const String contactUs = 'contact_info';
   static const String currentUsersInParking = 'current_users/parking';
   static String userDetails(int userId) => 'current_users/details/$userId';
+  static const String notifications = 'notifications';
 }

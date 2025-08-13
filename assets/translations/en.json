@@ -343,7 +343,12 @@
   "qr_car_entry_success": "Car entry registered for",
   "qr_successfully": "successfully",
   "qr_completed_at": "Completed at",
-  "qr_back_to_home": "Back to Home"
+  "qr_back_to_home": "Back to Home",
+
+   
+  "noNotificationsFound": "No notifications found",
+
+  "pullToRefresh": "Pull to refresh"
 
 
 

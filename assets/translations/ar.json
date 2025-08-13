@@ -348,6 +348,9 @@
   "qr_car_entry_success": "تم تسجيل دخول عربية",
   "qr_successfully": "بنجاح",
   "qr_completed_at": "تم في",
-  "qr_back_to_home": "العودة للرئيسية"
+  "qr_back_to_home": "العودة للرئيسية",
+
+  "noNotificationsFound": "لا توجد إشعارات",
+  "pullToRefresh": "اسحب للتحديث"
 
 }

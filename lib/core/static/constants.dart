@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:must_invest_service_man/features/auth/data/models/user.dart';
-import 'package:must_invest_service_man/features/notifications/data/models/notification_model.dart';
 
 class Constants {
   static const String photosPath = 'assets/images/';
@@ -29,19 +28,19 @@ class Constants {
     // 'https://medicareeg.com/wp-content/uploads/2022/08/%D9%85%D8%B9%D8%A7%D9%85%D9%84-%D8%A7%D9%84%D9%86%D9%8A%D9%84-%D9%84%D9%84%D8%A7%D8%B4%D8%B9%D8%A9-%D9%88%D8%A7%D9%84%D8%AA%D8%AD%D8%A7%D9%84%D9%8A%D9%84.png',
   ];
 
-  static List<NotificationModel> fakeNotifications = [
-    NotificationModel(id: '1', title: 'طلب سحب', description: 'سحب رصيد من المحفظة', date: '2025-05-07'),
-    NotificationModel(
-      id: '2',
-      title: 'إيداع رصيد',
-      description: 'تم شحن المحفظة عن طريق فودافون كاش',
+  // static List<NotificationModel> fakeNotifications = [
+  //   NotificationModel(id: '1', title: 'طلب سحب', description: 'سحب رصيد من المحفظة', date: '2025-05-07'),
+  //   NotificationModel(
+  //     id: '2',
+  //     title: 'إيداع رصيد',
+  //     description: 'تم شحن المحفظة عن طريق فودافون كاش',
 
-      date: '2025-05-06',
-    ),
-    NotificationModel(id: '3', title: 'طلب سحب', description: 'فشل في سحب الرصيد', date: '2025-05-05'),
-    NotificationModel(id: '4', title: 'إيداع رصيد', description: 'إيداع عن طريق البنك', date: '2025-05-04'),
-    NotificationModel(id: '5', title: 'طلب سحب', description: 'تم سحب الرصيد بنجاح', date: '2025-05-03'),
-  ];
+  //     date: '2025-05-06',
+  //   ),
+  //   NotificationModel(id: '3', title: 'طلب سحب', description: 'فشل في سحب الرصيد', date: '2025-05-05'),
+  //   NotificationModel(id: '4', title: 'إيداع رصيد', description: 'إيداع عن طريق البنك', date: '2025-05-04'),
+  //   NotificationModel(id: '5', title: 'طلب سحب', description: 'تم سحب الرصيد بنجاح', date: '2025-05-03'),
+  // ];
 
   static String placeholderProfileImage =
       'https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D';
