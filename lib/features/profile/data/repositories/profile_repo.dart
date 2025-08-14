@@ -1,12 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:must_invest_service_man/core/errors/app_error.dart';
 import 'package:must_invest_service_man/core/preferences/shared_pref.dart';
+import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 import 'package:must_invest_service_man/features/profile/data/datasources/profile_remote_data_source.dart';
 import 'package:must_invest_service_man/features/profile/data/models/about_us_model.dart';
 import 'package:must_invest_service_man/features/profile/data/models/contact_us_model.dart';
 import 'package:must_invest_service_man/features/profile/data/models/faq_model.dart';
 import 'package:must_invest_service_man/features/profile/data/models/privacy_policy_model.dart';
 import 'package:must_invest_service_man/features/profile/data/models/terms_and_conditions_model.dart';
+import 'package:must_invest_service_man/features/profile/data/models/update_profile_params.dart';
 
 abstract class PagesRepo {
   // Add your repository methods here
@@ -15,6 +17,8 @@ abstract class PagesRepo {
   Future<Either<AboutUsModel, AppError>> getAboutUs(String? lang);
   Future<Either<PrivacyPolicyModel, AppError>> getPrivacyPolicy(String? lang);
   Future<Either<ContactUsModel, AppError>> getContactUs(String? lang);
+  Future<Either<ParkingMan, AppError>> updateProfile(UpdateProfileParams params);
+
   // Future<Either<User, AppError>> updateProfile(UpdateProfileParams params);
   // Future<Either<void, AppError>> startParking(ParkingProcessModel params);
 }
@@ -94,6 +98,26 @@ class PagesRepoImpl implements PagesRepo {
     try {
       // final token = _localDataSource.getToken();
       final response = await _remoteDataSource.getAboutUs(lang);
+
+      if (response.isSuccess) {
+        return Left(response.data!);
+      } else {
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
+      }
+    } catch (e) {
+      return Right(AppError(message: e.toString(), type: ErrorType.unknown));
+    }
+  }
+
+  @override
+  Future<Either<ParkingMan, AppError>> updateProfile(UpdateProfileParams params) async {
+    try {
+      final token = _localDataSource.getToken();
+      if (token == null || token.isEmpty) {
+        return Right(AppError(message: 'No authentication token found', type: ErrorType.unknown));
+      }
+
+      final response = await _remoteDataSource.updateProfile(token, params);
 
       if (response.isSuccess) {
         return Left(response.data!);

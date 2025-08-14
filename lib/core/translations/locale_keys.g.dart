@@ -337,5 +337,7 @@ abstract class  LocaleKeys {
   static const cash_must_be_positive = 'cash_must_be_positive';
   static const note_required = 'note_required';
   static const note_too_short = 'note_too_short';
+  static const updating = 'updating';
+  static const name_required = 'name_required';
 
 }

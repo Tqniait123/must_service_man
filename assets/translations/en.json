@@ -358,7 +358,12 @@
   "cash_must_be_number": "Cash must be a valid number",
   "cash_must_be_positive": "Cash must be positive",
   "note_required": "Note is required",
-  "note_too_short": "Note must be at least 10 characters"
+  "note_too_short": "Note must be at least 10 characters",
+
+
+
+  "updating": "Updating...",
+  "name_required": "Name is required"
 
 
 

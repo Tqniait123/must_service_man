@@ -1,15 +1,18 @@
 import 'package:must_invest_service_man/core/api/dio_client.dart';
 import 'package:must_invest_service_man/core/api/end_points.dart';
 import 'package:must_invest_service_man/core/api/response/response.dart';
+import 'package:must_invest_service_man/core/extensions/token_to_authorization_options.dart';
+import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 import 'package:must_invest_service_man/features/profile/data/models/about_us_model.dart';
 import 'package:must_invest_service_man/features/profile/data/models/contact_us_model.dart';
 import 'package:must_invest_service_man/features/profile/data/models/faq_model.dart';
 import 'package:must_invest_service_man/features/profile/data/models/privacy_policy_model.dart';
 import 'package:must_invest_service_man/features/profile/data/models/terms_and_conditions_model.dart';
+import 'package:must_invest_service_man/features/profile/data/models/update_profile_params.dart';
 
 abstract class PagesRemoteDataSource {
   Future<ApiResponse<List<FAQModel>>> getFaq(String? lang);
-  // Future<ApiResponse<User>> updateProfile(String token, UpdateProfileParams params);
+  Future<ApiResponse<ParkingMan>> updateProfile(String token, UpdateProfileParams params);
   // Future<ApiResponse<void>> startParking(String token, ParkingProcessModel params);
   Future<ApiResponse<TermsAndConditionsModel>> getTermsAndConditions(String? lang);
   Future<ApiResponse<PrivacyPolicyModel>> getPrivacyPolicy(String? lang);
@@ -65,6 +68,19 @@ class PagesRemoteDataSourceImpl implements PagesRemoteDataSource {
       method: RequestMethod.get,
       EndPoints.aboutUs(lang ?? 'en'),
       fromJson: (json) => AboutUsModel.fromJson(json as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  Future<ApiResponse<ParkingMan>> updateProfile(String token, UpdateProfileParams params) async {
+    final formData = await params.toFormData();
+
+    return dioClient.request<ParkingMan>(
+      method: RequestMethod.post,
+      EndPoints.updateProfile,
+      data: formData,
+      options: token.toAuthorizationOptions(),
+      fromJson: (json) => ParkingMan.fromJson(json as Map<String, dynamic>),
     );
   }
 

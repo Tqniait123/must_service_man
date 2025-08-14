@@ -351,7 +351,9 @@ class CodegenLoader extends AssetLoader{
   "cash_must_be_number": "Cash must be a valid number",
   "cash_must_be_positive": "Cash must be positive",
   "note_required": "Note is required",
-  "note_too_short": "Note must be at least 10 characters"
+  "note_too_short": "Note must be at least 10 characters",
+  "updating": "Updating...",
+  "name_required": "Name is required"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -690,7 +692,9 @@ static const Map<String,dynamic> _ar = {
   "cash_must_be_number": "النقد يجب أن يكون رقماً صحيحاً",
   "cash_must_be_positive": "النقد يجب أن يكون موجباً",
   "note_required": "الملاحظة مطلوبة",
-  "note_too_short": "الملاحظة يجب أن تكون 10 أحرف على الأقل"
+  "note_too_short": "الملاحظة يجب أن تكون 10 أحرف على الأقل",
+  "updating": "جاري التحديث...",
+  "name_required": "الاسم مطلوب"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }
