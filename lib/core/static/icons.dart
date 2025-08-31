@@ -25,6 +25,7 @@ static const String qrCodeIc = '$_iconsPath/qr_code_ic.svg';
 static const String termsIc = '$_iconsPath/terms_ic.svg';
 static const String faqIc = '$_iconsPath/faq_ic.svg';
 static const String onBoarding2 = '$_iconsPath/on_boarding_2.svg';
+static const String languageIc = '$_iconsPath/language_ic.svg';
 static const String onBoarding1 = '$_iconsPath/on_boarding_1.svg';
 static const String eyeIc = '$_iconsPath/eye_ic.svg';
 static const String outlinedLocationIc = '$_iconsPath/outlined_location_ic.svg';
@@ -32,6 +33,7 @@ static const String faceIdIc = '$_iconsPath/face_id_ic.svg';
 static const String carIc = '$_iconsPath/car_ic.svg';
 static const String notificationLabelIc = '$_iconsPath/notification_label_ic.svg';
 static const String arrowIc = '$_iconsPath/arrow_ic.svg';
+static const String clipper = '$_iconsPath/clipper.svg';
 static const String notificationsIc = '$_iconsPath/notifications_ic.svg';
 static const String outlinedCarIcsvg = '$_iconsPath/outlined_car_icsvg.svg';
 }

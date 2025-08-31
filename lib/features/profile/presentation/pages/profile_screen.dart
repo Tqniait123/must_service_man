@@ -139,7 +139,13 @@ class ProfileScreen extends StatelessWidget {
               context.push(Routes.aboutUs);
             },
           ),
-          ProfileItemWidget(title: LocaleKeys.settings.tr(), iconPath: AppIcons.settingsIc, onPressed: () {}),
+          ProfileItemWidget(
+            title: LocaleKeys.settings.tr(),
+            iconPath: AppIcons.settingsIc,
+            onPressed: () {
+              context.push(Routes.settings);
+            },
+          ),
           ProfileItemWidget(
             title: LocaleKeys.complete_switch_label.tr(),
             iconPath: AppIcons.editIc,

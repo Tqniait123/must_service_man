@@ -21,9 +21,9 @@ class EndPoints {
   static const String parking = 'parking';
   static const String parkingInUserCity = 'parking_in_user_city';
   static const String faqs = 'faqs';
-  static String aboutUs(String lang) => 'about_us/$lang';
-  static String terms(String lang) => 'terms/$lang';
-  static String privacyPolicy(String lang) => 'privacy_policy/$lang';
+  static String aboutUs(String lang) => 'about_us';
+  static String terms(String lang) => 'terms';
+  static String privacyPolicy(String lang) => 'privacy_policy';
   static const String contactUs = 'contact_info';
   static const String currentUsersInParking = 'current_users/parking';
   static String userDetails(int userId) => 'current_users/details/$userId';

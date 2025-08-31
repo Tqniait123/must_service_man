@@ -39,6 +39,7 @@ import 'package:must_invest_service_man/features/profile/presentation/pages/my_q
 import 'package:must_invest_service_man/features/profile/presentation/pages/privacy_policy_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/profile_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/scan_qr_code_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/settings_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/terms_and_conditions_screen.dart';
 import 'package:must_invest_service_man/features/splash/presentation/pages/splash.dart';
 
@@ -273,6 +274,13 @@ class AppRouter {
         builder: (context, state) {
           // Return the AboutUsScreen widget
           return BlocProvider(create: (BuildContext context) => PagesCubit(sl()), child: AboutUsScreen());
+        },
+      ),
+      GoRoute(
+        path: Routes.settings,
+        builder: (context, state) {
+          // Return the SettingsScreen widget
+          return SettingsScreen();
         },
       ),
     ],

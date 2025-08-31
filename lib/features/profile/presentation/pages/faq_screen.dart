@@ -17,7 +17,7 @@ class _FAQScreenState extends State<FAQScreen> with TickerProviderStateMixin {
   final TextEditingController _searchController = TextEditingController();
   List<FAQModel> _filteredFaqs = [];
   List<FAQModel> _allFaqs = [];
-  bool _isSearching = false;
+  final bool _isSearching = false;
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
 
@@ -82,7 +82,7 @@ class _FAQScreenState extends State<FAQScreen> with TickerProviderStateMixin {
           ),
         ],
       ),
-      floatingActionButton: _buildFloatingActionButton(),
+      // floatingActionButton: _buildFloatingActionButton(),
     );
   }
 
@@ -131,19 +131,19 @@ class _FAQScreenState extends State<FAQScreen> with TickerProviderStateMixin {
         icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         onPressed: () => Navigator.pop(context),
       ),
-      actions: [
-        IconButton(
-          icon: Icon(_isSearching ? Icons.close : Icons.search, color: Colors.white),
-          onPressed: () {
-            setState(() {
-              _isSearching = !_isSearching;
-              if (!_isSearching) {
-                _searchController.clear();
-              }
-            });
-          },
-        ),
-      ],
+      // actions: [
+      //   IconButton(
+      //     icon: Icon(_isSearching ? Icons.close : Icons.search, color: Colors.white),
+      //     onPressed: () {
+      //       setState(() {
+      //         _isSearching = !_isSearching;
+      //         if (!_isSearching) {
+      //           _searchController.clear();
+      //         }
+      //       });
+      //     },
+      //   ),
+      // ],
     );
   }
 
