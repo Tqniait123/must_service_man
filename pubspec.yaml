@@ -68,6 +68,7 @@ dependencies:
   lottie: ^3.3.1
   shared_preferences: ^2.5.3
   flutter_html: ^3.0.0
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
@@ -158,3 +159,11 @@ flutter:
         - asset: assets/fonts/Poppins/Poppins-BlackItalic.ttf
           weight: 900
           style: italic
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/photos/logo.png"
+  remove_alpha_ios: true # Removes alpha channel for iOS icons
+  adaptive_icon_background: "#ffffff" # Background color for adaptive icons
+  adaptive_icon_foreground: "assets/images/photos/logo.png" # Foreground image for adaptive icons
