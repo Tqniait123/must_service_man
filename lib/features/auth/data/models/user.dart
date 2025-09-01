@@ -130,7 +130,7 @@ class ParkingMan extends AppUser {
       id: json['id'],
       name: json['name'],
       email: json['email'],
-      photo: json['photo'],
+      photo: json['image'],
       address: json['address'],
       isOnline: json['is_online'],
       phoneNumber: json['phone_number'],

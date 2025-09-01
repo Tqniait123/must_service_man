@@ -5,7 +5,6 @@ import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
-import 'package:must_invest_service_man/core/static/constants.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
@@ -50,42 +49,38 @@ class ProfileScreen extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      CircleAvatar(radius: 43, backgroundImage: NetworkImage(Constants.placeholderProfileImage)),
-                      24.gap,
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              LocaleKeys.welcome.tr(),
-                              style: context.bodyMedium.copyWith(
-                                color: AppColors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                      if (context.isLoggedIn) ...[
+                        if (context.user.photo != null && context.user.photo!.isNotEmpty)
+                          CircleAvatar(radius: 43, backgroundImage: NetworkImage(context.user.photo ?? '')),
+                        24.gap,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                LocaleKeys.welcome.tr(),
+                                style: context.bodyMedium.copyWith(
+                                  color: AppColors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            8.gap,
-                            Text(
-                              context.user.name,
-                              style: context.titleLarge.copyWith(
-                                color: AppColors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
+                              8.gap,
+                              Text(
+                                context.user.name,
+                                style: context.titleLarge.copyWith(
+                                  color: AppColors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
+                      ],
                     ],
                   ),
                 ),
-                // CustomIconButton(
-                //   color: Color(0xff6468AC),
-                //   iconAsset: AppIcons.logout,
-                //   onPressed: () {
-                //     context.go(Routes.login);
-                //   },
-                // ).flippedForLocale(context),
               ],
             ),
           ],
