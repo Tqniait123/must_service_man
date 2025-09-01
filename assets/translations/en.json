@@ -1178,8 +1178,23 @@
   "unknown": "Unknown",
   "plate_number": "Plate Number:",
   "inside_from": "Inside from:",
-  "vehicle": "Vehicle:"
+  "vehicle": "Vehicle:",
 
+  "currently_inside": "Currently Inside",
+  "parking_details": "Parking Details", 
+  "parking_facility_name": "Facility Name",
+  "entry_time": "Entry Time",
+  "parking_fee": "Parking Fee",
+  "entrance_gate": "Entrance Gate",
+  "duration_time": "Duration",
+  "reward_points": "Reward Points",
+  "gate_access_information": "Gate Access Information",
+  "entry_gate": "Entry Gate",
+  "exit_gate": "Exit Gate", 
+  "pending_exit": "Pending Exit",
+  "active_gate": "Active",
+  "standby_mode": "Standby",
+  "gate_system_note": "Gate system automatically manages entry and exit based on parking session status."
 
 
 

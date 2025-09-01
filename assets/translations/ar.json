@@ -1180,7 +1180,23 @@
   "unknown": "غير معروف",
   "plate_number": "رقم اللوحة:",
   "inside_from": "داخل منذ:",
-  "vehicle": "المركبة:"
+  "vehicle": "المركبة:",
+
+  "currently_inside": "موجود حالياً",
+  "parking_details": "تفاصيل الموقف",
+  "parking_facility_name": "اسم المنشأة", 
+  "entry_time": "وقت الدخول",
+  "parking_fee": "رسوم الموقف",
+  "entrance_gate": "بوابة الدخول",
+  "duration_time": "المدة الزمنية", 
+  "reward_points": "نقاط المكافآت",
+  "gate_access_information": "معلومات الوصول للبوابات",
+  "entry_gate": "بوابة الدخول",
+  "exit_gate": "بوابة الخروج",
+  "pending_exit": "في انتظار الخروج", 
+  "active_gate": "نشط",
+  "standby_mode": "وضع الاستعداد",
+  "gate_system_note": "نظام البوابات يدير الدخول والخروج تلقائياً حسب حالة جلسة الموقف."
 
 
 }

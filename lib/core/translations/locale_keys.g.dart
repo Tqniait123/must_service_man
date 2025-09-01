@@ -1117,5 +1117,17 @@ abstract class  LocaleKeys {
   static const plate_number = 'plate_number';
   static const inside_from = 'inside_from';
   static const vehicle = 'vehicle';
+  static const currently_inside = 'currently_inside';
+  static const parking_details = 'parking_details';
+  static const parking_facility_name = 'parking_facility_name';
+  static const entry_time = 'entry_time';
+  static const parking_fee = 'parking_fee';
+  static const duration_time = 'duration_time';
+  static const reward_points = 'reward_points';
+  static const gate_access_information = 'gate_access_information';
+  static const pending_exit = 'pending_exit';
+  static const active_gate = 'active_gate';
+  static const standby_mode = 'standby_mode';
+  static const gate_system_note = 'gate_system_note';
 
 }

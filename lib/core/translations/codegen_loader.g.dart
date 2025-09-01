@@ -1131,7 +1131,19 @@ class CodegenLoader extends AssetLoader{
   "unknown": "Unknown",
   "plate_number": "Plate Number:",
   "inside_from": "Inside from:",
-  "vehicle": "Vehicle:"
+  "vehicle": "Vehicle:",
+  "currently_inside": "Currently Inside",
+  "parking_details": "Parking Details",
+  "parking_facility_name": "Facility Name",
+  "entry_time": "Entry Time",
+  "parking_fee": "Parking Fee",
+  "duration_time": "Duration",
+  "reward_points": "Reward Points",
+  "gate_access_information": "Gate Access Information",
+  "pending_exit": "Pending Exit",
+  "active_gate": "Active",
+  "standby_mode": "Standby",
+  "gate_system_note": "Gate system automatically manages entry and exit based on parking session status."
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -2250,7 +2262,19 @@ static const Map<String,dynamic> _ar = {
   "unknown": "غير معروف",
   "plate_number": "رقم اللوحة:",
   "inside_from": "داخل منذ:",
-  "vehicle": "المركبة:"
+  "vehicle": "المركبة:",
+  "currently_inside": "موجود حالياً",
+  "parking_details": "تفاصيل الموقف",
+  "parking_facility_name": "اسم المنشأة",
+  "entry_time": "وقت الدخول",
+  "parking_fee": "رسوم الموقف",
+  "duration_time": "المدة الزمنية",
+  "reward_points": "نقاط المكافآت",
+  "gate_access_information": "معلومات الوصول للبوابات",
+  "pending_exit": "في انتظار الخروج",
+  "active_gate": "نشط",
+  "standby_mode": "وضع الاستعداد",
+  "gate_system_note": "نظام البوابات يدير الدخول والخروج تلقائياً حسب حالة جلسة الموقف."
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }
