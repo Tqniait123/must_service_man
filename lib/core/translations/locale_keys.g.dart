@@ -1103,5 +1103,8 @@ abstract class  LocaleKeys {
   static const phone_format_south_georgia_south_sandwich = 'phone_format_south_georgia_south_sandwich';
   static const phone_format_us_minor_outlying_islands = 'phone_format_us_minor_outlying_islands';
   static const phone_format_saint_pierre_miquelon = 'phone_format_saint_pierre_miquelon';
+  static const current_users = 'current_users';
+  static const users_of_day = 'users_of_day';
+  static const old_users = 'old_users';
 
 }

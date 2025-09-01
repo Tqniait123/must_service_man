@@ -26,9 +26,10 @@ class _NewListScreenState extends State<NewListScreen> {
   int _selectedFilterId = 1;
 
   final List<Map<String, dynamic>> _filters = [
-    {'id': 2, 'title': LocaleKeys.new_title.tr()},
-    {'id': 3, 'title': LocaleKeys.current.tr()},
-    {'id': 4, 'title': LocaleKeys.last.tr()},
+    {'id': 1, 'title': LocaleKeys.all.tr()},
+    {'id': 2, 'title': LocaleKeys.current_users.tr()},
+    {'id': 3, 'title': LocaleKeys.users_of_day.tr()},
+    {'id': 4, 'title': LocaleKeys.old_users.tr()},
   ];
 
   @override

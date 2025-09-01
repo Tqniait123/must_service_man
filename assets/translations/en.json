@@ -1158,10 +1158,15 @@
   "phone_format_bouvet_island": "XX XXXXXX",
   "phone_format_south_georgia_south_sandwich": "X XXXX",
   "phone_format_us_minor_outlying_islands": "XXX XXX XXXX",
-  "phone_format_saint_pierre_miquelon": "XX XXXX"
+  "phone_format_saint_pierre_miquelon": "XX XXXX",
+
+  "current_users": "Current Users",
+  "users_of_day": "Users of Day",
+  "old_users": "Old Users"
 
 
 
 
 
 }
+

@@ -1117,7 +1117,10 @@ class CodegenLoader extends AssetLoader{
   "phone_format_bouvet_island": "XX XXXXXX",
   "phone_format_south_georgia_south_sandwich": "X XXXX",
   "phone_format_us_minor_outlying_islands": "XXX XXX XXXX",
-  "phone_format_saint_pierre_miquelon": "XX XXXX"
+  "phone_format_saint_pierre_miquelon": "XX XXXX",
+  "current_users": "Current Users",
+  "users_of_day": "Users of Day",
+  "old_users": "Old Users"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -2222,7 +2225,10 @@ static const Map<String,dynamic> _ar = {
   "phone_format_bouvet_island": "XX XXXXXX",
   "phone_format_south_georgia_south_sandwich": "X XXXX",
   "phone_format_us_minor_outlying_islands": "XXX XXX XXXX",
-  "phone_format_saint_pierre_miquelon": "XX XXXX"
+  "phone_format_saint_pierre_miquelon": "XX XXXX",
+  "current_users": "المستخدمون الحاليون",
+  "users_of_day": "مستخدمو اليوم",
+  "old_users": "المستخدمون السابقون"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }
