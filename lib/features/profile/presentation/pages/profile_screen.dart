@@ -105,7 +105,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           ProfileItemWidget(
             title: LocaleKeys.privacy_policy.tr(),
-            iconPath: AppIcons.termsIc,
+            iconPath: AppIcons.privacyPolicyIc,
             onPressed: () {
               context.push(Routes.privacyPolicy);
             },
@@ -126,7 +126,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           ProfileItemWidget(
             title: LocaleKeys.about_us.tr(),
-            iconPath: AppIcons.termsIc,
+            iconPath: AppIcons.aboutUsIc,
             onPressed: () {
               context.push(Routes.aboutUs);
             },
