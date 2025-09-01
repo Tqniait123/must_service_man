@@ -1120,7 +1120,18 @@ class CodegenLoader extends AssetLoader{
   "phone_format_saint_pierre_miquelon": "XX XXXX",
   "current_users": "Current Users",
   "users_of_day": "Users of Day",
-  "old_users": "Old Users"
+  "old_users": "Old Users",
+  "parking_capacity": "Parking Capacity",
+  "occupancy_rate": "Occupancy Rate",
+  "current_parking_users": "Current Parking Users",
+  "failed_to_load_users": "Failed to load users",
+  "manage_parking_users_efficiently": "Manage parking users efficiently",
+  "search_for_current_customers_in_parking": "Search for current customers in parking...",
+  "unknown_user": "Unknown User",
+  "unknown": "Unknown",
+  "plate_number": "Plate Number:",
+  "inside_from": "Inside from:",
+  "vehicle": "Vehicle:"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -1400,7 +1411,7 @@ static const Map<String,dynamic> _ar = {
   "failed_to_load_parking_users": "فشل في تحميل مستخدمي الموقف",
   "retry": "إعادة المحاولة",
   "no_results_found": "لم يتم العثور على نتائج",
-  "try_adjusting_search_terms": "حاول تعديل مصطلحات البحث",
+  "try_adjusting_search_terms": "جرب تعديل مصطلحات البحث",
   "no_users_currently_in_parking": "لا يوجد مستخدمون حالياً في الموقف",
   "users_will_appear_when_enter": "سيظهر المستخدمون هنا عند دخولهم",
   "city": "المدينة",
@@ -2228,7 +2239,18 @@ static const Map<String,dynamic> _ar = {
   "phone_format_saint_pierre_miquelon": "XX XXXX",
   "current_users": "المستخدمون الحاليون",
   "users_of_day": "مستخدمو اليوم",
-  "old_users": "المستخدمون السابقون"
+  "old_users": "المستخدمون السابقون",
+  "parking_capacity": "سعة الموقف",
+  "occupancy_rate": "معدل الإشغال",
+  "current_parking_users": "المستخدمون الحاليون في الموقف",
+  "failed_to_load_users": "فشل في تحميل المستخدمين",
+  "manage_parking_users_efficiently": "إدارة مستخدمي الموقف بكفاءة",
+  "search_for_current_customers_in_parking": "البحث عن العملاء الحاليين في الموقف...",
+  "unknown_user": "مستخدم غير معروف",
+  "unknown": "غير معروف",
+  "plate_number": "رقم اللوحة:",
+  "inside_from": "داخل منذ:",
+  "vehicle": "المركبة:"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

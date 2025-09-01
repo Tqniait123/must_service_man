@@ -10,6 +10,7 @@ static const String supportIc = '$_iconsPath/support_ic.svg';
 static const String checkMailIllu = '$_iconsPath/check_mail_illu.svg';
 static const String termsIcCopy = '$_iconsPath/terms_ic copy.svg';
 static const String historyIc = '$_iconsPath/history_ic.svg';
+static const String menuIc = '$_iconsPath/menu_ic.svg';
 static const String settingsIc = '$_iconsPath/settings_ic.svg';
 static const String outlinedClockIc = '$_iconsPath/outlined_clock_ic.svg';
 static const String currentLocationIc = '$_iconsPath/current_location_ic.svg';

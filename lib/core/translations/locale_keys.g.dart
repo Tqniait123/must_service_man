@@ -1106,5 +1106,16 @@ abstract class  LocaleKeys {
   static const current_users = 'current_users';
   static const users_of_day = 'users_of_day';
   static const old_users = 'old_users';
+  static const parking_capacity = 'parking_capacity';
+  static const occupancy_rate = 'occupancy_rate';
+  static const current_parking_users = 'current_parking_users';
+  static const failed_to_load_users = 'failed_to_load_users';
+  static const manage_parking_users_efficiently = 'manage_parking_users_efficiently';
+  static const search_for_current_customers_in_parking = 'search_for_current_customers_in_parking';
+  static const unknown_user = 'unknown_user';
+  static const unknown = 'unknown';
+  static const plate_number = 'plate_number';
+  static const inside_from = 'inside_from';
+  static const vehicle = 'vehicle';
 
 }

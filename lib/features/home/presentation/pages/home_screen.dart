@@ -86,6 +86,66 @@ class _HomeParkingManState extends State<HomeParkingMan> {
         scrollPhysics: const NeverScrollableScrollPhysics(),
         children: [
           32.gap,
+
+          // Capacity Information Row
+          BlocBuilder<HomeCubit, HomeState>(
+            buildWhen:
+                (previous, current) =>
+                    current is CurrentUsersSuccess || current is CurrentUsersLoading || current is CurrentUsersError,
+            builder: (context, state) {
+              int currentCount = 0;
+              int totalCapacity = 100; // Default capacity - you may need to get this from API
+              if (state is CurrentUsersSuccess) {
+                currentCount = state.userListResponse.count;
+              }
+              return Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          LocaleKeys.parking_capacity.tr(),
+                          style: context.bodyMedium.regular.s14.copyWith(
+                            color: AppColors.primary.withValues(alpha: 0.7),
+                          ),
+                        ),
+                        4.gap,
+                        Text(
+                          "$currentCount / $totalCapacity",
+                          style: context.bodyMedium.bold.s20.copyWith(color: AppColors.primary),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          LocaleKeys.occupancy_rate.tr(),
+                          style: context.bodyMedium.regular.s14.copyWith(
+                            color: AppColors.primary.withValues(alpha: 0.7),
+                          ),
+                        ),
+                        4.gap,
+                        Text(
+                          "${totalCapacity > 0 ? ((currentCount / totalCapacity) * 100).toInt() : 0}%",
+                          style: context.bodyMedium.bold.s20.copyWith(color: AppColors.primary),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+          24.gap,
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -96,16 +156,16 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                         current is CurrentUsersLoading ||
                         current is CurrentUsersError,
                 builder: (context, state) {
-                  String countText = LocaleKeys.new_list.tr();
+                  String countText = LocaleKeys.current_parking_users.tr();
                   if (state is CurrentUsersSuccess) {
-                    countText = "${LocaleKeys.new_list.tr()} (${state.userListResponse.count})";
+                    countText = "${LocaleKeys.current_parking_users.tr()} (${state.userListResponse.count})";
                   }
-                  return Text(countText, style: context.bodyMedium.bold.s16.copyWith(color: AppColors.primary));
+                  return Text(countText, style: context.bodyMedium.bold.s12.copyWith(color: AppColors.primary));
                 },
               ),
               Text(
                 LocaleKeys.see_more.tr(),
-                style: context.bodyMedium.regular.s14.copyWith(color: AppColors.primary.withValues(alpha: 0.5)),
+                style: context.bodyMedium.regular.s12.copyWith(color: AppColors.primary.withValues(alpha: 0.5)),
               ).withPressEffect(
                 onTap: () {
                   context.push(Routes.newList);
@@ -153,7 +213,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                         Icon(Icons.error_outline, size: 64, color: Colors.grey[400]),
                         16.gap,
                         Text(
-                          'Failed to load  users',
+                          LocaleKeys.failed_to_load_users.tr(),
                           style: context.bodyMedium.regular.s16.copyWith(color: Colors.grey[600]),
                         ),
                         8.gap,

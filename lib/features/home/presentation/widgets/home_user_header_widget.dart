@@ -14,13 +14,10 @@ import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_b
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
 import 'package:must_invest_service_man/core/utils/widgets/long_press_effect.dart';
-import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 
 class UserHomeHeaderWidget extends StatelessWidget {
-  const UserHomeHeaderWidget({
-    super.key,
-    required TextEditingController searchController,
-  }) : _searchController = searchController;
+  const UserHomeHeaderWidget({super.key, required TextEditingController searchController})
+    : _searchController = searchController;
 
   final TextEditingController _searchController;
 
@@ -33,25 +30,42 @@ class UserHomeHeaderWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Column(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    LocaleKeys.hola_name.tr(
-                      namedArgs: {"name": context.user.name},
-                    ),
-                    style: context.bodyMedium.s24.bold.copyWith(
-                      color: AppColors.white,
-                    ),
-                  ).withPressEffect(
-                    onTap: () {
+                  // Burger Menu Button (similar to user app)
+                  CustomIconButton(
+                    iconAsset: AppIcons.menuIc,
+                    iconColor: AppColors.white,
+                    color: Color(0xff6468AC),
+                    onPressed: () {
                       context.push(Routes.profile);
+                      // close opened keyboard first
+                      // FocusManager.instance.primaryFocus?.unfocus();
+                      // Future.delayed(Duration(milliseconds: 500), () {
+                      // });
                     },
                   ),
-                  10.gap,
-                  Text(
-                    LocaleKeys.find_an_easy_parking_spot.tr(),
-                    style: context.bodyMedium.s16.regular.copyWith(
-                      color: AppColors.white.withValues(alpha: 0.5),
+                  15.gap,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          LocaleKeys.hola_name.tr(namedArgs: {"name": context.user.name}),
+                          style: context.bodyMedium.s24.bold.copyWith(color: AppColors.white),
+                        ).withPressEffect(
+                          onTap: () {
+                            context.push(Routes.profile);
+                          },
+                        ),
+                        10.gap,
+                        Text(
+                          LocaleKeys.manage_parking_users_efficiently.tr(),
+                          style: context.bodyMedium.s16.regular.copyWith(color: AppColors.white.withValues(alpha: 0.5)),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -60,25 +74,25 @@ class UserHomeHeaderWidget extends StatelessWidget {
             15.gap,
             Row(
               children: [
-                CustomIconButton(
-                  color: Color(0xff6468AC),
-                  iconColor: AppColors.white,
-                  iconAsset: AppIcons.qrCodeIc,
-                  onPressed: () {
-                    context.push(Routes.myQrcode);
-                  },
-                ),
-                10.gap,
-                context.user.type == UserType.parkingMan
-                    ? CustomIconButton(
-                      iconAsset: AppIcons.cameraIc,
-                      color: Color(0xff6468AC),
-                      onPressed: () {
-                        context.push(Routes.scanQr);
-                      },
-                    )
-                    : SizedBox.shrink(),
-                10.gap,
+                // CustomIconButton(
+                //   color: Color(0xff6468AC),
+                //   iconColor: AppColors.white,
+                //   iconAsset: AppIcons.qrCodeIc,
+                //   onPressed: () {
+                //     context.push(Routes.myQrcode);
+                //   },
+                // ),
+                // 10.gap,
+                // context.user.type == UserType.parkingMan
+                //     ? CustomIconButton(
+                //       iconAsset: AppIcons.cameraIc,
+                //       color: Color(0xff6468AC),
+                //       onPressed: () {
+                //         context.push(Routes.scanQr);
+                //       },
+                //     )
+                //     : SizedBox.shrink(),
+                // 10.gap,
                 NotificationsButton(),
               ],
             ),
@@ -89,30 +103,31 @@ class UserHomeHeaderWidget extends StatelessWidget {
           controller: _searchController,
           backgroundColor: Color(0xff6468AC),
           isBordered: false,
+          styleColor: AppColors.white,
           margin: 0,
           prefixIC: AppIcons.searchIc.icon(),
-          hint: LocaleKeys.search.tr(),
-          suffixIC:
-              context.user.type == UserType.parkingMan
-                  ? null
-                  : Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CustomIconButton(
-                        iconAsset: AppIcons.cameraIc,
-                        color: AppColors.primary,
-                        onPressed: () {},
-                      ),
-                      6.gap,
-                      CustomIconButton(
-                        iconAsset: AppIcons.qrCodeIc,
-                        color: AppColors.primary,
-                        onPressed: () {
-                          context.push(Routes.scanQr);
-                        },
-                      ),
-                    ],
-                  ),
+          hint: LocaleKeys.search_for_current_customers_in_parking.tr(),
+          waitTyping: true,
+          suffixIC: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CustomIconButton(
+                iconAsset: AppIcons.cameraIc,
+                color: AppColors.primary,
+                onPressed: () {
+                  context.push(Routes.scanQr);
+                },
+              ),
+              6.gap,
+              CustomIconButton(
+                iconAsset: AppIcons.qrCodeIc,
+                color: AppColors.primary,
+                onPressed: () {
+                  context.push(Routes.myQrcode);
+                },
+              ),
+            ],
+          ),
         ),
       ],
     );
