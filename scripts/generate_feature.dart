@@ -37,8 +37,7 @@ String _capitalize(String text) {
 }
 
 void _generateRemoteDataSource(String basePath, String featureName, String featureNameCapitalized) {
-  String content =
-      '''
+  String content = '''
 import '../../../core/network/dio_client.dart';
 
 abstract class ${featureNameCapitalized}RemoteDataSource {
@@ -59,8 +58,7 @@ class ${featureNameCapitalized}RemoteDataSourceImpl implements ${featureNameCapi
 }
 
 void _generateRepository(String basePath, String featureName, String featureNameCapitalized) {
-  String content =
-      '''
+  String content = '''
 import '../../../core/preferences/must_invest_preferences.dart';
 import '../datasources/${featureName}_remote_data_source.dart';
 
@@ -70,7 +68,7 @@ abstract class ${featureNameCapitalized}Repo {
 
 class ${featureNameCapitalized}RepoImpl implements ${featureNameCapitalized}Repo {
   final ${featureNameCapitalized}RemoteDataSource _remoteDataSource;
-  final ArenaXPreferences _localDataSource;
+  final MustInvestPreferences _localDataSource;
 
   ${featureNameCapitalized}RepoImpl(this._remoteDataSource, this._localDataSource);
 
@@ -83,8 +81,7 @@ class ${featureNameCapitalized}RepoImpl implements ${featureNameCapitalized}Repo
 }
 
 void _generateCubit(String basePath, String featureName, String featureNameCapitalized) {
-  String content =
-      '''
+  String content = '''
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../data/repositories/${featureName}_repo.dart';
@@ -103,8 +100,7 @@ class ${featureNameCapitalized}Cubit extends Cubit<${featureNameCapitalized}Stat
 }
 
 void _generateStates(String basePath, String featureName, String featureNameCapitalized) {
-  String content =
-      '''
+  String content = '''
 import 'package:equatable/equatable.dart';
 
 abstract class ${featureNameCapitalized}State extends Equatable {
