@@ -10,7 +10,7 @@
         android:required="true" />
 
     <application
-        android:label="must_invest_service_man"
+        android:label="BlyncPay Service Man"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
