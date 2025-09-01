@@ -29,6 +29,7 @@ abstract class AuthRemoteDataSource {
   Future<ApiResponse<List<Country>>> getCountries();
   Future<ApiResponse<List<Governorate>>> getGovernorates(int countryId);
   Future<ApiResponse<List<City>>> getCities(int governorateId);
+  Future<ApiResponse<void>> deleteAccount(String token);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -53,7 +54,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       method: RequestMethod.get,
       EndPoints.autoLogin,
       options: token.toAuthorizationOptions(),
-      fromJson: (json) => ParkingMan  .fromJson(json as Map<String, dynamic>),
+      fromJson: (json) => ParkingMan.fromJson(json as Map<String, dynamic>),
     );
   }
 
@@ -291,6 +292,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       method: RequestMethod.post,
       EndPoints.verifyPasswordReset,
       data: params.toJson(),
+      fromJson: (json) => (),
+    );
+  }
+
+  @override
+  Future<ApiResponse<void>> deleteAccount(String token) {
+    return dioClient.request<void>(
+      method: RequestMethod.get,
+      EndPoints.deleteAccount,
+      options: token.toAuthorizationOptions(),
       fromJson: (json) => (),
     );
   }

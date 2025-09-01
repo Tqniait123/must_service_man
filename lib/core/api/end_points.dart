@@ -30,4 +30,5 @@ class EndPoints {
   static const String notifications = 'notifications';
   static const String walletWithdraw = 'wallet_withdraw';
   static const String updateProfile = 'update_profile';
+  static const String deleteAccount = 'delete_account';
 }

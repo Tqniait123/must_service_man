@@ -73,3 +73,22 @@ class ResendOTPError extends AuthState {
 }
 
 // class ResetPasswordSuccess extends AuthState {}
+
+class DeleteAccountLoading extends AuthState {}
+
+class DeleteAccountSuccess extends AuthState {}
+
+class DeleteAccountError extends AuthState {
+  final String message;
+
+  const DeleteAccountError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class AuthUnverified extends AuthState {
+  final String message;
+
+  const AuthUnverified(this.message);
+}

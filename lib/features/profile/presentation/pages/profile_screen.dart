@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:must_invest_service_man/config/routes/routes.dart';
-import 'package:must_invest_service_man/core/extensions/flipped_for_lcale.dart';
 import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
@@ -10,11 +9,10 @@ import 'package:must_invest_service_man/core/static/constants.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
+import 'package:must_invest_service_man/core/utils/dialogs/logout_sheet.dart';
 import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custom_layout.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
-import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
-import 'package:must_invest_service_man/features/home/presentation/widgets/my_points_card.dart';
 import 'package:must_invest_service_man/features/profile/presentation/widgets/profile_item_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -27,15 +25,14 @@ class ProfileScreen extends StatelessWidget {
       body: CustomLayout(
         withPadding: true,
         patternOffset: const Offset(-150, -200),
-        // spacerHeight: 200,
-        topPadding: 70,
 
+        spacerHeight: 50,
+        // topPadding: 70,
         contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-        stackedWidgetHeight: 180,
-        stackedWidgetOverlap: 0.3,
+        // stackedWidgetHeight: 180,
+        // stackedWidgetOverlap: 0.3,
 
-        stackedWidget: MyPointsCardMinimal(),
-
+        // stackedWidget: MyPointsCardMinimal(),
         upperContent: Column(
           children: [
             Row(
@@ -82,13 +79,13 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                CustomIconButton(
-                  color: Color(0xff6468AC),
-                  iconAsset: AppIcons.logout,
-                  onPressed: () {
-                    context.go(Routes.login);
-                  },
-                ).flippedForLocale(context),
+                // CustomIconButton(
+                //   color: Color(0xff6468AC),
+                //   iconAsset: AppIcons.logout,
+                //   onPressed: () {
+                //     context.go(Routes.login);
+                //   },
+                // ).flippedForLocale(context),
               ],
             ),
           ],
@@ -146,15 +143,42 @@ class ProfileScreen extends StatelessWidget {
               context.push(Routes.settings);
             },
           ),
-          ProfileItemWidget(
-            title: LocaleKeys.complete_switch_label.tr(),
-            iconPath: AppIcons.editIc,
-            trailing: Switch.adaptive(
-              value: currentState != SituationStatus.notComplete,
-              activeColor: currentState == SituationStatus.completed ? AppColors.primary : Colors.orange,
-              onChanged: (value) {},
+          // ProfileItemWidget(
+          //   title: LocaleKeys.complete_switch_label.tr(),
+          //   iconPath: AppIcons.editIc,
+          //   trailing: Switch.adaptive(
+          //     value: currentState != SituationStatus.notComplete,
+          //     activeColor: currentState == SituationStatus.completed ? AppColors.primary : Colors.orange,
+          //     onChanged: (value) {},
+          //   ),
+          // ),
+          if (context.isLoggedIn)
+            ProfileItemWidget(
+              title: LocaleKeys.delete_account_confirmation_title.tr(),
+              iconPath: AppIcons.deleteIc,
+              color: Colors.red,
+              onPressed: () {
+                showDeleteAccountBottomSheet(context);
+              },
             ),
-          ),
+          if (context.isLoggedIn)
+            ProfileItemWidget(
+              title: LocaleKeys.logout.tr(),
+              iconPath: AppIcons.logout,
+              color: Colors.red,
+              onPressed: () {
+                showLogoutBottomSheet(context);
+              },
+            ),
+          if (!context.isLoggedIn)
+            ProfileItemWidget(
+              title: LocaleKeys.login.tr(),
+              iconPath: AppIcons.loginIc,
+              // color: Colors.red,
+              onPressed: () {
+                context.push(Routes.login);
+              },
+            ),
           20.gap,
           // CustomElevatedButton(
           //   icon: AppIcons.supportIc,
