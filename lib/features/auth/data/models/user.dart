@@ -111,6 +111,8 @@ class User extends AppUser {
 class ParkingMan extends AppUser {
   final String? phone;
   final String? points;
+  final String? entranceGate;
+  final String? exitGate;
 
   const ParkingMan({
     required super.id,
@@ -123,6 +125,8 @@ class ParkingMan extends AppUser {
     super.phoneNumber,
     this.phone,
     this.points,
+    this.entranceGate,
+    this.exitGate,
   }) : super(type: UserType.parkingMan);
 
   factory ParkingMan.fromJson(Map<String, dynamic> json) {
@@ -135,7 +139,9 @@ class ParkingMan extends AppUser {
       isOnline: json['is_online'],
       phoneNumber: json['phone_number'],
       phone: json['phone'],
-      points: json['points'].toString(),
+      points: json['points']?.toString(),
+      entranceGate: json['entrance_gate'],
+      exitGate: json['exit_gate'],
     );
   }
 
@@ -150,6 +156,8 @@ class ParkingMan extends AppUser {
       'phone_number': phoneNumber,
       'phone': phone,
       'points': points,
+      'entrance_gate': entranceGate,
+      'exit_gate': exitGate,
     };
   }
 }

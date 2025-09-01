@@ -74,6 +74,70 @@ class ProfileScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              12.gap,
+                              // Gate Information Section
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: AppColors.white.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: AppColors.white.withOpacity(0.2), width: 1),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Entrance Gate
+                                    Row(
+                                      children: [
+                                        Icon(Icons.login, color: AppColors.white.withOpacity(0.8), size: 16),
+                                        6.gap,
+                                        Text(
+                                          LocaleKeys.entrance_gate.tr(),
+                                          style: context.bodySmall.copyWith(
+                                            color: AppColors.white.withOpacity(0.7),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        4.gap,
+                                        Text(
+                                          context.user.entranceGate ?? 'Gate A1', // Replace with actual field
+                                          style: context.bodySmall.copyWith(
+                                            color: AppColors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    4.gap,
+                                    // Exit Gate
+                                    Row(
+                                      children: [
+                                        Icon(Icons.logout, color: AppColors.white.withOpacity(0.8), size: 16),
+                                        6.gap,
+                                        Text(
+                                          LocaleKeys.exit_gate.tr(),
+                                          style: context.bodySmall.copyWith(
+                                            color: AppColors.white.withOpacity(0.7),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        4.gap,
+                                        Text(
+                                          context.user.exitGate ?? 'Gate B2', // Replace with actual field
+                                          style: context.bodySmall.copyWith(
+                                            color: AppColors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
