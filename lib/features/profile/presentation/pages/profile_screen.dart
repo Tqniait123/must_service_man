@@ -44,15 +44,17 @@ class ProfileScreen extends StatelessWidget {
             ),
             30.gap,
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Left side - Profile image, welcome, and name
                 Expanded(
+                  flex: 2,
                   child: Row(
                     children: [
                       if (context.isLoggedIn) ...[
                         if (context.user.photo != null && context.user.photo!.isNotEmpty)
                           CircleAvatar(radius: 43, backgroundImage: NetworkImage(context.user.photo ?? '')),
-                        24.gap,
+                        20.gap,
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,74 +76,96 @@ class ProfileScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              12.gap,
-                              // Gate Information Section
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                decoration: BoxDecoration(
-                                  color: AppColors.white.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: AppColors.white.withOpacity(0.2), width: 1),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Entrance Gate
-                                    Row(
-                                      children: [
-                                        Icon(Icons.login, color: AppColors.white.withOpacity(0.8), size: 16),
-                                        6.gap,
-                                        Text(
-                                          LocaleKeys.entrance_gate.tr(),
-                                          style: context.bodySmall.copyWith(
-                                            color: AppColors.white.withOpacity(0.7),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        4.gap,
-                                        Text(
-                                          context.user.entranceGate ?? 'Gate A1', // Replace with actual field
-                                          style: context.bodySmall.copyWith(
-                                            color: AppColors.white,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    4.gap,
-                                    // Exit Gate
-                                    Row(
-                                      children: [
-                                        Icon(Icons.logout, color: AppColors.white.withOpacity(0.8), size: 16),
-                                        6.gap,
-                                        Text(
-                                          LocaleKeys.exit_gate.tr(),
-                                          style: context.bodySmall.copyWith(
-                                            color: AppColors.white.withOpacity(0.7),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        4.gap,
-                                        Text(
-                                          context.user.exitGate ?? 'Gate B2', // Replace with actual field
-                                          style: context.bodySmall.copyWith(
-                                            color: AppColors.white,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
                             ],
                           ),
                         ),
                       ],
+                    ],
+                  ),
+                ),
+
+                16.gap,
+
+                // Right side - Gate information in column
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      // Entrance Gate Container
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.white.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.white.withOpacity(0.3), width: 1),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.white.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Icon(Icons.login, color: AppColors.white, size: 18),
+                                ),
+                                8.gap,
+                                Text(
+                                  context.user.entranceGate ?? 'Gate A1', // Replace with actual field
+                                  style: context.bodyMedium.copyWith(
+                                    color: AppColors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      10.gap,
+
+                      // Exit Gate Container
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.white.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.white.withOpacity(0.3), width: 1),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.white.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Icon(Icons.logout, color: AppColors.white, size: 18),
+                                ),
+                                8.gap,
+                                Text(
+                                  context.user.exitGate ?? 'Gate B2', // Replace with actual field
+                                  style: context.bodyMedium.copyWith(
+                                    color: AppColors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
