@@ -40,6 +40,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   // Text editing controllers
   late final TextEditingController _fullNameController;
+  late final TextEditingController _emailController;
   late final TextEditingController _entryGateController;
   late final TextEditingController _exitGateController;
 
@@ -50,6 +51,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final user = context.user;
     _fullNameController = TextEditingController(text: user.name);
     _phoneController.text = user.phone ?? '';
+    _emailController = TextEditingController(text: user.email ?? '');
 
     // Initialize gate controllers (you may need to add these fields to your user model)
     // _entryGateController = TextEditingController(text: user.entryGate ?? '');
@@ -154,6 +156,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         log(' $code');
                       });
                     },
+                  ),
+                  16.gap,
+                  CustomTextFormField(
+                    controller: _emailController,
+                    margin: 0,
+                    hint: LocaleKeys.email.tr(),
+                    title: LocaleKeys.email.tr(),
+                    isRequired: true,
                   ),
                   16.gap,
 
