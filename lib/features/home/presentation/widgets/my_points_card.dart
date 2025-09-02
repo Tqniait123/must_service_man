@@ -88,7 +88,7 @@ class MyPointsCard extends StatelessWidget {
               Expanded(
                 child: CustomElevatedButton(
                   height: 44,
-                  title: LocaleKeys.withdraw.tr(),
+                  title: LocaleKeys.details.tr(),
                   onPressed: () {
                     context.push(Routes.withdrawRequest);
                   },
@@ -194,7 +194,7 @@ class MyPointsCardMinimal extends StatelessWidget {
                 onTap: () => context.push(Routes.withdrawRequest),
                 child: Center(
                   child: Text(
-                    LocaleKeys.withdraw.tr(),
+                    LocaleKeys.details.tr(),
                     style: context.bodyMedium.s14.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
                   ),
                 ),

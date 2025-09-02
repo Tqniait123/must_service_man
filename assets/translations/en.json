@@ -1181,7 +1181,7 @@
   "vehicle": "Vehicle:",
 
   "currently_inside": "Currently Inside",
-  "parking_details": "Parking Details", 
+  "parking_details": "Parking Details",
   "parking_facility_name": "Facility Name",
   "entry_time": "Entry Time",
   "parking_fee": "Parking Fee",
@@ -1190,7 +1190,7 @@
   "reward_points": "Reward Points",
   "gate_access_information": "Gate Access Information",
   "entry_gate": "Entry Gate",
-  "exit_gate": "Exit Gate", 
+  "exit_gate": "Exit Gate",
   "pending_exit": "Pending Exit",
   "active_gate": "Active",
   "standby_mode": "Standby",

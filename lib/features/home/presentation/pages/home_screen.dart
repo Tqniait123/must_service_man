@@ -181,7 +181,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                                 onTap: () => context.push(Routes.withdrawRequest),
                                 child: Center(
                                   child: Text(
-                                    LocaleKeys.withdraw.tr(),
+                                    LocaleKeys.details.tr(),
                                     style: context.bodyMedium.s12.copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
