@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
 import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
@@ -44,8 +43,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       showLanguageBottomSheet(context);
                     },
                   ),
-                  if (context.isLoggedIn)
-                    ProfileItemWidget(title: LocaleKeys.face_id.tr(), iconPath: AppIcons.faceIdIc),
+                  // if (context.isLoggedIn)
+                  //   ProfileItemWidget(title: LocaleKeys.face_id.tr(), iconPath: AppIcons.faceIdIc),
                 ],
               ),
             ),
