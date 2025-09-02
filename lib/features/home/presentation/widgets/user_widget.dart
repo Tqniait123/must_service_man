@@ -25,7 +25,7 @@ class UserWidget extends StatelessWidget {
       final dateTime = DateTime.parse(dateTimeString);
       return DateFormat('MMM dd, yyyy - hh:mm a').format(dateTime);
     } catch (e) {
-      return dateTimeString; // Return original string if parsing fails
+      return dateTimeString;
     }
   }
 
@@ -36,7 +36,7 @@ class UserWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xffF4F4FA),
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.1), width: 1),
+        boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(0.1), blurRadius: 8, offset: Offset(0, 2))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +73,6 @@ class UserWidget extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 16),
-
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +86,7 @@ class UserWidget extends StatelessWidget {
                             Text(
                               user.user!.phone!,
                               style: context.textTheme.bodyMedium?.s12.regular.copyWith(
-                                color: AppColors.primary.withValues(alpha: 0.5),
+                                color: AppColors.primary.withOpacity(0.5),
                               ),
                             ),
                         ],
@@ -106,93 +105,105 @@ class UserWidget extends StatelessWidget {
               ).flippedForLocale(context),
             ],
           ),
-          const SizedBox(height: 16),
 
-          // Car and Parking Information
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.15), width: 1),
-            ),
-            child: Column(
-              children: [
-                // Plate Number Row
-                if (user.car?.metalPlate != null)
-                  Row(
-                    children: [
-                      Icon(Icons.local_taxi, size: 18, color: AppColors.primary.withValues(alpha: 0.7)),
-                      const SizedBox(width: 8),
-                      Text(
-                        LocaleKeys.plate_number.tr(),
-                        style: context.textTheme.bodyMedium?.s12.regular.copyWith(
-                          color: AppColors.primary.withValues(alpha: 0.6),
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Expanded(
-                        child: Text(
-                          user.car!.metalPlate!,
-                          style: context.textTheme.bodyMedium?.s14.bold.copyWith(color: AppColors.primary),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                if (user.car?.metalPlate != null && user.startTime != null) const SizedBox(height: 8),
-
-                // Inside from Date Row
-                if (user.startTime != null)
-                  Row(
-                    children: [
-                      Icon(Icons.access_time, size: 18, color: AppColors.primary.withValues(alpha: 0.7)),
-                      const SizedBox(width: 8),
-                      Text(
-                        LocaleKeys.inside_from.tr(),
-                        style: context.textTheme.bodyMedium?.s12.regular.copyWith(
-                          color: AppColors.primary.withValues(alpha: 0.6),
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Expanded(
-                        child: Text(
-                          _formatDateTime(user.startTime),
-                          style: context.textTheme.bodyMedium?.s14.medium.copyWith(color: AppColors.primary),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                // Car Name Row (if available)
-                if (user.car?.name != null && (user.car?.metalPlate != null || user.startTime != null))
-                  const SizedBox(height: 8),
-
-                if (user.car?.name != null)
-                  Row(
-                    children: [
-                      Icon(Icons.directions_car, size: 18, color: AppColors.primary.withValues(alpha: 0.7)),
-                      const SizedBox(width: 8),
-                      Text(
-                        LocaleKeys.vehicle.tr(),
-                        style: context.textTheme.bodyMedium?.s12.regular.copyWith(
-                          color: AppColors.primary.withValues(alpha: 0.6),
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Expanded(
-                        child: Text(
-                          '${user.car!.name}${user.car!.color != null ? ' (${user.car!.color})' : ''}',
-                          style: context.textTheme.bodyMedium?.s14.medium.copyWith(color: AppColors.primary),
-                        ),
-                      ),
-                    ],
-                  ),
-              ],
-            ),
-          ),
+          // Split Car and Parking Information
+          if (_buildInfoItems().isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Wrap(spacing: 6, runSpacing: 6, children: _buildInfoItems()),
+          ],
         ],
       ),
     ).withPressEffect(onTap: () => context.push(Routes.userDetails, extra: user.id), onLongPress: () {});
+  }
+
+  List<Widget> _buildInfoItems() {
+    final items = <Widget>[];
+
+    if (user.car?.metalPlate != null) {
+      items.add(
+        InfoItemContainer(
+          icon: Icons.local_taxi_outlined,
+          value: user.car!.metalPlate!,
+          backgroundColor: AppColors.primary.withOpacity(0.1),
+          iconColor: AppColors.primary,
+        ),
+      );
+    }
+
+    if (user.startTime != null) {
+      items.add(
+        InfoItemContainer(
+          icon: Icons.schedule_outlined,
+          value: _formatDateTime(user.startTime),
+          backgroundColor: AppColors.primary.withOpacity(0.1),
+          iconColor: AppColors.primary,
+        ),
+      );
+    }
+
+    if (user.car?.name != null) {
+      final carText = '${user.car!.name}${user.car!.color != null ? ' • ${user.car!.color}' : ''}';
+      items.add(
+        InfoItemContainer(
+          icon: Icons.directions_car_outlined,
+          value: carText,
+          backgroundColor: AppColors.primary.withOpacity(0.1),
+          iconColor: AppColors.primary,
+        ),
+      );
+    }
+
+    return items;
+  }
+}
+
+class InfoItemContainer extends StatelessWidget {
+  final IconData icon;
+  final String value;
+  final Color backgroundColor;
+  final Color iconColor;
+
+  const InfoItemContainer({
+    super.key,
+    required this.icon,
+    required this.value,
+    required this.backgroundColor,
+    required this.iconColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {}, // Add functionality if needed
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.easeInOut,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: iconColor.withOpacity(0.3), width: 0.5),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(color: iconColor.withOpacity(0.1), shape: BoxShape.circle),
+              child: Icon(icon, size: 14, color: iconColor),
+            ),
+            const SizedBox(width: 6),
+            Flexible(
+              child: Text(
+                value,
+                style: context.textTheme.bodyMedium?.s11.medium.copyWith(color: iconColor),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
