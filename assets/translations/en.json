@@ -1202,9 +1202,8 @@
   "failed_to_load_points": "Failed to load points",
   "no_points_today": "No Points Earned Today",
   "points_will_appear_here": "Points from parking transactions will appear here",
-  "point_source": "Point Source"
-
-
+  "point_source": "Point Source",
+  "something_went_wrong": "Something went wrong"
 
 
 }

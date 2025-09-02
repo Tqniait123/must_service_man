@@ -1151,7 +1151,8 @@ class CodegenLoader extends AssetLoader{
   "failed_to_load_points": "Failed to load points",
   "no_points_today": "No Points Earned Today",
   "points_will_appear_here": "Points from parking transactions will appear here",
-  "point_source": "Point Source"
+  "point_source": "Point Source",
+  "something_went_wrong": "Something went wrong"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -2290,7 +2291,8 @@ static const Map<String,dynamic> _ar = {
   "failed_to_load_points": "فشل في تحميل النقاط",
   "no_points_today": "لم تحصل على نقاط اليوم",
   "points_will_appear_here": "ستظهر النقاط من معاملات الموقف هنا",
-  "point_source": "مصدر النقاط"
+  "point_source": "مصدر النقاط",
+  "something_went_wrong": "حدث خطأ ما"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

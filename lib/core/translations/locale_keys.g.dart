@@ -1137,5 +1137,6 @@ abstract class  LocaleKeys {
   static const no_points_today = 'no_points_today';
   static const points_will_appear_here = 'points_will_appear_here';
   static const point_source = 'point_source';
+  static const something_went_wrong = 'something_went_wrong';
 
 }

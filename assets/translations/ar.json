@@ -1204,7 +1204,8 @@
   "failed_to_load_points": "فشل في تحميل النقاط",
   "no_points_today": "لم تحصل على نقاط اليوم",
   "points_will_appear_here": "ستظهر النقاط من معاملات الموقف هنا",
-  "point_source": "مصدر النقاط"
+  "point_source": "مصدر النقاط",
+  "something_went_wrong": "حدث خطأ ما"
 
 
 }

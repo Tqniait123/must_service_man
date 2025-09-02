@@ -1,9 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:must_invest_service_man/config/app_settings/cubit/settings_cubit.dart';
 import 'package:must_invest_service_man/config/routes/routes.dart';
-import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/string_to_icon.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
@@ -13,9 +12,7 @@ import 'package:must_invest_service_man/core/services/di.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
-import 'package:must_invest_service_man/core/utils/widgets/loading_widget.dart';
 import 'package:must_invest_service_man/core/utils/widgets/logo_widget.dart';
-import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -31,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   late Animation<double> _fadeAnimation;
   late Animation<double> _positionAnimation;
   late Animation<double> _logoFadeAnimation;
+  bool _settingsLoaded = false;
 
   @override
   void initState() {
@@ -54,8 +52,44 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       end: -20.0,
     ).animate(CurvedAnimation(parent: _positionController, curve: Curves.easeOut));
 
-    // Start animations sequence
-    _startAnimationSequence();
+    final settingsCubit = AppSettingsCubit.get(context);
+    settingsCubit.getAppSettings().then((_) {
+      if (settingsCubit.state is AppSettingsSuccessState) {
+        _settingsLoaded = true;
+        _startAnimationSequence();
+      } else {
+        _showRetryButton();
+      }
+    });
+  }
+
+  void _showRetryButton() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(LocaleKeys.error.tr()), // Generic error title
+          content: Text(LocaleKeys.something_went_wrong.tr()), // Generic message
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                final settingsCubit = AppSettingsCubit.get(context);
+                settingsCubit.getAppSettings().then((_) {
+                  if (settingsCubit.state is AppSettingsSuccessState) {
+                    _settingsLoaded = true;
+                    _handleNavigation();
+                  } else {
+                    _showRetryButton(); // Retry if it fails again
+                  }
+                });
+              },
+              child: Text(LocaleKeys.retry.tr()),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _startAnimationSequence() async {
@@ -66,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     _logoFadeController.forward();
 
     // Wait 2 seconds before showing welcome message and moving logo
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
     // Start both animations simultaneously
     _fadeController.forward();
@@ -87,33 +121,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     if (!isOnBoardingCompleted) {
       // Navigate to onboarding if not completed
       context.go(Routes.onBoarding1);
-      return;
+    } else {
+      // Always navigate to login screen
+      context.go(Routes.login);
     }
-
-    // If onboarding is completed, try auto login
-    try {
-      await context.read<AuthCubit>().autoLogin();
-    } catch (e) {
-      // If auto login fails, navigate to login screen
-      if (mounted) {
-        context.go(Routes.login);
-      }
-    }
-  }
-
-  void _listenToAuthState() {
-    context.read<AuthCubit>().stream.listen((state) {
-      if (!mounted) return;
-
-      if (state is AuthSuccess) {
-        // Auto login successful, navigate to main/home screen
-        context.setCurrentUser(state.user);
-        context.go(Routes.homeUser); // Replace with your main screen route
-      } else if (state is AuthError) {
-        // Auto login failed, navigate to login screen
-        context.go(Routes.login);
-      }
-    });
   }
 
   @override
@@ -126,64 +137,52 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    // Listen to auth state changes
-    _listenToAuthState();
-
     return Scaffold(
       backgroundColor: AppColors.primary,
-      body: BlocBuilder<AuthCubit, AuthState>(
-        builder: (context, state) {
-          return Stack(
-            fit: StackFit.expand,
-            clipBehavior: Clip.none,
-            alignment: Alignment.center,
-            children: [
-              Positioned(
-                left: -300, // Shift pattern to the left
-                child: Opacity(
-                  opacity: 0.3,
-                  child: AppIcons.splashPattern.svg(
-                    width: MediaQuery.sizeOf(context).width * 1.2,
-                    height: MediaQuery.sizeOf(context).height * 1.2,
-                    fit: BoxFit.cover,
+      body: Stack(
+        fit: StackFit.expand,
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
+        children: [
+          Positioned(
+            left: -300, // Shift pattern to the left
+            child: Opacity(
+              opacity: 0.3,
+              child: AppIcons.splashPattern.svg(
+                width: MediaQuery.sizeOf(context).width * 1.2,
+                height: MediaQuery.sizeOf(context).height * 1.2,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Animated logo with position change and fade
+                FadeTransition(
+                  opacity: _logoFadeAnimation,
+                  child: AnimatedBuilder(
+                    animation: _positionAnimation,
+                    builder: (context, child) {
+                      return Transform.translate(offset: Offset(0, _positionAnimation.value), child: child);
+                    },
+                    child: LogoWidget(type: LogoType.svg),
                   ),
                 ),
-              ),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Animated logo with position change and fade
-                    FadeTransition(
-                      opacity: _logoFadeAnimation,
-                      child: AnimatedBuilder(
-                        animation: _positionAnimation,
-                        builder: (context, child) {
-                          return Transform.translate(offset: Offset(0, _positionAnimation.value), child: child);
-                        },
-                        child: LogoWidget(type: LogoType.svg),
-                      ),
-                    ),
-                    44.gap,
-                    // Fade in animation for welcome message
-                    FadeTransition(
-                      opacity: _fadeAnimation,
-                      child: Column(
-                        children: [
-                          Text(
-                            LocaleKeys.welcome_to_must_invest.tr(),
-                            style: context.bodyLarge.bold.s16.copyWith(color: AppColors.white),
-                          ),
-                          if (state is AuthLoading) ...[16.gap, CustomLoadingWidget()],
-                        ],
-                      ),
-                    ),
-                  ],
+                44.gap,
+                // Fade in animation for welcome message
+                FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: Text(
+                    LocaleKeys.welcome_to_must_invest.tr(),
+                    style: context.bodyLarge.bold.s16.copyWith(color: AppColors.white),
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

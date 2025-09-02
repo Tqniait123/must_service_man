@@ -32,4 +32,5 @@ class EndPoints {
   static const String updateProfile = 'update_profile';
   static const String deleteAccount = 'delete_account';
   static const String dailyPoints = 'daily_points';
+  static const String appSettings = 'app_settings';
 }

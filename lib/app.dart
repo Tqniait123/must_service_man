@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:must_invest_service_man/config/app_settings/cubit/settings_cubit.dart';
 import 'package:must_invest_service_man/config/routes/app_router.dart';
 import 'package:must_invest_service_man/core/services/di.dart';
 import 'package:must_invest_service_man/core/static/strings.dart';
@@ -27,6 +28,7 @@ class MustInvestServiceMan extends StatelessWidget {
             BlocProvider(create: (BuildContext context) => AuthCubit(sl())),
             BlocProvider(create: (BuildContext context) => UserCubit()),
             BlocProvider(create: (context) => LanguagesCubit(sl())),
+            BlocProvider(create: (context) => AppSettingsCubit(sl())),
           ],
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
