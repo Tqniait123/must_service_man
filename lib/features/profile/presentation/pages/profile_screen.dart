@@ -59,21 +59,25 @@ class ProfileScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                LocaleKeys.welcome.tr(),
-                                style: context.bodyMedium.copyWith(
-                                  color: AppColors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              8.gap,
-                              Text(
-                                context.user.name,
-                                style: context.titleLarge.copyWith(
-                                  color: AppColors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
+                              // Text(
+                              //   LocaleKeys.welcome.tr(),
+                              //   style: context.bodyMedium.copyWith(
+                              //     color: AppColors.white,
+                              //     fontSize: 16,
+                              //     fontWeight: FontWeight.bold,
+                              //   ),
+                              // ),
+                              // 8.gap,
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  '${context.user.name} Mohamed',
+                                  style: context.titleLarge.copyWith(
+                                    color: AppColors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
                                 ),
                               ),
                             ],
