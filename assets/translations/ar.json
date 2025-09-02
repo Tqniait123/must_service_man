@@ -1196,7 +1196,15 @@
   "pending_exit": "في انتظار الخروج",
   "active_gate": "نشط",
   "standby_mode": "وضع الاستعداد",
-  "gate_system_note": "نظام البوابات يدير الدخول والخروج تلقائياً حسب حالة جلسة الموقف."
+  "gate_system_note": "نظام البوابات يدير الدخول والخروج تلقائياً حسب حالة جلسة الموقف.",
+   "daily_points_details": "تفاصيل النقاط اليومية",
+  "total_points_today": "إجمالي النقاط اليوم",
+  "total_transactions": "إجمالي المعاملات",
+  "points_history": "تاريخ النقاط",
+  "failed_to_load_points": "فشل في تحميل النقاط",
+  "no_points_today": "لم تحصل على نقاط اليوم",
+  "points_will_appear_here": "ستظهر النقاط من معاملات الموقف هنا",
+  "point_source": "مصدر النقاط"
 
 
 }

@@ -1129,5 +1129,13 @@ abstract class  LocaleKeys {
   static const active_gate = 'active_gate';
   static const standby_mode = 'standby_mode';
   static const gate_system_note = 'gate_system_note';
+  static const daily_points_details = 'daily_points_details';
+  static const total_points_today = 'total_points_today';
+  static const total_transactions = 'total_transactions';
+  static const points_history = 'points_history';
+  static const failed_to_load_points = 'failed_to_load_points';
+  static const no_points_today = 'no_points_today';
+  static const points_will_appear_here = 'points_will_appear_here';
+  static const point_source = 'point_source';
 
 }

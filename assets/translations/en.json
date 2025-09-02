@@ -1194,7 +1194,15 @@
   "pending_exit": "Pending Exit",
   "active_gate": "Active",
   "standby_mode": "Standby",
-  "gate_system_note": "Gate system automatically manages entry and exit based on parking session status."
+  "gate_system_note": "Gate system automatically manages entry and exit based on parking session status.",
+  "daily_points_details": "Daily Points Details",
+  "total_points_today": "Total Points Today",
+  "total_transactions": "Total Transactions",
+  "points_history": "Points History",
+  "failed_to_load_points": "Failed to load points",
+  "no_points_today": "No Points Earned Today",
+  "points_will_appear_here": "Points from parking transactions will appear here",
+  "point_source": "Point Source"
 
 
 

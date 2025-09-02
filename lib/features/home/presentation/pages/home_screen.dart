@@ -5,8 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
+import 'package:must_invest_service_man/core/extensions/string_to_icon.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
+import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custom_layout.dart';
@@ -130,7 +132,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                                   color: AppColors.primary.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: Icon(Icons.star_rounded, color: AppColors.primary, size: 20),
+                                child: AppIcons.pointsIc.icon(color: AppColors.primary),
                               ),
                               10.gap,
                               Expanded(
@@ -178,7 +180,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                               color: Colors.transparent,
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(8),
-                                onTap: () => context.push(Routes.withdrawRequest),
+                                onTap: () => context.push(Routes.dailyPoints),
                                 child: Center(
                                   child: Text(
                                     LocaleKeys.details.tr(),

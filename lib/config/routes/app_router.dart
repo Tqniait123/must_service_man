@@ -23,6 +23,7 @@ import 'package:must_invest_service_man/features/history/presentation/pages/hist
 import 'package:must_invest_service_man/features/home/presentation/cubit/cubit/user_details_cubit_cubit.dart';
 import 'package:must_invest_service_man/features/home/presentation/cubit/cubit/wallet_cubit.dart';
 import 'package:must_invest_service_man/features/home/presentation/cubit/home_cubit.dart';
+import 'package:must_invest_service_man/features/home/presentation/pages/daily_points_screen.dart';
 import 'package:must_invest_service_man/features/home/presentation/pages/home_screen.dart';
 import 'package:must_invest_service_man/features/home/presentation/widgets/withdraw_request_screen.dart';
 import 'package:must_invest_service_man/features/my_cards/presentation/pages/my_cards_screen.dart';
@@ -281,6 +282,13 @@ class AppRouter {
         builder: (context, state) {
           // Return the SettingsScreen widget
           return SettingsScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.dailyPoints,
+        builder: (context, state) {
+          // Return the DailyPointsScreen widget
+          return DailyPointsScreen();
         },
       ),
     ],

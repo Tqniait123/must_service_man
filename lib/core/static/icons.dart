@@ -1,6 +1,7 @@
 class AppIcons {
   static const String _iconsPath = 'assets/images/icons';
 static const String splashPattern = '$_iconsPath/splash_pattern.svg';
+static const String pointsIc = '$_iconsPath/points_ic.svg';
 static const String homePattern = '$_iconsPath/home_pattern.svg';
 static const String faqIcCopy = '$_iconsPath/faq_ic copy.svg';
 static const String loginIc = '$_iconsPath/login_ic.svg';

@@ -1143,7 +1143,15 @@ class CodegenLoader extends AssetLoader{
   "pending_exit": "Pending Exit",
   "active_gate": "Active",
   "standby_mode": "Standby",
-  "gate_system_note": "Gate system automatically manages entry and exit based on parking session status."
+  "gate_system_note": "Gate system automatically manages entry and exit based on parking session status.",
+  "daily_points_details": "Daily Points Details",
+  "total_points_today": "Total Points Today",
+  "total_transactions": "Total Transactions",
+  "points_history": "Points History",
+  "failed_to_load_points": "Failed to load points",
+  "no_points_today": "No Points Earned Today",
+  "points_will_appear_here": "Points from parking transactions will appear here",
+  "point_source": "Point Source"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -2274,7 +2282,15 @@ static const Map<String,dynamic> _ar = {
   "pending_exit": "في انتظار الخروج",
   "active_gate": "نشط",
   "standby_mode": "وضع الاستعداد",
-  "gate_system_note": "نظام البوابات يدير الدخول والخروج تلقائياً حسب حالة جلسة الموقف."
+  "gate_system_note": "نظام البوابات يدير الدخول والخروج تلقائياً حسب حالة جلسة الموقف.",
+  "daily_points_details": "تفاصيل النقاط اليومية",
+  "total_points_today": "إجمالي النقاط اليوم",
+  "total_transactions": "إجمالي المعاملات",
+  "points_history": "تاريخ النقاط",
+  "failed_to_load_points": "فشل في تحميل النقاط",
+  "no_points_today": "لم تحصل على نقاط اليوم",
+  "points_will_appear_here": "ستظهر النقاط من معاملات الموقف هنا",
+  "point_source": "مصدر النقاط"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

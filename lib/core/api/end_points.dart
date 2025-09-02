@@ -31,4 +31,5 @@ class EndPoints {
   static const String walletWithdraw = 'wallet_withdraw';
   static const String updateProfile = 'update_profile';
   static const String deleteAccount = 'delete_account';
+  static const String dailyPoints = 'daily_points';
 }

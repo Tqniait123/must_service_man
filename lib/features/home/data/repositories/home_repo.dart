@@ -3,6 +3,7 @@ import 'package:must_invest_service_man/core/errors/app_error.dart';
 import 'package:must_invest_service_man/core/preferences/shared_pref.dart';
 import 'package:must_invest_service_man/features/home/data/models/user_model.dart';
 import 'package:must_invest_service_man/features/home/data/models/withdraw_params.dart';
+import 'package:must_invest_service_man/features/home/data/models/daily_point_model.dart';
 
 import '../datasources/home_remote_data_source.dart';
 
@@ -10,6 +11,7 @@ abstract class HomeRepo {
   Future<Either<UserListResponse, AppError>> getCurrentUsersInParking();
   Future<Either<UserModel, AppError>> getUserDetails(int userId);
   Future<Either<String, AppError>> walletWithdraw(WithdrawParams params);
+  Future<Either<List<DailyPointModel>, AppError>> getDailyPoints();
 }
 
 class HomeRepoImpl implements HomeRepo {
@@ -59,6 +61,22 @@ class HomeRepoImpl implements HomeRepo {
       if (response.isSuccess) {
         // Get the message from the response object, not from data
         return Left(response.message ?? 'Success');
+      } else {
+        return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
+      }
+    } catch (e) {
+      return Right(AppError(message: e.toString(), type: ErrorType.unknown));
+    }
+  }
+
+  @override
+  Future<Either<List<DailyPointModel>, AppError>> getDailyPoints() async {
+    try {
+      final token = _localDataSource.getToken();
+      final response = await _remoteDataSource.getDailyPoints(token ?? '');
+
+      if (response.isSuccess) {
+        return Left(response.data!);
       } else {
         return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }
