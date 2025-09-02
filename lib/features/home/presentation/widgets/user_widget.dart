@@ -101,7 +101,7 @@ class UserWidget extends StatelessWidget {
                 radius: 10,
                 color: Color(0xffE2E4FF),
                 iconAsset: AppIcons.arrowIc,
-                onPressed: () {},
+                onPressed: () => context.push(Routes.userDetails, extra: user.id),
               ).flippedForLocale(context),
             ],
           ),
