@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:must_invest_service_man/config/routes/routes.dart';
+import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
@@ -87,7 +88,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
         children: [
           32.gap,
 
-          // Capacity Information Row
+          // Points and Capacity Cards Row
           BlocBuilder<HomeCubit, HomeState>(
             buildWhen:
                 (previous, current) =>
@@ -98,52 +99,187 @@ class _HomeParkingManState extends State<HomeParkingMan> {
               if (state is CurrentUsersSuccess) {
                 currentCount = state.userListResponse.count;
               }
-              return Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          LocaleKeys.parking_capacity.tr(),
-                          style: context.bodyMedium.regular.s14.copyWith(
-                            color: AppColors.primary.withValues(alpha: 0.7),
+
+              return Row(
+                children: [
+                  // Points Card
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.primary.withOpacity(0.1),
+                            spreadRadius: 0,
+                            blurRadius: 15,
+                            offset: const Offset(0, 4),
                           ),
-                        ),
-                        4.gap,
-                        Text(
-                          "$currentCount / $totalCapacity",
-                          style: context.bodyMedium.bold.s20.copyWith(color: AppColors.primary),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          LocaleKeys.occupancy_rate.tr(),
-                          style: context.bodyMedium.regular.s14.copyWith(
-                            color: AppColors.primary.withValues(alpha: 0.7),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primary.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Icon(Icons.star_rounded, color: AppColors.primary, size: 20),
+                              ),
+                              10.gap,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      LocaleKeys.my_points.tr(),
+                                      style: context.bodyMedium.s12.copyWith(
+                                        color: AppColors.primary.withOpacity(0.7),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    2.gap,
+                                    Row(
+                                      children: [
+                                        Text(
+                                          context.user.points ?? '0',
+                                          style: context.bodyMedium.copyWith(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.primary,
+                                          ),
+                                        ),
+                                        4.gap,
+                                        Text(
+                                          LocaleKeys.point.tr(),
+                                          style: context.bodyMedium.s10.copyWith(
+                                            color: AppColors.primary.withOpacity(0.7),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        4.gap,
-                        Text(
-                          "${totalCapacity > 0 ? ((currentCount / totalCapacity) * 100).toInt() : 0}%",
-                          style: context.bodyMedium.bold.s20.copyWith(color: AppColors.primary),
-                        ),
-                      ],
+                          12.gap,
+                          Container(
+                            width: double.infinity,
+                            height: 32,
+                            decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(8)),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(8),
+                                onTap: () => context.push(Routes.withdrawRequest),
+                                child: Center(
+                                  child: Text(
+                                    LocaleKeys.withdraw.tr(),
+                                    style: context.bodyMedium.s12.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+
+                  12.gap,
+
+                  // Capacity Card
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primary.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Icon(Icons.local_parking, color: AppColors.primary, size: 20),
+                              ),
+                              10.gap,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      LocaleKeys.parking_capacity.tr(),
+                                      style: context.bodyMedium.s12.copyWith(
+                                        color: AppColors.primary.withOpacity(0.7),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    2.gap,
+                                    Text(
+                                      "$currentCount / $totalCapacity",
+                                      style: context.bodyMedium.copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.primary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          12.gap,
+                          // Capacity progress bar
+                          Container(
+                            height: 8,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: FractionallySizedBox(
+                              alignment: Alignment.centerLeft,
+                              widthFactor: totalCapacity > 0 ? (currentCount / totalCapacity).clamp(0.0, 1.0) : 0.0,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.primary,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ),
+                          ),
+                          6.gap,
+                          // Text(
+                          //   LocaleKeys.spaces_available.tr(),
+                          //   style: context.bodyMedium.s10.copyWith(color: AppColors.primary.withOpacity(0.7)),
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               );
             },
           ),
+
           24.gap,
 
           Row(
