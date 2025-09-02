@@ -2,10 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
+import 'package:must_invest_service_man/core/extensions/string_to_icon.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
 import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
 import 'package:must_invest_service_man/core/services/di.dart';
+import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
@@ -74,7 +76,7 @@ class DailyPointsScreen extends StatelessWidget {
                                   color: AppColors.primary.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: Icon(Icons.star_rounded, color: AppColors.primary, size: 24),
+                                child: AppIcons.pointsIc.icon(color: AppColors.primary),
                               ),
                               12.gap,
                               Text(

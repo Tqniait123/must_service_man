@@ -199,7 +199,7 @@ class CarDetailsContainer extends StatelessWidget {
           icon: Icons.confirmation_number_outlined,
           label: LocaleKeys.car_number.tr(),
           value: car.metalPlate!,
-          isHighlighted: true,
+          isHighlighted: false,
         ),
       );
     }
@@ -224,7 +224,7 @@ class CarDetailsContainer extends StatelessWidget {
               final index = entry.key;
               final detail = entry.value;
               return Padding(
-                padding: EdgeInsets.only(right: index < details.length - 1 ? 10 : 0),
+                padding: EdgeInsetsDirectional.only(end: index < details.length - 1 ? 10 : 0),
                 child: SizedBox(
                   width: 90, // Fixed smaller width
                   height: 100, // Fixed smaller height
