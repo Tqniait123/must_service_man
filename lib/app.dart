@@ -19,9 +19,10 @@ class MustInvestServiceMan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 800),
+      designSize: const Size(400, 900),
       minTextAdapt: true,
       splitScreenMode: true,
+      fontSizeResolver: (fontSize, instance) => fontSize.toDouble(),
       builder: (_, __) {
         return MultiBlocProvider(
           providers: [
@@ -38,25 +39,41 @@ class MustInvestServiceMan extends StatelessWidget {
             title: Strings.appName,
             theme: lightTheme(context),
             builder: (context, child) {
+              // Get original MediaQuery data
+              final originalData = MediaQuery.of(context);
+
+              // Override scaling but preserve keyboard handling
+              child = MediaQuery(
+                data: originalData.copyWith(
+                  textScaler: const TextScaler.linear(1),
+                  // Remove devicePixelRatio modification to fix keyboard issue
+                  // devicePixelRatio: 0.8, // This causes keyboard layout issues
+                ),
+                child: child!,
+              );
+
               child = BotToastInit()(context, child);
-              return Scaffold(
-                body: child,
-                floatingActionButton:
-                    kDebugMode
-                        ? Opacity(
-                          opacity: 0.1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 20.0),
-                            child: FloatingActionButton(
-                              child: const Icon(Icons.refresh),
-                              onPressed: () async {
-                                await context.setLocale(const Locale('en')); // Reload translations
-                                await context.setLocale(const Locale('ar')); // Reload translations
-                              },
-                            ),
-                          ),
-                        )
-                        : null,
+
+              // Remove the Scaffold wrapper - it causes keyboard issues
+              return Stack(
+                children: [
+                  child,
+                  if (kDebugMode)
+                    Positioned(
+                      bottom: 100,
+                      right: 16,
+                      child: Opacity(
+                        opacity: 0.1,
+                        child: FloatingActionButton(
+                          child: const Icon(Icons.refresh),
+                          onPressed: () async {
+                            await context.setLocale(const Locale('en')); // Reload translations
+                            await context.setLocale(const Locale('ar')); // Reload translations
+                          },
+                        ),
+                      ),
+                    ),
+                ],
               );
             },
             // routerConfig: appRouter.router,

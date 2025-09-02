@@ -12,24 +12,18 @@ class AppSettingsCubit extends Cubit<AppSettingsState> {
   final AppSettingsRepo _settingsRepo;
   AppSettings? appSettings;
 
-  AppSettingsCubit(
-    this._settingsRepo,
-  ) : super(AppSettingsInitial());
+  AppSettingsCubit(this._settingsRepo) : super(AppSettingsInitial());
 
   static AppSettingsCubit get(context) => BlocProvider.of(context);
 
   Future<void> getAppSettings() async {
     emit(AppSettingsLoadingState());
     try {
-      final Either<AppSettings, String> result =
-          await _settingsRepo.getAppSettings();
-      result.fold(
-        (settings) {
-          appSettings = settings;
-          emit(AppSettingsSuccessState(settings));
-        },
-        (error) => emit(AppSettingsErrorState(message: error)),
-      );
+      final Either<AppSettings, String> result = await _settingsRepo.getAppSettings();
+      result.fold((settings) {
+        appSettings = settings;
+        emit(AppSettingsSuccessState(settings));
+      }, (error) => emit(AppSettingsErrorState(message: error)));
     } catch (e) {
       log(e.toString());
       emit(AppSettingsErrorState(message: e.toString()));

@@ -41,6 +41,7 @@ static const String faceIdIc = '$_iconsPath/face_id_ic.svg';
 static const String carIc = '$_iconsPath/car_ic.svg';
 static const String notificationLabelIc = '$_iconsPath/notification_label_ic.svg';
 static const String arrowIc = '$_iconsPath/arrow_ic.svg';
+static const String logo = '$_iconsPath/logo.svg';
 static const String clipper = '$_iconsPath/clipper.svg';
 static const String notificationsIc = '$_iconsPath/notifications_ic.svg';
 static const String outlinedCarIcsvg = '$_iconsPath/outlined_car_icsvg.svg';

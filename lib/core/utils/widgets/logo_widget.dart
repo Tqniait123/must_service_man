@@ -21,7 +21,7 @@ class LogoWidget extends StatelessWidget {
   Widget _buildLogo() {
     switch (type) {
       case LogoType.svg:
-        return SvgPicture.asset(AppIcons.splashLogo, width: size, colorFilter: color?.colorFilter);
+        return SvgPicture.asset(AppIcons.logo, width: size, colorFilter: color?.colorFilter);
       case LogoType.png:
         return Image.asset(AppImages.logo, width: size);
     }
