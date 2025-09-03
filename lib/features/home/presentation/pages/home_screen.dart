@@ -78,6 +78,344 @@ class _HomeParkingManState extends State<HomeParkingMan> {
     context.read<HomeCubit>().getCurrentUsersInParking();
   }
 
+  Widget _buildExpandedCardsSection({
+    required int currentCount,
+    required int totalCapacity,
+    required double screenWidth,
+  }) {
+    final cardWidth = (screenWidth - 72) / 2; // 72 = padding + gap
+    final cardHeight = cardWidth * 0.85;
+    final minHeight = 120.0;
+    final finalHeight = math.max(cardHeight, minHeight);
+
+    return SizedBox(
+      width: double.infinity,
+      // padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Points Card - Expanded
+            Expanded(
+              child: Container(
+                height: finalHeight,
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: screenWidth * 0.035),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primary.withOpacity(0.1),
+                      spreadRadius: 0,
+                      blurRadius: 15,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      flex: 3,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(screenWidth * 0.02),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: AppIcons.pointsIc.icon(color: AppColors.primary, height: screenWidth * 0.05),
+                          ),
+                          SizedBox(width: screenWidth * 0.025),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  LocaleKeys.my_points.tr(),
+                                  style: context.bodyMedium.copyWith(
+                                    fontSize: screenWidth * 0.03,
+                                    color: AppColors.primary.withOpacity(0.7),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                SizedBox(height: screenWidth * 0.005),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      context.user.points ?? '0',
+                                      style: context.bodyMedium.copyWith(
+                                        fontSize: screenWidth * 0.045,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.primary,
+                                      ),
+                                    ),
+                                    SizedBox(width: screenWidth * 0.01),
+                                    Text(
+                                      LocaleKeys.point.tr(),
+                                      style: context.bodyMedium.copyWith(
+                                        fontSize: screenWidth * 0.025,
+                                        color: AppColors.primary.withOpacity(0.7),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: screenWidth * 0.08,
+                      decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(8)),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(8),
+                          onTap: () => context.push(Routes.dailyPoints),
+                          child: Center(
+                            child: Text(
+                              LocaleKeys.details.tr(),
+                              style: context.bodyMedium.copyWith(
+                                fontSize: screenWidth * 0.03,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            SizedBox(width: screenWidth * 0.03),
+
+            // Capacity Card - Expanded
+            Expanded(
+              child: Container(
+                height: finalHeight,
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: screenWidth * 0.035),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      flex: 3,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(screenWidth * 0.02),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Icon(Icons.local_parking, color: AppColors.primary, size: screenWidth * 0.05),
+                          ),
+                          SizedBox(width: screenWidth * 0.025),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  LocaleKeys.parking_capacity.tr(),
+                                  style: context.bodyMedium.copyWith(
+                                    fontSize: screenWidth * 0.03,
+                                    color: AppColors.primary.withOpacity(0.7),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                SizedBox(height: screenWidth * 0.005),
+                                Text(
+                                  "$currentCount / $totalCapacity",
+                                  style: context.bodyMedium.copyWith(
+                                    fontSize: screenWidth * 0.045,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          height: screenWidth * 0.02,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: FractionallySizedBox(
+                            alignment: Alignment.centerLeft,
+                            widthFactor: totalCapacity > 0 ? (currentCount / totalCapacity).clamp(0.0, 1.0) : 0.0,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.primary,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCollapsedCardsSection({
+    required int currentCount,
+    required int totalCapacity,
+    required double screenWidth,
+  }) {
+    return SizedBox(
+      width: double.infinity,
+      // padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Row(
+        children: [
+          // Points Card - Collapsed
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primary.withOpacity(0.1),
+                    spreadRadius: 0,
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: AppIcons.pointsIc.icon(color: AppColors.primary, height: 16),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          LocaleKeys.my_points.tr(),
+                          style: context.bodyMedium.copyWith(
+                            fontSize: 10,
+                            color: AppColors.primary.withOpacity(0.7),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          "${context.user.points ?? '0'} ${LocaleKeys.point.tr()}",
+                          style: context.bodyMedium.copyWith(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 12),
+
+          // Capacity Card - Collapsed
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(Icons.local_parking, color: AppColors.primary, size: 16),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          LocaleKeys.parking_capacity.tr(),
+                          style: context.bodyMedium.copyWith(
+                            fontSize: 10,
+                            color: AppColors.primary.withOpacity(0.7),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          "$currentCount / $totalCapacity",
+                          style: context.bodyMedium.copyWith(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,433 +426,285 @@ class _HomeParkingManState extends State<HomeParkingMan> {
         topPadding: 70,
         scrollType: ScrollType.nonScrollable,
         contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-        upperContent: UserHomeHeaderWidget(searchController: _searchController),
         scrollPhysics: const NeverScrollableScrollPhysics(),
+        upperContent: UserHomeHeaderWidget(searchController: _searchController),
         children: [
           32.gap,
-          // Points and Capacity Cards Row
-          BlocBuilder<HomeCubit, HomeState>(
-            buildWhen:
-                (previous, current) =>
-                    current is CurrentUsersSuccess || current is CurrentUsersLoading || current is CurrentUsersError,
-            builder: (context, state) {
-              int currentCount = 0;
-              int totalCapacity = 100; // Default capacity - you may need to get this from API
-              if (state is CurrentUsersSuccess) {
-                currentCount = state.userListResponse.count;
-              }
-
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  // Calculate responsive dimensions
-                  final screenWidth = MediaQuery.of(context).size.width;
-                  final cardWidth = (screenWidth - 48) / 2; // 48 = horizontal padding + gap
-                  final cardHeight = cardWidth * 0.85; // Aspect ratio 1:0.85
-
-                  // Minimum height for small screens
-                  final minHeight = 120.0;
-                  final finalHeight = math.max(cardHeight, minHeight);
-
-                  return IntrinsicHeight(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        // Points Card
-                        Expanded(
-                          child: Container(
-                            height: finalHeight,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth * 0.04, // 4% of screen width
-                              vertical: screenWidth * 0.035, // 3.5% of screen width
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: AppColors.primary.withOpacity(0.2)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.primary.withOpacity(0.1),
-                                  spreadRadius: 0,
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  flex: 3,
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.all(screenWidth * 0.02),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.primary.withOpacity(0.1),
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: AppIcons.pointsIc.icon(
-                                          color: AppColors.primary,
-                                          height: screenWidth * 0.05,
-                                        ),
-                                      ),
-                                      SizedBox(width: screenWidth * 0.025),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                LocaleKeys.my_points.tr(),
-                                                style: context.bodyMedium.copyWith(
-                                                  fontSize: screenWidth * 0.03,
-                                                  color: AppColors.primary.withOpacity(0.7),
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: screenWidth * 0.005),
-                                            FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              alignment: Alignment.centerLeft,
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Text(
-                                                    context.user.points ?? '0',
-                                                    style: context.bodyMedium.copyWith(
-                                                      fontSize: screenWidth * 0.045,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: AppColors.primary,
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: screenWidth * 0.01),
-                                                  Text(
-                                                    LocaleKeys.point.tr(),
-                                                    style: context.bodyMedium.copyWith(
-                                                      fontSize: screenWidth * 0.025,
-                                                      color: AppColors.primary.withOpacity(0.7),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 1,
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: screenWidth * 0.08,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.primary,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      child: InkWell(
-                                        borderRadius: BorderRadius.circular(8),
-                                        onTap: () => context.push(Routes.dailyPoints),
-                                        child: Center(
-                                          child: FittedBox(
-                                            child: Text(
-                                              LocaleKeys.details.tr(),
-                                              style: context.bodyMedium.copyWith(
-                                                fontSize: screenWidth * 0.03,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        SizedBox(width: screenWidth * 0.03),
-
-                        // Capacity Card
-                        Expanded(
-                          child: Container(
-                            height: finalHeight,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth * 0.04,
-                              vertical: screenWidth * 0.035,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: AppColors.primary.withOpacity(0.2)),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  flex: 3,
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.all(screenWidth * 0.02),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.primary.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Icon(
-                                          Icons.local_parking,
-                                          color: AppColors.primary,
-                                          size: screenWidth * 0.05,
-                                        ),
-                                      ),
-                                      SizedBox(width: screenWidth * 0.025),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                LocaleKeys.parking_capacity.tr(),
-                                                style: context.bodyMedium.copyWith(
-                                                  fontSize: screenWidth * 0.03,
-                                                  color: AppColors.primary.withOpacity(0.7),
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: screenWidth * 0.005),
-                                            FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                "$currentCount / $totalCapacity",
-                                                style: context.bodyMedium.copyWith(
-                                                  fontSize: screenWidth * 0.045,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: AppColors.primary,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 1,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      // Capacity progress bar
-                                      Container(
-                                        height: screenWidth * 0.02,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.5),
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: FractionallySizedBox(
-                                          alignment: Alignment.centerLeft,
-                                          widthFactor:
-                                              totalCapacity > 0 ? (currentCount / totalCapacity).clamp(0.0, 1.0) : 0.0,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: AppColors.primary,
-                                              borderRadius: BorderRadius.circular(4),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-
-          24.gap,
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              BlocBuilder<HomeCubit, HomeState>(
-                buildWhen:
-                    (previous, current) =>
-                        current is CurrentUsersSuccess ||
-                        current is CurrentUsersLoading ||
-                        current is CurrentUsersError,
-                builder: (context, state) {
-                  String countText = LocaleKeys.current_parking_users.tr();
-                  if (state is CurrentUsersSuccess) {
-                    countText = "${LocaleKeys.current_parking_users.tr()} (${state.userListResponse.count})";
-                  }
-                  return Text(countText, style: context.bodyMedium.bold.s12.copyWith(color: AppColors.primary));
-                },
-              ),
-              Text(
-                LocaleKeys.see_more.tr(),
-                style: context.bodyMedium.regular.s12.copyWith(color: AppColors.primary.withValues(alpha: 0.5)),
-              ).withPressEffect(
-                onTap: () {
-                  context.push(Routes.newList);
-                },
-              ),
-            ],
-          ),
-          16.gap,
+          // Points and Capacity Cards Row with NestedScrollView
           Expanded(
-            child: BlocConsumer<HomeCubit, HomeState>(
-              listenWhen: (previous, current) => current is CurrentUsersSuccess || current is CurrentUsersError,
-              listener: (context, state) {
-                if (state is CurrentUsersSuccess) {
-                  setState(() {
-                    _allUsers = state.userListResponse.users;
-                    _filteredUsers = _allUsers;
-                  });
-                } else if (state is CurrentUsersError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.message),
-                      backgroundColor: Colors.red,
-                      action: SnackBarAction(
-                        label: LocaleKeys.retry.tr(),
-                        textColor: Colors.white,
-                        onPressed: _refreshData,
-                      ),
-                    ),
-                  );
-                }
-              },
-              buildWhen:
-                  (previous, current) =>
-                      current is CurrentUsersLoading || current is CurrentUsersSuccess || current is CurrentUsersError,
-              builder: (context, state) {
-                if (state is CurrentUsersLoading) {
-                  return const Center(child: CircularProgressIndicator(color: AppColors.primary));
-                }
+            child: NestedScrollView(
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                return [
+                  // Points and Capacity Cards Section - Pinned
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: CardsHeaderDelegate(
+                      minHeight: 80.0,
+                      maxHeight: 160.0,
+                      child: (context, shrinkOffset) {
+                        return BlocBuilder<HomeCubit, HomeState>(
+                          buildWhen:
+                              (previous, current) =>
+                                  current is CurrentUsersSuccess ||
+                                  current is CurrentUsersLoading ||
+                                  current is CurrentUsersError,
+                          builder: (context, state) {
+                            int currentCount = 0;
+                            int totalCapacity = 100;
+                            if (state is CurrentUsersSuccess) {
+                              currentCount = state.userListResponse.count;
+                            }
 
-                if (state is CurrentUsersError) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.error_outline, size: 64, color: Colors.grey[400]),
-                        16.gap,
-                        Text(
-                          LocaleKeys.failed_to_load_users.tr(),
-                          style: context.bodyMedium.regular.s16.copyWith(color: Colors.grey[600]),
-                        ),
-                        8.gap,
-                        Text(
-                          state.message,
-                          style: context.bodySmall.regular.s14.copyWith(color: Colors.grey[500]),
-                          textAlign: TextAlign.center,
-                        ),
-                        24.gap,
-                        CustomElevatedButton(
-                          onPressed: _refreshData,
-                          // icon: Icons.refresh,
-                          title: LocaleKeys.retry.tr(),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
-                if (state is CurrentUsersSuccess) {
-                  if (_filteredUsers.isEmpty && _searchController.text.isNotEmpty) {
-                    // Show no search results
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.search_off, size: 64, color: Colors.grey[400]),
-                          16.gap,
-                          Text(
-                            LocaleKeys.no_results_found.tr(),
-                            style: context.bodyMedium.regular.s16.copyWith(color: Colors.grey[600]),
-                          ),
-                          8.gap,
-                          Text(
-                            LocaleKeys.try_adjusting_search_terms.tr(),
-                            style: context.bodySmall.regular.s14.copyWith(color: Colors.grey[500]),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-
-                  if (_filteredUsers.isEmpty) {
-                    // Show no users in parking
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.local_parking_outlined, size: 64, color: Colors.grey[400]),
-                          16.gap,
-                          Text(
-                            LocaleKeys.no_users_currently_in_parking.tr(),
-                            style: context.bodyMedium.regular.s16.copyWith(color: Colors.grey[600]),
-                          ),
-                          8.gap,
-                          Text(
-                            LocaleKeys.users_will_appear_when_enter.tr(),
-                            style: context.bodySmall.regular.s14.copyWith(color: Colors.grey[500]),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                  return RefreshIndicator(
-                    onRefresh: () async => _refreshData(),
-                    color: AppColors.primary,
-                    child: ListView.separated(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      shrinkWrap: false,
-                      padding: EdgeInsets.zero,
-                      itemCount: _filteredUsers.length,
-                      separatorBuilder: (context, index) => const SizedBox(height: 16),
-                      itemBuilder: (context, index) {
-                        return UserWidget(user: _filteredUsers[index]);
+                            return Container(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // Determine which layout to show based on shrink offset
+                                  shrinkOffset > 40
+                                      ? _buildCollapsedCardsSection(
+                                        currentCount: currentCount,
+                                        totalCapacity: totalCapacity,
+                                        screenWidth: MediaQuery.of(context).size.width,
+                                      )
+                                      : _buildExpandedCardsSection(
+                                        currentCount: currentCount,
+                                        totalCapacity: totalCapacity,
+                                        screenWidth: MediaQuery.of(context).size.width,
+                                      ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
                       },
                     ),
-                  );
-                }
+                  ),
 
-                // Default fallback - shouldn't reach here
-                return const SizedBox.shrink();
+                  // Current Users Header - Pinned
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: CurrentUsersHeaderDelegate(
+                      height: 74.0,
+                      child: Container(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        child: Column(
+                          children: [
+                            24.gap,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  BlocBuilder<HomeCubit, HomeState>(
+                                    buildWhen:
+                                        (previous, current) =>
+                                            current is CurrentUsersSuccess ||
+                                            current is CurrentUsersLoading ||
+                                            current is CurrentUsersError,
+                                    builder: (context, state) {
+                                      String countText = LocaleKeys.current_parking_users.tr();
+                                      if (state is CurrentUsersSuccess) {
+                                        countText =
+                                            "${LocaleKeys.current_parking_users.tr()} (${state.userListResponse.count})";
+                                      }
+                                      return Text(
+                                        countText,
+                                        style: context.bodyMedium.bold.s12.copyWith(color: AppColors.primary),
+                                      );
+                                    },
+                                  ),
+                                  Text(
+                                    LocaleKeys.see_more.tr(),
+                                    style: context.bodyMedium.regular.s12.copyWith(
+                                      color: AppColors.primary.withValues(alpha: 0.5),
+                                    ),
+                                  ).withPressEffect(
+                                    onTap: () {
+                                      context.push(Routes.newList);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ];
               },
+              body: BlocConsumer<HomeCubit, HomeState>(
+                listenWhen: (previous, current) => current is CurrentUsersSuccess || current is CurrentUsersError,
+                listener: (context, state) {
+                  if (state is CurrentUsersSuccess) {
+                    setState(() {
+                      _allUsers = state.userListResponse.users;
+                      _filteredUsers = _allUsers;
+                    });
+                  } else if (state is CurrentUsersError) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.red,
+                        action: SnackBarAction(
+                          label: LocaleKeys.retry.tr(),
+                          textColor: Colors.white,
+                          onPressed: _refreshData,
+                        ),
+                      ),
+                    );
+                  }
+                },
+                buildWhen:
+                    (previous, current) =>
+                        current is CurrentUsersLoading ||
+                        current is CurrentUsersSuccess ||
+                        current is CurrentUsersError,
+                builder: (context, state) {
+                  if (state is CurrentUsersLoading) {
+                    return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+                  }
+
+                  if (state is CurrentUsersError) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.error_outline, size: 64, color: Colors.grey[400]),
+                          16.gap,
+                          Text(
+                            LocaleKeys.failed_to_load_users.tr(),
+                            style: context.bodyMedium.regular.s16.copyWith(color: Colors.grey[600]),
+                          ),
+                          8.gap,
+                          Text(
+                            state.message,
+                            style: context.bodySmall.regular.s14.copyWith(color: Colors.grey[500]),
+                            textAlign: TextAlign.center,
+                          ),
+                          24.gap,
+                          CustomElevatedButton(onPressed: _refreshData, title: LocaleKeys.retry.tr()),
+                        ],
+                      ),
+                    );
+                  }
+
+                  if (state is CurrentUsersSuccess) {
+                    if (_filteredUsers.isEmpty && _searchController.text.isNotEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.search_off, size: 64, color: Colors.grey[400]),
+                            16.gap,
+                            Text(
+                              LocaleKeys.no_results_found.tr(),
+                              style: context.bodyMedium.regular.s16.copyWith(color: Colors.grey[600]),
+                            ),
+                            8.gap,
+                            Text(
+                              LocaleKeys.try_adjusting_search_terms.tr(),
+                              style: context.bodySmall.regular.s14.copyWith(color: Colors.grey[500]),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
+                    if (_filteredUsers.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.local_parking_outlined, size: 64, color: Colors.grey[400]),
+                            16.gap,
+                            Text(
+                              LocaleKeys.no_users_currently_in_parking.tr(),
+                              style: context.bodyMedium.regular.s16.copyWith(color: Colors.grey[600]),
+                            ),
+                            8.gap,
+                            Text(
+                              LocaleKeys.users_will_appear_when_enter.tr(),
+                              style: context.bodySmall.regular.s14.copyWith(color: Colors.grey[500]),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    return RefreshIndicator(
+                      onRefresh: () async => _refreshData(),
+                      color: AppColors.primary,
+                      child: ListView.separated(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        shrinkWrap: false,
+                        padding: EdgeInsets.zero,
+                        itemCount: _filteredUsers.length,
+                        separatorBuilder: (context, index) => 16.gap,
+                        itemBuilder: (context, index) {
+                          return UserWidget(user: _filteredUsers[index]);
+                        },
+                      ),
+                    );
+                  }
+
+                  return const SizedBox.shrink();
+                },
+              ),
             ),
           ),
           30.gap,
         ],
       ),
     );
+  }
+}
+
+// Fixed delegate for the cards section
+class CardsHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget Function(BuildContext context, double shrinkOffset) child;
+
+  CardsHeaderDelegate({required this.minHeight, required this.maxHeight, required this.child});
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox(height: math.max(minHeight, maxHeight - shrinkOffset), child: child(context, shrinkOffset));
+  }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return oldDelegate != this;
+  }
+}
+
+// Fixed delegate for the current users header
+class CurrentUsersHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double height;
+  final Widget child;
+
+  CurrentUsersHeaderDelegate({required this.height, required this.child});
+
+  @override
+  double get minExtent => height;
+
+  @override
+  double get maxExtent => height;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox(height: height, child: child);
+  }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }
