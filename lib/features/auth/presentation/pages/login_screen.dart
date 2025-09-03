@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +15,7 @@ import 'package:must_invest_service_man/core/utils/dialogs/error_toast.dart';
 import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custom_layout.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
+import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_phone_field.dart';
 import 'package:must_invest_service_man/core/utils/widgets/logo_widget.dart';
 import 'package:must_invest_service_man/features/auth/data/models/login_params.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
@@ -31,6 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isRemembered = false;
+  String _code = '+20';
+  String _countryCode = 'EG';
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +75,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.transparent,
                 child: Column(
                   children: [
-                    CustomTextFormField(
+                    CustomPhoneFormField(
+                      includeCountryCodeInValue: true,
                       controller: _phoneController,
                       margin: 0,
                       hint: LocaleKeys.phone_number.tr(),
                       title: LocaleKeys.phone_number.tr(),
+                      // Add autofill hints for phone number
+                      // autofillHints: sl<MustInvestPreferences>().isRememberedMe() ? [AutofillHints.telephoneNumber] : null,
+                      onChanged: (phone) {
+                        log(phone);
+                      },
+                      onChangedCountryCode: (code, countryCode) {
+                        setState(() {
+                          _code = code;
+                          _countryCode = countryCode;
+                          log(' $code');
+                        });
+                      },
                     ),
                     16.gap,
                     CustomTextFormField(
@@ -163,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // if (_formKey.currentState!.validate()) {
                     AuthCubit.get(context).login(
                       LoginParams(
-                        phone: _phoneController.text,
+                        phone: '$_code${_phoneController.text}',
                         password: _passwordController.text,
                         isRemembered: isRemembered,
                       ),
