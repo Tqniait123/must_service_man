@@ -95,7 +95,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   }
 
   void _startAnimationSequence() async {
-    AuthCubit.get(context).autoLogin();
+    if (sl<MustInvestServiceManPreferences>().isRememberedMe()) {
+      AuthCubit.get(context).autoLogin();
+    }
     // Wait for initial delay
     await Future.delayed(const Duration(milliseconds: 500));
 

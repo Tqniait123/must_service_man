@@ -8,6 +8,7 @@ const String kToken = 'token';
 const String kTempToken = 'temp-token';
 const String kLang = 'Lang';
 const String kOnBoarding = 'onBoarding'; // Added for onboarding screen
+const String kRememberMe = 'rememberMe';
 
 class MustInvestServiceManPreferences {
   final SharedPreferences _preferences;
@@ -15,6 +16,14 @@ class MustInvestServiceManPreferences {
 
   Future<bool> saveToken(String token) async {
     return await _preferences.setString(kToken, token);
+  }
+
+  Future<bool> setRememberMe(bool remember) async {
+    return await _preferences.setBool(kRememberMe, remember);
+  }
+
+  bool isRememberedMe() {
+    return _preferences.getBool(kRememberMe) ?? false;
   }
 
   Future<bool> deleteToken() async {
@@ -70,10 +79,7 @@ class MustInvestServiceManPreferences {
 
   Future<bool> saveLastSeenNotificationsTime() async {
     try {
-      await _preferences.setString(
-        'last_seen_notifications_time',
-        DateTime.now().toUtc().toIso8601String(),
-      );
+      await _preferences.setString('last_seen_notifications_time', DateTime.now().toUtc().toIso8601String());
       return true;
     } catch (e) {
       log('Error saving last seen notifications time: $e');

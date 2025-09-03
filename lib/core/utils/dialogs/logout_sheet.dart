@@ -7,6 +7,8 @@ import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
+import 'package:must_invest_service_man/core/preferences/shared_pref.dart';
+import 'package:must_invest_service_man/core/services/di.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/dialogs/error_toast.dart';
@@ -65,6 +67,7 @@ void showLogoutBottomSheet(BuildContext context) {
                     isBordered: true,
                     onPressed: () {
                       context.userCubit.removeCurrentUser();
+                      sl<MustInvestServiceManPreferences>().deleteToken();
                       context.go(Routes.login);
                     },
                   ),
