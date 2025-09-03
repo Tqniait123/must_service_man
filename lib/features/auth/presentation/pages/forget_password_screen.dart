@@ -97,7 +97,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 if (state is ForgetPasswordSentOTP) {
                   context.push(
                     Routes.otpScreen,
-                    extra: OtpScreenParams(otpType: OtpType.forgetPassword, phone: phoneController.text),
+                    extra: OtpScreenParams(otpFlow: OtpFlow.passwordReset, phone: phoneController.text),
                   );
                 }
               },

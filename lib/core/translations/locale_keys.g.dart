@@ -1138,5 +1138,9 @@ abstract class  LocaleKeys {
   static const points_will_appear_here = 'points_will_appear_here';
   static const point_source = 'point_source';
   static const something_went_wrong = 'something_went_wrong';
+  static const password_does_not_match = 'password_does_not_match';
+  static const account_verification_required = 'account_verification_required';
+  static const account_verification_message = 'account_verification_message';
+  static const verify_now = 'verify_now';
 
 }

@@ -1205,7 +1205,11 @@
   "no_points_today": "لم تحصل على نقاط اليوم",
   "points_will_appear_here": "ستظهر النقاط من معاملات الموقف هنا",
   "point_source": "مصدر النقاط",
-  "something_went_wrong": "حدث خطأ ما"
+  "something_went_wrong": "حدث خطأ ما",
+  "password_does_not_match": "كلمة المرور غير متطابقة",
+   "account_verification_required": "مطلوب التحقق من الحساب",
+  "account_verification_message": "يجب التحقق من حسابك قبل تسجيل الدخول. يرجى التحقق من حسابك للمتابعة.",
+  "verify_now": "تحقق الآن"
 
 
 }

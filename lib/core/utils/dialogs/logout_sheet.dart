@@ -27,24 +27,30 @@ void showLogoutBottomSheet(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // AppIcons.signoutIllu.svg(),
+            // Warning icon
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(color: Colors.red.withOpacity(0.1), shape: BoxShape.circle),
+              child: Icon(Icons.logout_rounded, size: 40, color: Colors.red),
+            ),
+            24.gap,
 
-            // Text(
-            //   LocaleKeys.sign_out_confirm.tr(), // "Login Required"
-            //   style: AppStyles.bold16black.copyWith(fontSize: 16.r),
-            //   textAlign: TextAlign.center,
-            // ),
-            // const SizedBox(height: 12),
-            // Text(
-            //   LocaleKeys.please_dont_leave
-            //       .tr(), // "To enjoy full app features, please log in or create an account."
-            //   style: context.theme.textTheme.bodyMedium!.copyWith(
-            //     color: Colors.black54,
-            //     height: 1.5,
-            //     fontSize: 10.r,
-            //   ),
-            //   textAlign: TextAlign.center,
-            // ),
+            // Title
+            Text(
+              LocaleKeys.logout_confirmation_title.tr(),
+              style: context.titleLarge.copyWith(fontWeight: FontWeight.bold, color: AppColors.black),
+              textAlign: TextAlign.center,
+            ),
+            12.gap,
+
+            // Description
+            Text(
+              LocaleKeys.logout_confirmation_message.tr(),
+              style: context.bodyMedium.copyWith(color: AppColors.grey, height: 1.5),
+              textAlign: TextAlign.center,
+            ),
+            40.gap,
             const SizedBox(height: 25),
             Row(
               children: [
@@ -58,6 +64,7 @@ void showLogoutBottomSheet(BuildContext context) {
                     withShadow: false,
                     isBordered: true,
                     onPressed: () {
+                      context.userCubit.removeCurrentUser();
                       context.go(Routes.login);
                     },
                   ),

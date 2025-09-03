@@ -1152,7 +1152,11 @@ class CodegenLoader extends AssetLoader{
   "no_points_today": "No Points Earned Today",
   "points_will_appear_here": "Points from parking transactions will appear here",
   "point_source": "Point Source",
-  "something_went_wrong": "Something went wrong"
+  "something_went_wrong": "Something went wrong",
+  "password_does_not_match": "Password does not match",
+  "account_verification_required": "Account Verification Required",
+  "account_verification_message": "Your account needs to be verified before you can login. Please verify your account to continue.",
+  "verify_now": "Verify Now"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -2292,7 +2296,11 @@ static const Map<String,dynamic> _ar = {
   "no_points_today": "لم تحصل على نقاط اليوم",
   "points_will_appear_here": "ستظهر النقاط من معاملات الموقف هنا",
   "point_source": "مصدر النقاط",
-  "something_went_wrong": "حدث خطأ ما"
+  "something_went_wrong": "حدث خطأ ما",
+  "password_does_not_match": "كلمة المرور غير متطابقة",
+  "account_verification_required": "مطلوب التحقق من الحساب",
+  "account_verification_message": "يجب التحقق من حسابك قبل تسجيل الدخول. يرجى التحقق من حسابك للمتابعة.",
+  "verify_now": "تحقق الآن"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

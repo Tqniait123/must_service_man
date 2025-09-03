@@ -18,6 +18,7 @@ import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_fi
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_phone_field.dart';
 import 'package:must_invest_service_man/core/utils/widgets/logo_widget.dart';
 import 'package:must_invest_service_man/features/auth/data/models/login_params.dart';
+import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/user_cubit/user_cubit.dart';
 import 'package:must_invest_service_man/features/auth/presentation/widgets/sign_up_button.dart';
@@ -167,6 +168,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 UserCubit.get(context).setCurrentUser(state.user);
 
                 context.go(Routes.homeUser);
+              } else if (state is AuthUnverified) {
+                // Show bottom sheet for unverified account
+                _showVerificationBottomSheet(context);
               }
               if (state is AuthError) {
                 showErrorToast(context, state.message);
@@ -193,6 +197,57 @@ class _LoginScreenState extends State<LoginScreen> {
           SignUpButton(isLogin: true, onTap: () => context.push(Routes.register)),
         ],
       ).paddingAll(32),
+    );
+  }
+
+  void _showVerificationBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder:
+          (context) => Container(
+            padding: EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.verified_user, size: 64, color: AppColors.primary),
+                SizedBox(height: 16),
+                Text(
+                  LocaleKeys.account_verification_required.tr(),
+                  style: context.bodyLarge.bold.copyWith(color: AppColors.black, fontSize: 20),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  LocaleKeys.account_verification_message.tr(),
+                  textAlign: TextAlign.center,
+                  style: context.bodyMedium.regular.copyWith(color: AppColors.grey, fontSize: 16),
+                ),
+                SizedBox(height: 24),
+                BlocConsumer<AuthCubit, AuthState>(
+                  builder:
+                      (BuildContext context, AuthState state) => CustomElevatedButton(
+                        loading: state is ResendOTPLoading,
+                        onPressed: () async {
+                          await AuthCubit.get(context).resendOTP("$_code${_phoneController.text}");
+                          context.pop(); // Close bottom sheet
+                          context.push(
+                            Routes.otpScreen,
+                            extra: OtpScreenParams(
+                              otpFlow: OtpFlow.registration,
+                              phone: "$_code${_phoneController.text}",
+                            ),
+                          );
+                        },
+                        title: LocaleKeys.verify_now.tr(),
+                      ),
+                  listener: (BuildContext context, AuthState state) {
+                    if (state is ResendOTPSuccess) {
+                      showSuccessToast(context, state.message, seconds: 15);
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
     );
   }
 }

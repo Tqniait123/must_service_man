@@ -12,6 +12,7 @@ import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custom_layout.dart';
+import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/long_press_effect.dart';
 import 'package:must_invest_service_man/features/home/presentation/cubit/home_cubit.dart';
 import 'package:must_invest_service_man/features/home/presentation/cubit/home_state.dart';
@@ -361,14 +362,10 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                           textAlign: TextAlign.center,
                         ),
                         24.gap,
-                        ElevatedButton.icon(
+                        CustomElevatedButton(
                           onPressed: _refreshData,
-                          icon: const Icon(Icons.refresh),
-                          label: Text(LocaleKeys.retry.tr()),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            foregroundColor: Colors.white,
-                          ),
+                          // icon: Icons.refresh,
+                          title: LocaleKeys.retry.tr(),
                         ),
                       ],
                     ),
