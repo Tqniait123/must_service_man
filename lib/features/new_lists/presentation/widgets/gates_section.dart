@@ -91,7 +91,7 @@ class GatesSection extends StatelessWidget {
                     gateName: LocaleKeys.exit_gate.tr(),
                     gateValue: '---',
                     gateStatus: LocaleKeys.standby_mode.tr(),
-                    color: Colors.indigo,
+                    color: Colors.red,
                     isDisabled: true,
                   ),
                 ),

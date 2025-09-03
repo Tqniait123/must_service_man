@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -90,7 +92,6 @@ class _HomeParkingManState extends State<HomeParkingMan> {
         scrollPhysics: const NeverScrollableScrollPhysics(),
         children: [
           32.gap,
-
           // Points and Capacity Cards Row
           BlocBuilder<HomeCubit, HomeState>(
             buildWhen:
@@ -103,182 +104,256 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                 currentCount = state.userListResponse.count;
               }
 
-              return Row(
-                children: [
-                  // Points Card
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.primary.withOpacity(0.1),
-                            spreadRadius: 0,
-                            blurRadius: 15,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  // Calculate responsive dimensions
+                  final screenWidth = MediaQuery.of(context).size.width;
+                  final cardWidth = (screenWidth - 48) / 2; // 48 = horizontal padding + gap
+                  final cardHeight = cardWidth * 0.85; // Aspect ratio 1:0.85
+
+                  // Minimum height for small screens
+                  final minHeight = 120.0;
+                  final finalHeight = math.max(cardHeight, minHeight);
+
+                  return IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Points Card
+                        Expanded(
+                          child: Container(
+                            height: finalHeight,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.04, // 4% of screen width
+                              vertical: screenWidth * 0.035, // 3.5% of screen width
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                              boxShadow: [
+                                BoxShadow(
                                   color: AppColors.primary.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(10),
+                                  spreadRadius: 0,
+                                  blurRadius: 15,
+                                  offset: const Offset(0, 4),
                                 ),
-                                child: AppIcons.pointsIc.icon(color: AppColors.primary),
-                              ),
-                              10.gap,
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      LocaleKeys.my_points.tr(),
-                                      style: context.bodyMedium.s12.copyWith(
-                                        color: AppColors.primary.withOpacity(0.7),
-                                        fontWeight: FontWeight.w500,
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                  flex: 3,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(screenWidth * 0.02),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.primary.withOpacity(0.1),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: AppIcons.pointsIc.icon(
+                                          color: AppColors.primary,
+                                          height: screenWidth * 0.05,
+                                        ),
                                       ),
-                                    ),
-                                    2.gap,
-                                    Row(
-                                      children: [
-                                        Text(
-                                          context.user.points ?? '0',
-                                          style: context.bodyMedium.copyWith(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.primary,
-                                          ),
+                                      SizedBox(width: screenWidth * 0.025),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                LocaleKeys.my_points.tr(),
+                                                style: context.bodyMedium.copyWith(
+                                                  fontSize: screenWidth * 0.03,
+                                                  color: AppColors.primary.withOpacity(0.7),
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: screenWidth * 0.005),
+                                            FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              alignment: Alignment.centerLeft,
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    context.user.points ?? '0',
+                                                    style: context.bodyMedium.copyWith(
+                                                      fontSize: screenWidth * 0.045,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: AppColors.primary,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: screenWidth * 0.01),
+                                                  Text(
+                                                    LocaleKeys.point.tr(),
+                                                    style: context.bodyMedium.copyWith(
+                                                      fontSize: screenWidth * 0.025,
+                                                      color: AppColors.primary.withOpacity(0.7),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        4.gap,
-                                        Text(
-                                          LocaleKeys.point.tr(),
-                                          style: context.bodyMedium.s10.copyWith(
-                                            color: AppColors.primary.withOpacity(0.7),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          12.gap,
-                          Container(
-                            width: double.infinity,
-                            height: 32,
-                            decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(8)),
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(8),
-                                onTap: () => context.push(Routes.dailyPoints),
-                                child: Center(
-                                  child: Text(
-                                    LocaleKeys.details.tr(),
-                                    style: context.bodyMedium.s12.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
+                                Flexible(
+                                  flex: 1,
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: screenWidth * 0.08,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primary,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: InkWell(
+                                        borderRadius: BorderRadius.circular(8),
+                                        onTap: () => context.push(Routes.dailyPoints),
+                                        child: Center(
+                                          child: FittedBox(
+                                            child: Text(
+                                              LocaleKeys.details.tr(),
+                                              style: context.bodyMedium.copyWith(
+                                                fontSize: screenWidth * 0.03,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
+                        ),
 
-                  12.gap,
+                        SizedBox(width: screenWidth * 0.03),
 
-                  // Capacity Card
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: AppColors.primary.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Icon(Icons.local_parking, color: AppColors.primary, size: 20),
-                              ),
-                              10.gap,
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      LocaleKeys.parking_capacity.tr(),
-                                      style: context.bodyMedium.s12.copyWith(
-                                        color: AppColors.primary.withOpacity(0.7),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    2.gap,
-                                    Text(
-                                      "$currentCount / $totalCapacity",
-                                      style: context.bodyMedium.copyWith(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.primary,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          12.gap,
-                          // Capacity progress bar
-                          Container(
-                            height: 8,
-                            width: double.infinity,
+                        // Capacity Card
+                        Expanded(
+                          child: Container(
+                            height: finalHeight,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.04,
+                              vertical: screenWidth * 0.035,
+                            ),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(4),
+                              color: AppColors.primary.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: AppColors.primary.withOpacity(0.2)),
                             ),
-                            child: FractionallySizedBox(
-                              alignment: Alignment.centerLeft,
-                              widthFactor: totalCapacity > 0 ? (currentCount / totalCapacity).clamp(0.0, 1.0) : 0.0,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: AppColors.primary,
-                                  borderRadius: BorderRadius.circular(4),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                  flex: 3,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(screenWidth * 0.02),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.primary.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Icon(
+                                          Icons.local_parking,
+                                          color: AppColors.primary,
+                                          size: screenWidth * 0.05,
+                                        ),
+                                      ),
+                                      SizedBox(width: screenWidth * 0.025),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                LocaleKeys.parking_capacity.tr(),
+                                                style: context.bodyMedium.copyWith(
+                                                  fontSize: screenWidth * 0.03,
+                                                  color: AppColors.primary.withOpacity(0.7),
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: screenWidth * 0.005),
+                                            FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "$currentCount / $totalCapacity",
+                                                style: context.bodyMedium.copyWith(
+                                                  fontSize: screenWidth * 0.045,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppColors.primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
+                                Flexible(
+                                  flex: 1,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      // Capacity progress bar
+                                      Container(
+                                        height: screenWidth * 0.02,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(0.5),
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                        child: FractionallySizedBox(
+                                          alignment: Alignment.centerLeft,
+                                          widthFactor:
+                                              totalCapacity > 0 ? (currentCount / totalCapacity).clamp(0.0, 1.0) : 0.0,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: AppColors.primary,
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          6.gap,
-                          // Text(
-                          //   LocaleKeys.spaces_available.tr(),
-                          //   style: context.bodyMedium.s10.copyWith(color: AppColors.primary.withOpacity(0.7)),
-                          // ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                  );
+                },
               );
             },
           ),
