@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:must_invest_service_man/config/app_settings/cubit/settings_cubit.dart';
 import 'package:must_invest_service_man/config/routes/routes.dart';
+import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/string_to_icon.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
@@ -13,6 +14,7 @@ import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/logo_widget.dart';
+import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -93,6 +95,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   }
 
   void _startAnimationSequence() async {
+    AuthCubit.get(context).autoLogin();
     // Wait for initial delay
     await Future.delayed(const Duration(milliseconds: 500));
 
@@ -122,8 +125,15 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       // Navigate to onboarding if not completed
       context.go(Routes.onBoarding1);
     } else {
-      // Always navigate to login screen
-      context.go(Routes.login);
+      final authCubit = AuthCubit.get(context);
+      if (authCubit.state is AuthSuccess) {
+        context.setCurrentUser((authCubit.state as AuthSuccess).user);
+        // Navigate to home if already logged in
+        context.go(Routes.homeUser);
+      } else {
+        // Always navigate to login screen
+        context.go(Routes.login);
+      }
     }
   }
 

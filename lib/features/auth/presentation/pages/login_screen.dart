@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool isRemembered = true;
+  bool isRemembered = false;
 
   @override
   Widget build(BuildContext context) {
