@@ -12,7 +12,6 @@ import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_b
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
-import 'package:must_invest_service_man/features/home/presentation/widgets/user_widget.dart';
 import 'package:must_invest_service_man/features/new_lists/presentation/widgets/filter_option_widget.dart';
 
 class NewListScreen extends StatefulWidget {
@@ -27,9 +26,10 @@ class _NewListScreenState extends State<NewListScreen> {
   int _selectedFilterId = 1;
 
   final List<Map<String, dynamic>> _filters = [
-    {'id': 2, 'title': LocaleKeys.new_title.tr()},
-    {'id': 3, 'title': LocaleKeys.current.tr()},
-    {'id': 4, 'title': LocaleKeys.last.tr()},
+    {'id': 1, 'title': LocaleKeys.all.tr()},
+    {'id': 2, 'title': LocaleKeys.current_users.tr()},
+    {'id': 3, 'title': LocaleKeys.users_of_day.tr()},
+    {'id': 4, 'title': LocaleKeys.old_users.tr()},
   ];
 
   @override
@@ -46,10 +46,7 @@ class _NewListScreenState extends State<NewListScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomBackButton(),
-                  Text(
-                    LocaleKeys.new_list.tr(),
-                    style: context.titleLarge.copyWith(),
-                  ),
+                  Text(LocaleKeys.new_list.tr(), style: context.titleLarge.copyWith()),
                   Row(
                     children: [
                       CustomIconButton(
@@ -59,10 +56,7 @@ class _NewListScreenState extends State<NewListScreen> {
                         onPressed: () {},
                       ),
                       10.gap,
-                      NotificationsButton(
-                        color: Color(0xffEAEAF3),
-                        iconColor: AppColors.primary,
-                      ),
+                      NotificationsButton(color: Color(0xffEAEAF3), iconColor: AppColors.primary),
                     ],
                   ),
                 ],
@@ -74,9 +68,7 @@ class _NewListScreenState extends State<NewListScreen> {
                 hintColor: AppColors.primary.withValues(alpha: 0.4),
                 isBordered: false,
                 margin: 0,
-                prefixIC: AppIcons.searchIc.icon(
-                  color: AppColors.primary.withValues(alpha: 0.4),
-                ),
+                prefixIC: AppIcons.searchIc.icon(color: AppColors.primary.withValues(alpha: 0.4)),
                 hint: LocaleKeys.search.tr(),
               ),
               20.gap,
@@ -103,22 +95,18 @@ class _NewListScreenState extends State<NewListScreen> {
                   },
                 ),
               ),
-              Expanded(
-                child: ListView.separated(
-                  physics:
-                      const BouncingScrollPhysics(), // Add physics for better scrolling
-                  shrinkWrap:
-                      false, // Don't use shrinkWrap as we've set a height
-                  padding:
-                      EdgeInsets.zero, // Remove padding to avoid extra space
-                  itemCount: usersList.length,
-                  separatorBuilder:
-                      (context, index) => const SizedBox(height: 16),
-                  itemBuilder: (context, index) {
-                    return UserWidget(user: usersList[index]);
-                  },
-                ),
-              ),
+              // Expanded(
+              //   child: ListView.separated(
+              //     physics: const BouncingScrollPhysics(), // Add physics for better scrolling
+              //     shrinkWrap: false, // Don't use shrinkWrap as we've set a height
+              //     padding: EdgeInsets.zero, // Remove padding to avoid extra space
+              //     itemCount: usersList.length,
+              //     separatorBuilder: (context, index) => const SizedBox(height: 16),
+              //     itemBuilder: (context, index) {
+              //       return UserWidget(user: [] as List<UserModel>);
+              //     },
+              //   ),
+              // ),
               30.gap, // Add some padding at the bottom
             ],
           ),

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:must_invest_service_man/config/app_settings/cubit/settings_cubit.dart';
 import 'package:must_invest_service_man/config/routes/app_router.dart';
 import 'package:must_invest_service_man/core/services/di.dart';
 import 'package:must_invest_service_man/core/static/strings.dart';
@@ -13,21 +14,22 @@ import 'package:must_invest_service_man/features/auth/presentation/cubit/user_cu
 import 'package:must_invest_service_man/features/auth/presentation/languages_cubit/languages_cubit.dart';
 
 class MustInvestServiceMan extends StatelessWidget {
-  MustInvestServiceMan({super.key});
-  final AppRouter appRouter = AppRouter(); // Create an instance of AppRouter
+  const MustInvestServiceMan({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 800),
+      designSize: const Size(400, 900),
       minTextAdapt: true,
       splitScreenMode: true,
+      fontSizeResolver: (fontSize, instance) => fontSize.toDouble(),
       builder: (_, __) {
         return MultiBlocProvider(
           providers: [
             BlocProvider(create: (BuildContext context) => AuthCubit(sl())),
             BlocProvider(create: (BuildContext context) => UserCubit()),
             BlocProvider(create: (context) => LanguagesCubit(sl())),
+            BlocProvider(create: (context) => AppSettingsCubit(sl())),
           ],
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
@@ -37,29 +39,41 @@ class MustInvestServiceMan extends StatelessWidget {
             title: Strings.appName,
             theme: lightTheme(context),
             builder: (context, child) {
+              // Get original MediaQuery data
+              final originalData = MediaQuery.of(context);
+
+              // Override scaling but preserve keyboard handling
+              child = MediaQuery(
+                data: originalData.copyWith(
+                  textScaler: const TextScaler.linear(1),
+                  // Remove devicePixelRatio modification to fix keyboard issue
+                  // devicePixelRatio: 0.8, // This causes keyboard layout issues
+                ),
+                child: child!,
+              );
+
               child = BotToastInit()(context, child);
-              return Scaffold(
-                body: child,
-                floatingActionButton:
-                    kDebugMode
-                        ? Opacity(
-                          opacity: 0.1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 20.0),
-                            child: FloatingActionButton(
-                              child: const Icon(Icons.refresh),
-                              onPressed: () async {
-                                await context.setLocale(
-                                  const Locale('en'),
-                                ); // Reload translations
-                                await context.setLocale(
-                                  const Locale('ar'),
-                                ); // Reload translations
-                              },
-                            ),
-                          ),
-                        )
-                        : null,
+
+              // Remove the Scaffold wrapper - it causes keyboard issues
+              return Stack(
+                children: [
+                  child,
+                  if (kDebugMode)
+                    Positioned(
+                      bottom: 100,
+                      right: 16,
+                      child: Opacity(
+                        opacity: 0.1,
+                        child: FloatingActionButton(
+                          child: const Icon(Icons.refresh),
+                          onPressed: () async {
+                            await context.setLocale(const Locale('en')); // Reload translations
+                            await context.setLocale(const Locale('ar')); // Reload translations
+                          },
+                        ),
+                      ),
+                    ),
+                ],
               );
             },
             // routerConfig: appRouter.router,
@@ -77,3 +91,5 @@ class MustInvestServiceMan extends StatelessWidget {
 
   // final GoRouter _router = GoRouter
 }
+
+final AppRouter appRouter = AppRouter(); // Create an instance of AppRouter

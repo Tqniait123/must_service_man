@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:must_invest_service_man/core/extensions/flipped_for_lcale.dart';
 import 'package:must_invest_service_man/core/extensions/sized_box.dart';
+import 'package:must_invest_service_man/core/functions/unfocus.dart';
 import 'package:must_invest_service_man/core/static/app_styles.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
@@ -41,6 +42,7 @@ class CustomTextFormField extends StatefulWidget {
     this.waitTyping = false, // New bool parameter
     this.isRequired = false,
     this.textAlign = TextAlign.start,
+    this.styleColor,
   });
 
   final TextEditingController controller;
@@ -49,6 +51,7 @@ class CustomTextFormField extends StatefulWidget {
   final Widget? prefixIC;
   final Color? backgroundColor;
   final Color? hintColor;
+  final Color? styleColor;
   final Widget? suffixIC;
   final bool? isBordered;
   final String? title;
@@ -121,11 +124,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         if (widget.title != null) ...[
           Text(
             widget.title!,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: AppColors.grey,
-              fontSize: 12.r,
-              fontWeight: FontWeight.w400,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.labelMedium?.copyWith(color: AppColors.grey, fontSize: 12.r, fontWeight: FontWeight.w400),
           ),
           8.ph,
         ],
@@ -147,16 +148,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           // clipBehavior: Clip.hardEdge,
           child: TextFormField(
             onFieldSubmitted: widget.onSubmitted,
-            inputFormatters:
-                widget.keyboardType == TextInputType.phone
-                    ? [FilteringTextInputFormatter.digitsOnly]
-                    : [],
+            inputFormatters: widget.keyboardType == TextInputType.phone ? [FilteringTextInputFormatter.digitsOnly] : [],
             readOnly: widget.readonly,
             textAlign: widget.textAlign,
             textAlignVertical: TextAlignVertical.center,
-            style: AppStyles.medium12black.copyWith(fontSize: 15.r),
+            style: AppStyles.medium12black.copyWith(fontSize: 15.r, color: widget.styleColor ?? Colors.black),
             showCursor: !widget.readonly,
             onTap: widget.onTap,
+            onTapOutside: (_) => dismissKeyboard(),
 
             validator: _compositeValidator,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -171,36 +170,25 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 1,
-                  color:
-                      (widget.isBordered ?? true)
-                          ? AppColors.primary
-                          : Colors.transparent,
+                  color: (widget.isBordered ?? true) ? AppColors.primary : Colors.transparent,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 1,
-                  color:
-                      (widget.isBordered ?? true)
-                          ? AppColors.borderColor
-                          : Colors.transparent,
+                  color: (widget.isBordered ?? true) ? AppColors.borderColor : Colors.transparent,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
               ),
               filled: true,
               fillColor:
                   widget.backgroundColor ??
-                  (widget.disabled
-                      ? const Color(0xff000000).withOpacity(0.2)
-                      : AppColors.white),
+                  (widget.disabled ? const Color(0xff000000).withOpacity(0.2) : AppColors.white),
               border: OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 0.5,
-                  color:
-                      (widget.isBordered ?? true)
-                          ? Colors.transparent
-                          : AppColors.primary,
+                  color: (widget.isBordered ?? true) ? Colors.transparent : AppColors.primary,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
               ),
@@ -212,37 +200,21 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               hintText: widget.hint,
               // labelText: widget.title,
               labelStyle: AppStyles.regular15greyC8,
-              floatingLabelStyle: AppStyles.regular15greyC8.copyWith(
-                color: AppColors.primary,
-              ),
+              floatingLabelStyle: AppStyles.regular15greyC8.copyWith(color: AppColors.primary),
               hintMaxLines: widget.large ? 2 : 1,
-              hintStyle: TextStyle(
-                color: widget.hintColor ?? Colors.grey[300],
-                fontSize: 14,
-              ),
+              hintStyle: TextStyle(color: widget.hintColor ?? Colors.grey[300], fontSize: 14),
               prefixIcon:
                   widget.prefixIC != null
                       ? widget.large
                           ? Padding(
                             padding: EdgeInsets.all(8.r),
-                            child: Align(
-                              alignment: Alignment.topRight,
-                              child: widget.prefixIC,
-                            ),
+                            child: Align(alignment: Alignment.topRight, child: widget.prefixIC),
                           ).flippedForLocale(context)
-                          : Padding(
-                            padding: EdgeInsets.all(16.r),
-                            child: widget.prefixIC,
-                          ).flippedForLocale(context)
+                          : Padding(padding: EdgeInsets.all(16.r), child: widget.prefixIC).flippedForLocale(context)
                       : null,
               prefixIconConstraints:
                   widget.large
-                      ? const BoxConstraints(
-                        maxWidth: 24,
-                        minWidth: 24,
-                        maxHeight: double.infinity,
-                        minHeight: 24,
-                      )
+                      ? const BoxConstraints(maxWidth: 24, minWidth: 24, maxHeight: double.infinity, minHeight: 24)
                       : null,
               suffixIcon:
                   widget.isPassword
@@ -258,26 +230,17 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                             _isObscure ? AppIcons.eyeSlashIc : AppIcons.eyeIc,
                             height: 24.r,
                             width: 24.r,
-                            colorFilter: const ColorFilter.mode(
-                              Color(0xffACB5BB),
-                              BlendMode.srcIn,
-                            ),
+                            colorFilter: const ColorFilter.mode(Color(0xffACB5BB), BlendMode.srcIn),
                           ),
                         ),
                       )
                       : widget.suffixIC != null
-                      ? Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: widget.suffixIC?.flippedForLocale(context),
-                      )
+                      ? Padding(padding: const EdgeInsets.all(5), child: widget.suffixIC?.flippedForLocale(context))
                       : null,
               // suffixIconColor: AppColors.greyAB,
             ),
             // Call either debounced or instant onChanged based on the waitTyping flag
-            onChanged:
-                widget.waitTyping
-                    ? (value) => _onChangedDebounced(value)
-                    : (value) => _onChangedInstant(value),
+            onChanged: widget.waitTyping ? (value) => _onChangedDebounced(value) : (value) => _onChangedInstant(value),
           ),
         ),
       ],
@@ -291,10 +254,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       String genderKey = widget.gender == 'female' ? 'female' : 'male';
 
       return LocaleKeys.field_is_required.tr(
-        namedArgs: {
-          "fieldName": (widget.fieldName ?? widget.hint ?? widget.title ?? ''),
-          genderKey: widget.gender,
-        },
+        namedArgs: {"fieldName": (widget.fieldName ?? widget.hint ?? widget.title ?? ''), genderKey: widget.gender},
         gender: genderKey,
       );
     }

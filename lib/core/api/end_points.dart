@@ -1,38 +1,36 @@
 class EndPoints {
   const EndPoints._();
+  static const String employerTag = 'employer';
 
   // Authentication Endpoints
-  static const String baseUrl = 'https://3eshplus.dev2.tqnia.me/api/';
+  static const String baseUrl = 'https://must.dev2.tqnia.me/$employerTag/';
   static const String login = 'login';
   static const String loginWithGoogle = 'auth/google/callback';
   static const String loginWithApple = 'login/apple';
   static const String autoLogin = 'profile';
   static const String register = 'register';
-  static const String plans = 'subscriptions';
-  static String subscribePlan(int planId) => 'subscribe';
-  static String planBrands(int planId) => 'subscriptions/$planId/vendors';
-  static const String forgetPassword = 'forgot-password';
-  static const String resetPassword = 'reset-password';
-  static const String categories = 'categories';
-  static const String search = 'vendors/search';
-  static const String discount = 'discounts/create';
+  static const String verifyRegistration = 'register/verify_phone';
+  static const String verifyPasswordReset = 'check_reset_code';
+  static const String resendOtp = 'resend_otp';
+  static const String forgetPassword = 'forgot_password';
+  static const String resetPassword = 'reset_password';
   static const String home = 'home';
-  static const String homeGuest = 'guestHome';
-  static const String filter = 'vendors/getFilter';
-  static String page(String page) => 'static-pages/$page';
-  static const String createTicket = 'tickets';
-  static const String getTickets = 'tickets';
-  static String showTicket(int id) => 'tickets/$id';
-  static String replyTicket(int id) => 'tickets/$id/reply';
-  static const String mySubscriptions = 'my-subscriptions';
-  static const String notifications = 'orders';
-  static String vendor(int id) => 'vendors/$id/show';
-  static const String approveOrder = 'orders/accept';
-  static const String declineOrder = 'orders/decline';
-  static const String offers = 'vendors/categoriesWithVendors';
-  static const String updateLocation = 'updateLatAndLon';
-  static const String nearbyVendors = 'nearby/Vendors';
-  static String cardTransactions(String cardNumber) =>
-      'getMySubscriptionsWithDiscounts/$cardNumber';
-  static const String ad = 'popups/Vendors';
+  static const String countries = 'countries';
+  static String governorates(int id) => 'governorates/$id';
+  static String cities(int id) => 'cities/$id';
+  static const String parking = 'parking';
+  static const String parkingInUserCity = 'parking_in_user_city';
+  static const String faqs = 'faqs';
+  static String aboutUs(String lang) => 'about_us';
+  static String terms(String lang) => 'terms';
+  static String privacyPolicy(String lang) => 'privacy_policy';
+  static const String contactUs = 'contact_info';
+  static const String currentUsersInParking = 'current_users/parking';
+  static String userDetails(int userId) => 'current_users/details/$userId';
+  static const String notifications = 'notifications';
+  static const String walletWithdraw = 'wallet_withdraw';
+  static const String updateProfile = 'update_profile';
+  static const String deleteAccount = 'delete_account';
+  static const String dailyPoints = 'daily_points';
+  static const String appSettings = 'app_settings';
 }

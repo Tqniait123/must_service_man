@@ -2,19 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:must_invest_service_man/config/routes/routes.dart';
-import 'package:must_invest_service_man/core/extensions/flipped_for_lcale.dart';
 import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
-import 'package:must_invest_service_man/core/static/constants.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
+import 'package:must_invest_service_man/core/utils/dialogs/logout_sheet.dart';
 import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custom_layout.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
-import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
-import 'package:must_invest_service_man/features/home/presentation/widgets/my_points_card.dart';
 import 'package:must_invest_service_man/features/profile/presentation/widgets/profile_item_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -27,73 +24,155 @@ class ProfileScreen extends StatelessWidget {
       body: CustomLayout(
         withPadding: true,
         patternOffset: const Offset(-150, -200),
-        // spacerHeight: 200,
-        topPadding: 70,
 
+        spacerHeight: 50,
+        // topPadding: 70,
         contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-        stackedWidgetHeight: 180,
-        stackedWidgetOverlap: 0.3,
+        // stackedWidgetHeight: 180,
+        // stackedWidgetOverlap: 0.3,
 
-        stackedWidget: MyPointsCardMinimal(),
-
+        // stackedWidget: MyPointsCardMinimal(),
         upperContent: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomBackButton(),
-                Text(
-                  LocaleKeys.profile.tr(),
-                  style: context.titleLarge.copyWith(color: AppColors.white),
-                ),
-                NotificationsButton(
-                  color: Color(0xffEAEAF3),
-                  iconColor: AppColors.primary,
-                ),
+                Text(LocaleKeys.profile.tr(), style: context.titleLarge.copyWith(color: AppColors.white)),
+                NotificationsButton(color: Color(0xffEAEAF3), iconColor: AppColors.primary),
               ],
             ),
             30.gap,
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 43,
-                      backgroundImage: NetworkImage(
-                        Constants.placeholderProfileImage,
-                      ),
-                    ),
-                    24.gap,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          LocaleKeys.welcome.tr(),
-                          style: context.bodyMedium.copyWith(
-                            color: AppColors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        8.gap,
-                        Text(
-                          context.user.name,
-                          style: context.titleLarge.copyWith(
-                            color: AppColors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                // Left side - Profile image, welcome, and name
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    children: [
+                      if (context.isLoggedIn) ...[
+                        if (context.user.photo != null && context.user.photo!.isNotEmpty)
+                          CircleAvatar(radius: 43, backgroundImage: NetworkImage(context.user.photo ?? '')),
+                        20.gap,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Text(
+                              //   LocaleKeys.welcome.tr(),
+                              //   style: context.bodyMedium.copyWith(
+                              //     color: AppColors.white,
+                              //     fontSize: 16,
+                              //     fontWeight: FontWeight.bold,
+                              //   ),
+                              // ),
+                              // 8.gap,
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  '${context.user.name} Mohamed',
+                                  style: context.titleLarge.copyWith(
+                                    color: AppColors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                CustomIconButton(
-                  color: Color(0xff6468AC),
-                  iconAsset: AppIcons.logout,
-                  onPressed: () {},
-                ).flippedForLocale(context),
+
+                16.gap,
+
+                // Right side - Gate information in column
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      // Entrance Gate Container
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.white.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.white.withOpacity(0.3), width: 1),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.white.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Icon(Icons.login, color: AppColors.white, size: 18),
+                                ),
+                                8.gap,
+                                Text(
+                                  context.user.entranceGate ?? 'Gate A1', // Replace with actual field
+                                  style: context.bodyMedium.copyWith(
+                                    color: AppColors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      10.gap,
+
+                      // Exit Gate Container
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.white.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.white.withOpacity(0.3), width: 1),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.white.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Icon(Icons.logout, color: AppColors.white, size: 18),
+                                ),
+                                8.gap,
+                                Text(
+                                  context.user.exitGate ?? 'Gate B2', // Replace with actual field
+                                  style: context.bodyMedium.copyWith(
+                                    color: AppColors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ],
@@ -112,7 +191,16 @@ class ProfileScreen extends StatelessWidget {
           ProfileItemWidget(
             title: LocaleKeys.terms_and_conditions.tr(),
             iconPath: AppIcons.termsIc,
-            onPressed: () {},
+            onPressed: () {
+              context.push(Routes.termsAndConditions);
+            },
+          ),
+          ProfileItemWidget(
+            title: LocaleKeys.privacy_policy.tr(),
+            iconPath: AppIcons.privacyPolicyIc,
+            onPressed: () {
+              context.push(Routes.privacyPolicy);
+            },
           ),
           ProfileItemWidget(
             title: LocaleKeys.history.tr(),
@@ -124,25 +212,60 @@ class ProfileScreen extends StatelessWidget {
           ProfileItemWidget(
             title: LocaleKeys.faq.tr(),
             iconPath: AppIcons.faqIc,
-            onPressed: () {},
+            onPressed: () {
+              context.push(Routes.faq);
+            },
+          ),
+          ProfileItemWidget(
+            title: LocaleKeys.about_us.tr(),
+            iconPath: AppIcons.aboutUsIc,
+            onPressed: () {
+              context.push(Routes.aboutUs);
+            },
           ),
           ProfileItemWidget(
             title: LocaleKeys.settings.tr(),
             iconPath: AppIcons.settingsIc,
-            onPressed: () {},
+            onPressed: () {
+              context.push(Routes.settings);
+            },
           ),
-          ProfileItemWidget(
-            title: LocaleKeys.complete_switch_label.tr(),
-            iconPath: AppIcons.editIc,
-            trailing: Switch.adaptive(
-              value: currentState != SituationStatus.notComplete,
-              activeColor:
-                  currentState == SituationStatus.completed
-                      ? AppColors.primary
-                      : Colors.orange,
-              onChanged: (value) {},
+          // ProfileItemWidget(
+          //   title: LocaleKeys.complete_switch_label.tr(),
+          //   iconPath: AppIcons.editIc,
+          //   trailing: Switch.adaptive(
+          //     value: currentState != SituationStatus.notComplete,
+          //     activeColor: currentState == SituationStatus.completed ? AppColors.primary : Colors.orange,
+          //     onChanged: (value) {},
+          //   ),
+          // ),
+          if (context.isLoggedIn)
+            ProfileItemWidget(
+              title: LocaleKeys.delete_account_confirmation_title.tr(),
+              iconPath: AppIcons.deleteIc,
+              color: Colors.red,
+              onPressed: () {
+                showDeleteAccountBottomSheet(context);
+              },
             ),
-          ),
+          if (context.isLoggedIn)
+            ProfileItemWidget(
+              title: LocaleKeys.logout.tr(),
+              iconPath: AppIcons.logout,
+              color: Colors.red,
+              onPressed: () {
+                showLogoutBottomSheet(context);
+              },
+            ),
+          if (!context.isLoggedIn)
+            ProfileItemWidget(
+              title: LocaleKeys.login.tr(),
+              iconPath: AppIcons.loginIc,
+              // color: Colors.red,
+              onPressed: () {
+                context.push(Routes.login);
+              },
+            ),
           20.gap,
           // CustomElevatedButton(
           //   icon: AppIcons.supportIc,

@@ -8,7 +8,7 @@ class UserUnauthenticated extends UserState {
 }
 
 class UserAuthenticated extends UserState {
-  final AppUser user;
+  final ParkingMan user;
 
   UserAuthenticated(this.user);
 

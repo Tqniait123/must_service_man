@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,11 +12,11 @@ import 'package:must_invest_service_man/core/utils/dialogs/error_toast.dart';
 import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custom_layout.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
+import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_phone_field.dart';
 import 'package:must_invest_service_man/core/utils/widgets/logo_widget.dart';
 import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
-import 'package:must_invest_service_man/features/auth/data/models/user.dart';
+import 'package:must_invest_service_man/features/auth/data/models/register_params.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:must_invest_service_man/features/auth/presentation/cubit/user_cubit/user_cubit.dart';
 import 'package:must_invest_service_man/features/auth/presentation/widgets/sign_up_button.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -32,8 +34,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  String _code = '+20';
+  String _countryCode = 'EG';
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +58,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               27.gap,
               Text(
                 LocaleKeys.register.tr(),
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.white,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge!.copyWith(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.white),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -89,20 +90,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       title: LocaleKeys.email.tr(),
                     ),
                     16.gap,
-                    CustomTextFormField(
+                    CustomPhoneFormField(
+                      includeCountryCodeInValue: true,
                       controller: _phoneController,
                       margin: 0,
                       hint: LocaleKeys.phone_number.tr(),
                       title: LocaleKeys.phone_number.tr(),
+                      // Add autofill hints for phone number
+                      // autofillHints: sl<MustInvestPreferences>().isRememberedMe() ? [AutofillHints.telephoneNumber] : null,
+                      onChanged: (phone) {
+                        log(phone);
+                      },
+                      onChangedCountryCode: (code, countryCode) {
+                        setState(() {
+                          _code = code;
+                          _countryCode = countryCode;
+                          log(' $code');
+                        });
+                      },
                     ),
                     16.gap,
-                    CustomTextFormField(
-                      controller: _AddressController,
-                      margin: 0,
-                      hint: LocaleKeys.address.tr(),
-                      title: LocaleKeys.address.tr(),
-                    ),
-                    16.gap,
+                    // CustomTextFormField(
+                    //   controller: _AddressController,
+                    //   margin: 0,
+                    //   hint: LocaleKeys.address.tr(),
+                    //   title: LocaleKeys.address.tr(),
+                    // ),
+                    // 16.gap,
                     CustomTextFormField(
                       margin: 0,
                       controller: _passwordController,
@@ -119,6 +133,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       title: LocaleKeys.password_confirmation.tr(),
                       obscureText: true,
                       isPassword: true,
+                      validator: (password) {
+                        if (password != _passwordController.text) {
+                          return LocaleKeys.password_does_not_match.tr();
+                        }
+                        return null;
+                      },
                     ),
                     19.gap,
                   ],
@@ -132,48 +152,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Expanded(
                 child: BlocConsumer<AuthCubit, AuthState>(
                   listener: (BuildContext context, AuthState state) async {
-                    if (state is AuthSuccess) {
-                      UserCubit.get(context).setCurrentUser(state.user);
-                      if (state.user.type == UserType.user) {
-                        context.go(Routes.homeUser);
-                      } else {
-                        context.go(Routes.homeParkingMan);
-                      }
+                    if (state is RegisterSuccess) {
+                      showSuccessToast(context, state.message, seconds: 20);
+                      // UserCubit.get(context).setCurrentUser(state.user);
+
+                      context.go(
+                        Routes.otpScreen,
+                        extra: OtpScreenParams(otpFlow: OtpFlow.registration, phone: _code + _phoneController.text),
+                      );
                     }
                     if (state is AuthError) {
                       showErrorToast(context, state.message);
                     }
                   },
                   builder:
-                      (BuildContext context, AuthState state) =>
-                          CustomElevatedButton(
-                            heroTag: 'button',
-                            loading: state is AuthLoading,
-                            title: LocaleKeys.next.tr(),
-                            onPressed: () {
-                              // if (_formKey.currentState!.validate()) {
-                              // AuthCubit.get(context).register(
-                              //   RegisterParams(
-                              //     email: _emailController.text,
-                              //     password: _passwordController.text,
-                              //     name: _userNameController.text,
-                              //     phone: _phoneController.text,
-                              //     passwordConfirmation:
-                              //         _passwordController.text,
+                      (BuildContext context, AuthState state) => CustomElevatedButton(
+                        heroTag: 'button',
+                        loading: state is AuthLoading,
+                        title: LocaleKeys.next.tr(),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            AuthCubit.get(context).register(
+                              RegisterParams(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                                name: _userNameController.text,
+                                phone: _code + _phoneController.text,
+                                passwordConfirmation: _passwordController.text,
 
-                              //     // address : _AddressController.text,
-                              //   ),
-                              // );
-                              context.push(
-                                Routes.otpScreen,
-                                extra: OtpScreenParams(
-                                  otpType: OtpType.register,
-                                  email: _emailController.text,
-                                ),
-                              );
-                              // }
-                            },
-                          ),
+                                // address : _AddressController.text,
+                              ),
+                            );
+                          }
+                          // context.push(
+                          //   Routes.otpScreen,
+                          //   extra: OtpScreenParams(
+                          //     otpFlow: OtpType.register,
+                          //     email: _emailController.text,
+                          //   ),
+                          // );
+                          // }
+                        },
+                      ),
                 ),
               ),
             ],

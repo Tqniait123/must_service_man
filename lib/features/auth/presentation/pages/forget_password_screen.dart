@@ -26,7 +26,7 @@ class ForgetPasswordScreen extends StatefulWidget {
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,23 +41,15 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomBackButton(),
-                  Text(
-                    LocaleKeys.forgot_password.tr(),
-                    style: context.titleLarge.copyWith(),
-                  ),
+                  Text(LocaleKeys.forgot_password.tr(), style: context.titleLarge.copyWith()),
                   51.gap,
                 ],
               ),
               46.gap,
-              Text(
-                LocaleKeys.reset_password.tr(),
-                style: context.bodyMedium.copyWith(color: AppColors.primary),
-              ),
+              Text(LocaleKeys.reset_password.tr(), style: context.bodyMedium.copyWith(color: AppColors.primary)),
               Text(
                 LocaleKeys.password_reset_instructions.tr(),
-                style: context.bodyMedium.regular.s14.copyWith(
-                  color: AppColors.grey60,
-                ),
+                style: context.bodyMedium.regular.s14.copyWith(color: AppColors.grey60),
               ),
               48.gap,
               Form(
@@ -69,17 +61,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     child: Stack(
                       children: [
                         Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(40),
-                          ),
+                          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(40)),
                           child: Column(
                             children: [
                               CustomTextFormField(
-                                controller: emailController,
+                                controller: phoneController,
                                 margin: 0,
-                                hint: LocaleKeys.email.tr(),
-                                title: LocaleKeys.email.tr(),
+                                hint: LocaleKeys.phone_number.tr(),
+                                title: LocaleKeys.phone_number.tr(),
                                 isRequired: true,
                               ),
                               48.gap,
@@ -108,33 +97,20 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 if (state is ForgetPasswordSentOTP) {
                   context.push(
                     Routes.otpScreen,
-                    extra: OtpScreenParams(
-                      otpType: OtpType.forgetPassword,
-                      email: emailController.text,
-                    ),
+                    extra: OtpScreenParams(otpFlow: OtpFlow.passwordReset, phone: phoneController.text),
                   );
                 }
               },
               builder:
-                  (BuildContext context, AuthState state) =>
-                      CustomElevatedButton(
-                        loading: state is ForgetPasswordLoading,
-                        title: LocaleKeys.send.tr(),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            context.push(
-                              Routes.otpScreen,
-                              extra: OtpScreenParams(
-                                otpType: OtpType.forgetPassword,
-                                email: emailController.text,
-                              ),
-                            );
-                            // AuthCubit.get(
-                            //   context,
-                            // ).forgetPassword(phoneController.text);
-                          }
-                        },
-                      ),
+                  (BuildContext context, AuthState state) => CustomElevatedButton(
+                    loading: state is ForgetPasswordLoading,
+                    title: LocaleKeys.send.tr(),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        AuthCubit.get(context).forgetPassword(phoneController.text);
+                      }
+                    },
+                  ),
             ),
           ),
           20.gap,

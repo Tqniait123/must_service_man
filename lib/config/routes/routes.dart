@@ -28,4 +28,11 @@ class Routes {
   static const String history = '/history';
   static const String withdrawRequest = '/withdrawRequest';
   static const String myQrcode = '/myQrcode';
+  static const String faq = '/faq';
+  static const String termsAndConditions = '/termsAndConditions';
+  static const String privacyPolicy = '/privacyPolicy';
+  static const String contactUs = '/contactUs';
+  static const String aboutUs = '/aboutUs';
+  static const String settings = '/settings';
+  static const String dailyPoints = '/dailyPoints';
 }

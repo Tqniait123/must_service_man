@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
-import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
@@ -16,27 +15,36 @@ class UserDetailsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+
       children: [
-        const CustomBackButton(),
-        Text(LocaleKeys.details.tr(), style: context.titleLarge.copyWith()),
-        Row(
-          children: [
-            CustomIconButton(
-              iconAsset: AppIcons.cameraIc,
-              color: const Color(0xffEAEAF3),
-              iconColor: AppColors.primary,
-              onPressed: () {},
-            ),
-            10.gap,
-            NotificationsButton(
-              color: const Color(0xffEAEAF3),
-              iconColor: AppColors.primary,
-            ),
-          ],
+        // Left side - Back button
+        Positioned.directional(textDirection: Directionality.of(context), start: 20, child: const CustomBackButton()),
+
+        // Center - Details title
+        Center(child: Text(LocaleKeys.details.tr(), style: context.titleLarge.copyWith(fontWeight: FontWeight.bold))),
+
+        // Right side - Action buttons
+        Positioned.directional(
+          textDirection: Directionality.of(context),
+          end: 20,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CustomIconButton(
+                iconAsset: AppIcons.cameraIc,
+                color: const Color(0xffEAEAF3),
+                iconColor: AppColors.primary,
+                onPressed: () {},
+              ),
+              10.gap,
+              NotificationsButton(color: const Color(0xffEAEAF3), iconColor: AppColors.primary),
+            ],
+          ),
         ),
       ],
-    ).paddingHorizontal(20);
+    );
   }
 }

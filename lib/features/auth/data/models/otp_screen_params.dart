@@ -1,8 +1,8 @@
-enum OtpType { register, forgetPassword }
+enum OtpFlow { passwordReset, registration, login }
 
 class OtpScreenParams {
-  final OtpType otpType;
-  final String email;
+  final OtpFlow otpFlow;
+  final String phone;
 
-  OtpScreenParams({required this.otpType, required this.email});
+  OtpScreenParams({required this.otpFlow, required this.phone});
 }

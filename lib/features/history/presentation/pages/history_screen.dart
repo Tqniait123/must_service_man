@@ -12,7 +12,6 @@ import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_b
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
-import 'package:must_invest_service_man/features/home/presentation/widgets/user_widget.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
@@ -29,14 +28,8 @@ class HistoryScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomBackButton(),
-                Text(
-                  LocaleKeys.history.tr(),
-                  style: context.titleLarge.copyWith(),
-                ),
-                NotificationsButton(
-                  color: Color(0xffEAEAF3),
-                  iconColor: AppColors.primary,
-                ),
+                Text(LocaleKeys.history.tr(), style: context.titleLarge.copyWith()),
+                NotificationsButton(color: Color(0xffEAEAF3), iconColor: AppColors.primary),
               ],
             ),
             39.gap,
@@ -65,17 +58,17 @@ class HistoryScreen extends StatelessWidget {
               ],
             ),
             16.gap,
-            Expanded(
-              child: ListView.separated(
-                padding: EdgeInsets.zero, // Remove padding to avoid extra space
-                itemCount: usersList.length,
-                separatorBuilder:
-                    (context, index) => const SizedBox(height: 16),
-                itemBuilder: (context, index) {
-                  return UserWidget(user: usersList[index]);
-                },
-              ),
-            ),
+            // Expanded(
+            //   child: ListView.separated(
+            //     padding: EdgeInsets.zero, // Remove padding to avoid extra space
+            //     itemCount: usersList.length,
+            //     separatorBuilder:
+            //         (context, index) => const SizedBox(height: 16),
+            //     itemBuilder: (context, index) {
+            //       return UserWidget(user: usersList[index]);
+            //     },
+            //   ),
+            // ),
           ],
         ).paddingHorizontal(24),
       ),

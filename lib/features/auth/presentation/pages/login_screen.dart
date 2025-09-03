@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,9 +15,10 @@ import 'package:must_invest_service_man/core/utils/dialogs/error_toast.dart';
 import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custom_layout.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
+import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_phone_field.dart';
 import 'package:must_invest_service_man/core/utils/widgets/logo_widget.dart';
 import 'package:must_invest_service_man/features/auth/data/models/login_params.dart';
-import 'package:must_invest_service_man/features/auth/data/models/user.dart';
+import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:must_invest_service_man/features/auth/presentation/cubit/user_cubit/user_cubit.dart';
 import 'package:must_invest_service_man/features/auth/presentation/widgets/sign_up_button.dart';
@@ -29,9 +32,11 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool isRemembered = true;
+  bool isRemembered = false;
+  String _code = '+20';
+  String _countryCode = 'EG';
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
               27.gap,
               Text(
                 LocaleKeys.login_to_your_account.tr(),
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.white,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge!.copyWith(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.white),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -73,11 +76,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.transparent,
                 child: Column(
                   children: [
-                    CustomTextFormField(
-                      controller: _emailController,
+                    CustomPhoneFormField(
+                      includeCountryCodeInValue: true,
+                      controller: _phoneController,
                       margin: 0,
-                      hint: LocaleKeys.email.tr(),
-                      title: LocaleKeys.email.tr(),
+                      hint: LocaleKeys.phone_number.tr(),
+                      title: LocaleKeys.phone_number.tr(),
+                      // Add autofill hints for phone number
+                      // autofillHints: sl<MustInvestPreferences>().isRememberedMe() ? [AutofillHints.telephoneNumber] : null,
+                      onChanged: (phone) {
+                        log(phone);
+                      },
+                      onChangedCountryCode: (code, countryCode) {
+                        setState(() {
+                          _code = code;
+                          _countryCode = countryCode;
+                          log(' $code');
+                        });
+                      },
                     ),
                     16.gap,
                     CustomTextFormField(
@@ -109,10 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             8.gap,
-                            Text(
-                              LocaleKeys.remember_me.tr(),
-                              style: context.bodyMedium.s12.regular,
-                            ),
+                            Text(LocaleKeys.remember_me.tr(), style: context.bodyMedium.s12.regular),
                           ],
                         ),
                         GestureDetector(
@@ -121,9 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Text(
                             LocaleKeys.forgot_password.tr(),
-                            style: context.bodyMedium.s12.bold.copyWith(
-                              color: AppColors.primary,
-                            ),
+                            style: context.bodyMedium.s12.bold.copyWith(color: AppColors.primary),
                           ),
                         ),
                       ],
@@ -155,11 +166,11 @@ class _LoginScreenState extends State<LoginScreen> {
             listener: (BuildContext context, AuthState state) async {
               if (state is AuthSuccess) {
                 UserCubit.get(context).setCurrentUser(state.user);
-                if (state.user.type == UserType.user) {
-                  context.go(Routes.homeUser);
-                } else {
-                  context.go(Routes.homeParkingMan);
-                }
+
+                context.go(Routes.homeUser);
+              } else if (state is AuthUnverified) {
+                // Show bottom sheet for unverified account
+                _showVerificationBottomSheet(context);
               }
               if (state is AuthError) {
                 showErrorToast(context, state.message);
@@ -174,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // if (_formKey.currentState!.validate()) {
                     AuthCubit.get(context).login(
                       LoginParams(
-                        email: _emailController.text,
+                        phone: '$_code${_phoneController.text}',
                         password: _passwordController.text,
                         isRemembered: isRemembered,
                       ),
@@ -183,12 +194,60 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
           ),
-          SignUpButton(
-            isLogin: true,
-            onTap: () => context.push(Routes.register),
-          ),
+          SignUpButton(isLogin: true, onTap: () => context.push(Routes.register)),
         ],
       ).paddingAll(32),
+    );
+  }
+
+  void _showVerificationBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder:
+          (context) => Container(
+            padding: EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.verified_user, size: 64, color: AppColors.primary),
+                SizedBox(height: 16),
+                Text(
+                  LocaleKeys.account_verification_required.tr(),
+                  style: context.bodyLarge.bold.copyWith(color: AppColors.black, fontSize: 20),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  LocaleKeys.account_verification_message.tr(),
+                  textAlign: TextAlign.center,
+                  style: context.bodyMedium.regular.copyWith(color: AppColors.grey, fontSize: 16),
+                ),
+                SizedBox(height: 24),
+                BlocConsumer<AuthCubit, AuthState>(
+                  builder:
+                      (BuildContext context, AuthState state) => CustomElevatedButton(
+                        loading: state is ResendOTPLoading,
+                        onPressed: () async {
+                          await AuthCubit.get(context).resendOTP("$_code${_phoneController.text}");
+                          context.pop(); // Close bottom sheet
+                          context.push(
+                            Routes.otpScreen,
+                            extra: OtpScreenParams(
+                              otpFlow: OtpFlow.registration,
+                              phone: "$_code${_phoneController.text}",
+                            ),
+                          );
+                        },
+                        title: LocaleKeys.verify_now.tr(),
+                      ),
+                  listener: (BuildContext context, AuthState state) {
+                    if (state is ResendOTPSuccess) {
+                      showSuccessToast(context, state.message, seconds: 15);
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
     );
   }
 }

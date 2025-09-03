@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "292970330572",
+    "project_id": "must-94dc7",
+    "storage_bucket": "must-94dc7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292970330572:android:93d5661b9349445f004569",
+        "android_client_info": {
+          "package_name": "com.tqniait.mustServiceMan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292970330572-3l6t8obv09qsjpi7s22j93plkm5gq8n4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiwDOvQUprV11NLdY3L2pDm3NOrFfRVO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292970330572-3l6t8obv09qsjpi7s22j93plkm5gq8n4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "292970330572-aijd2lr2vk79p1ompaha2rfg6r328jvg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tqniait.mustUser"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292970330572:android:a1900e02400b9eaa004569",
+        "android_client_info": {
+          "package_name": "com.tqniait.mustUser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292970330572-cg80c7oaddgd34ct0frpdi6hkfhqasi1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tqniait.mustUser",
+            "certificate_hash": "ad0608086ca8a8166a834e019c8cb955f641108b"
+          }
+        },
+        {
+          "client_id": "292970330572-kgkrpi95bnluom2l9c8sl0m2sfiq7fab.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tqniait.mustUser",
+            "certificate_hash": "09616308e776fc842fcd7082b4842dd80a0c40a0"
+          }
+        },
+        {
+          "client_id": "292970330572-3l6t8obv09qsjpi7s22j93plkm5gq8n4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiwDOvQUprV11NLdY3L2pDm3NOrFfRVO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292970330572-3l6t8obv09qsjpi7s22j93plkm5gq8n4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "292970330572-aijd2lr2vk79p1ompaha2rfg6r328jvg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tqniait.mustUser"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

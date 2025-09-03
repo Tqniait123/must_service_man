@@ -1,5 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
@@ -8,10 +9,14 @@ import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
 import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
-import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
+import 'package:must_invest_service_man/core/utils/dialogs/error_toast.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
 import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
+import 'package:must_invest_service_man/features/auth/data/models/verify_params.dart';
+import 'package:must_invest_service_man/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:must_invest_service_man/features/auth/presentation/cubit/user_cubit/user_cubit.dart';
 import 'package:must_invest_service_man/features/auth/presentation/widgets/custom_pin_field.dart';
+import 'package:must_invest_service_man/features/auth/presentation/widgets/resend_otp_widget.dart';
 
 class OtpScreen extends StatefulWidget {
   final OtpScreenParams params;
@@ -25,7 +30,7 @@ class _OtpScreenState extends State<OtpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _otpController = TextEditingController();
   String otp = "";
-  final int pinLength = 4;
+  final int pinLength = 6;
 
   void _onKeyPressed(String value) {
     if (value == 'X') {
@@ -40,6 +45,25 @@ class _OtpScreenState extends State<OtpScreen> {
         otp = otp + value;
         _otpController.text = otp;
       });
+    }
+  }
+
+  void _handleResendOtp() {
+    AuthCubit.get(context).resendOTP(widget.params.phone);
+  }
+
+  void _handleNavigationAfterVerification() {
+    switch (widget.params.otpFlow) {
+      case OtpFlow.passwordReset:
+        context.push(Routes.resetPassword, extra: widget.params.phone);
+        break;
+      case OtpFlow.registration:
+        // case OtpType.login:
+        context.go(Routes.selectParking);
+        break;
+      case OtpFlow.login:
+        context.go(Routes.homeUser);
+        break;
     }
   }
 
@@ -65,23 +89,17 @@ class _OtpScreenState extends State<OtpScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomBackButton(),
-                        Text(
-                          LocaleKeys.otp_verification.tr(),
-                          style: context.titleLarge.copyWith(),
-                        ),
+                        // CustomBackButton(),
+                        51.gap,
+                        Text(LocaleKeys.otp_verification.tr(), style: context.titleLarge.copyWith()),
                         51.gap,
                       ],
                     ),
                     46.gap,
                     Text(LocaleKeys.otp_code.tr()),
                     Text(
-                      LocaleKeys.activation_code_sent.tr(
-                        namedArgs: {"phone_number": widget.params.email},
-                      ),
-                      style: context.bodyMedium.regular.s16.copyWith(
-                        color: AppColors.grey60,
-                      ),
+                      LocaleKeys.activation_code_sent.tr(namedArgs: {"phone_number": widget.params.phone}),
+                      style: context.bodyMedium.regular.s16.copyWith(color: AppColors.grey60),
                     ),
                     16.gap,
                     Material(
@@ -89,41 +107,25 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: Stack(
                         children: [
                           Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(40),
-                            ),
+                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(40)),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Form(
                                   key: _formKey,
                                   child: CustomPinField(
+                                    length: 6,
                                     onChanged: (fieldOtp) {
                                       setState(() {
                                         otp = fieldOtp;
                                       });
                                     },
                                     controller: _otpController,
-                                    readOnly:
-                                        true, // Make it read-only to prevent system keyboard
+                                    readOnly: true, // Make it read-only to prevent system keyboard
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      LocaleKeys.didnt_receive_code.tr(),
-                                      style: context.bodyMedium.s14.regular,
-                                    ),
-                                    Text(LocaleKeys.resend.tr()).clickable(
-                                      onTap: () {},
-                                      padding: 8.0.edgeInsetsAll,
-                                      style: context.titleLarge.s14.bold
-                                          .copyWith(color: AppColors.secondary),
-                                    ),
-                                  ],
-                                ),
+                                ResendOtpWidget(phone: widget.params.phone, onResend: _handleResendOtp),
+
                                 48.gap,
                               ],
                             ),
@@ -143,23 +145,50 @@ class _OtpScreenState extends State<OtpScreen> {
             20.gap,
             Column(
               children: [
-                CustomElevatedButton(
-                  title: LocaleKeys.confirm.tr(),
-                  onPressed: () {
-                    if (otp.length == pinLength) {
-                      switch (widget.params.otpType) {
-                        case OtpType.forgetPassword:
-                          context.push(
-                            Routes.resetPassword,
-                            extra: widget.params.email,
-                          );
-                          break;
-                        case OtpType.register:
-                          context.push(Routes.selectParking);
-                          break;
-                      }
+                BlocConsumer<AuthCubit, AuthState>(
+                  listener: (BuildContext context, AuthState state) async {
+                    if (state is AuthSuccess) {
+                      UserCubit.get(context).setCurrentUser(state.user);
+                      _handleNavigationAfterVerification();
+                    }
+                    if (state is AuthError) {
+                      showErrorToast(context, state.message);
+                    }
+
+                    if (state is ResetPasswordSentOTP) {
+                      _handleNavigationAfterVerification();
                     }
                   },
+                  builder:
+                      (BuildContext context, state) => CustomElevatedButton(
+                        loading: state is AuthLoading,
+                        title: LocaleKeys.confirm.tr(),
+                        onPressed: () {
+                          if (otp.length == pinLength) {
+                            switch (widget.params.otpFlow) {
+                              case OtpFlow.passwordReset:
+                                AuthCubit.get(context).verifyPasswordReset(
+                                  VerifyParams(
+                                    phone: widget.params.phone,
+                                    loginCode: otp,
+                                    codeKey: 'reset_password_code',
+                                  ),
+                                );
+                              case OtpFlow.registration:
+                                AuthCubit.get(
+                                  context,
+                                ).verifyRegistration(VerifyParams(phone: widget.params.phone, loginCode: otp));
+                              case OtpFlow.login:
+                              // AuthCubit.get(context).verifyLogin(
+                              //   VerifyParams(
+                              //     phone: widget.phone,
+                              //     loginCode: otp,
+                              //   ),
+                              // );
+                            }
+                          }
+                        },
+                      ),
                 ),
                 20.gap,
               ],
@@ -183,24 +212,24 @@ class NumericKeyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.white,
-      child: Column(
-        children: [
-          buildRow(['1', '2', '3']),
-          buildRow(['4', '5', '6']),
-          buildRow(['7', '8', '9']),
-          buildRow(['.', '0', 'X']),
-        ],
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Container(
+        color: AppColors.white,
+        child: Column(
+          children: [
+            buildRow(['1', '2', '3']),
+            buildRow(['4', '5', '6']),
+            buildRow(['7', '8', '9']),
+            buildRow(['.', '0', 'X']),
+          ],
+        ),
       ),
     );
   }
 
   Widget buildRow(List<String> keys) {
-    return Row(
-      mainAxisAlignment: mainAxisAlignment,
-      children: keys.map((key) => buildKey(key)).toList(),
-    );
+    return Row(mainAxisAlignment: mainAxisAlignment, children: keys.map((key) => buildKey(key)).toList());
   }
 
   Widget buildKey(String text) {
@@ -208,10 +237,7 @@ class NumericKeyboard extends StatelessWidget {
       child: Container(
         height: 70,
         margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: const Color(0xFFE9E6F7),
-          borderRadius: BorderRadius.circular(32),
-        ),
+        decoration: BoxDecoration(color: const Color(0xFFE9E6F7), borderRadius: BorderRadius.circular(32)),
         child:
             text.isEmpty
                 ? const SizedBox()
@@ -222,16 +248,8 @@ class NumericKeyboard extends StatelessWidget {
                 )
                 : MaterialButton(
                   onPressed: () => onKeyPressed(text),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32),
-                  ),
-                  child: Text(
-                    text,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+                  child: Text(text, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                 ),
       ),
     );

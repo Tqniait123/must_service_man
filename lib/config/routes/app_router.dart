@@ -1,13 +1,14 @@
 // Import necessary packages and files
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
 import 'package:must_invest_service_man/core/observers/router_observer.dart';
+import 'package:must_invest_service_man/core/services/di.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
 import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
-import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/account_type_screen.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/check_your_email_screen.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/forget_password_screen.dart';
@@ -19,6 +20,10 @@ import 'package:must_invest_service_man/features/auth/presentation/pages/registe
 import 'package:must_invest_service_man/features/auth/presentation/pages/reset_password.dart';
 import 'package:must_invest_service_man/features/auth/presentation/pages/select_parking_screen.dart';
 import 'package:must_invest_service_man/features/history/presentation/pages/history_screen.dart';
+import 'package:must_invest_service_man/features/home/presentation/cubit/cubit/user_details_cubit_cubit.dart';
+import 'package:must_invest_service_man/features/home/presentation/cubit/cubit/wallet_cubit.dart';
+import 'package:must_invest_service_man/features/home/presentation/cubit/home_cubit.dart';
+import 'package:must_invest_service_man/features/home/presentation/pages/daily_points_screen.dart';
 import 'package:must_invest_service_man/features/home/presentation/pages/home_screen.dart';
 import 'package:must_invest_service_man/features/home/presentation/widgets/withdraw_request_screen.dart';
 import 'package:must_invest_service_man/features/my_cards/presentation/pages/my_cards_screen.dart';
@@ -26,10 +31,17 @@ import 'package:must_invest_service_man/features/new_lists/presentation/pages/ne
 import 'package:must_invest_service_man/features/new_lists/presentation/pages/user_details_screen.dart';
 import 'package:must_invest_service_man/features/notifications/presentation/pages/notifications_screen.dart';
 import 'package:must_invest_service_man/features/on_boarding/presentation/pages/on_boarding_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/cubit/pages_cubit.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/about_us_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/contact_us_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/edit_profile_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/faq_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/my_qr_code_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/privacy_policy_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/profile_screen.dart';
 import 'package:must_invest_service_man/features/profile/presentation/pages/scan_qr_code_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/settings_screen.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/terms_and_conditions_screen.dart';
 import 'package:must_invest_service_man/features/splash/presentation/pages/splash.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -117,21 +129,21 @@ class AppRouter {
         path: Routes.resetPassword,
         builder: (context, state) {
           // Return the OtpScreen widget
-          return ResetPasswordScreen(email: state.extra as String);
+          return ResetPasswordScreen(phone: state.extra as String);
         },
       ),
+      // GoRoute(
+      //   path: Routes.homeUser,
+      //   builder: (context, state) {
+      //     // Return the HomeUser widget
+      //     return const HomeParkingMan();
+      //   },
+      // ),
       GoRoute(
         path: Routes.homeUser,
         builder: (context, state) {
-          // Return the HomeUser widget
-          return const HomeParkingMan();
-        },
-      ),
-      GoRoute(
-        path: Routes.homeParkingMan,
-        builder: (context, state) {
           // Return the HomeParkingMan widget
-          return const HomeParkingMan();
+          return BlocProvider(create: (BuildContext context) => HomeCubit(sl()), child: const HomeParkingMan());
         },
       ),
       GoRoute(
@@ -167,7 +179,10 @@ class AppRouter {
         path: Routes.userDetails,
         builder: (context, state) {
           // Return the ParkingDetails widget
-          return UserDetails(user: state.extra as User);
+          return BlocProvider(
+            create: (BuildContext context) => UserDetailsCubit(sl()),
+            child: UserDetails(userId: state.extra as int),
+          );
         },
       ),
 
@@ -224,7 +239,56 @@ class AppRouter {
         path: Routes.withdrawRequest,
         builder: (context, state) {
           // Return the WithdrawRequestScreen widget
-          return WithdrawRequestScreen();
+          return BlocProvider(create: (context) => WalletCubit(sl()), child: WithdrawRequestScreen());
+        },
+      ),
+      GoRoute(
+        path: Routes.faq,
+        builder: (context, state) {
+          // Return the FAQscreen widget
+          return BlocProvider(create: (BuildContext context) => PagesCubit(sl()), child: FAQScreen());
+        },
+      ),
+      GoRoute(
+        path: Routes.termsAndConditions,
+        builder: (context, state) {
+          // Return the TermsAnsConditionsScreen widget
+          return BlocProvider(create: (BuildContext context) => PagesCubit(sl()), child: TermsAndConditionsScreen());
+        },
+      ),
+      GoRoute(
+        path: Routes.privacyPolicy,
+        builder: (context, state) {
+          // Return the TermsAnsConditionsScreen widget
+          return BlocProvider(create: (BuildContext context) => PagesCubit(sl()), child: PrivacyPolicyScreen());
+        },
+      ),
+      GoRoute(
+        path: Routes.contactUs,
+        builder: (context, state) {
+          // Return the TermsAnsConditionsScreen widget
+          return BlocProvider(create: (BuildContext context) => PagesCubit(sl()), child: ContactUsScreen());
+        },
+      ),
+      GoRoute(
+        path: Routes.aboutUs,
+        builder: (context, state) {
+          // Return the AboutUsScreen widget
+          return BlocProvider(create: (BuildContext context) => PagesCubit(sl()), child: AboutUsScreen());
+        },
+      ),
+      GoRoute(
+        path: Routes.settings,
+        builder: (context, state) {
+          // Return the SettingsScreen widget
+          return SettingsScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.dailyPoints,
+        builder: (context, state) {
+          // Return the DailyPointsScreen widget
+          return DailyPointsScreen();
         },
       ),
     ],
@@ -240,12 +304,7 @@ class AppRouter {
           children: [
             CustomBackButton(),
             100.gap,
-            Center(
-              child: Text(
-                "Un Found Route",
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              ),
-            ),
+            Center(child: Text("Un Found Route", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold))),
           ],
         ),
       ).paddingHorizontal(24),

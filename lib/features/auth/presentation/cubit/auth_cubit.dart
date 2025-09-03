@@ -1,10 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:must_invest_service_man/core/api/response/response.dart';
 import 'package:must_invest_service_man/core/errors/app_error.dart';
 import 'package:must_invest_service_man/features/auth/data/models/login_params.dart';
 import 'package:must_invest_service_man/features/auth/data/models/register_params.dart';
 import 'package:must_invest_service_man/features/auth/data/models/reset_password_params.dart';
 import 'package:must_invest_service_man/features/auth/data/models/user.dart';
+import 'package:must_invest_service_man/features/auth/data/models/verify_params.dart';
 import 'package:must_invest_service_man/features/auth/data/repositories/auth_repo.dart';
 
 part 'auth_state.dart';
@@ -21,10 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(AuthLoading());
       final response = await _repo.autoLogin();
-      response.fold(
-        (authModel) => emit(AuthSuccess(authModel.user)),
-        (error) => emit(AuthError(error.message)),
-      );
+      response.fold((user) => emit(AuthSuccess(user)), (error) => emit(AuthError(error.message)));
     } on AppError catch (e) {
       emit(AuthError(e.message));
     } catch (e) {
@@ -44,12 +43,19 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(AuthLoading());
       final response = await _repo.login(params);
-      response.fold(
-        (authModel) => emit(AuthSuccess(authModel.user)),
-        (error) => emit(AuthError(error.message)),
-      );
+      response.fold((authModel) => emit(AuthSuccess(authModel.user)), (error) {
+        if (error.apiResponse?.statusCode == ApiStatusCode.forbidden) {
+          emit(AuthUnverified(error.message)); // New state for unverified users
+        } else {
+          emit(AuthError(error.message));
+        }
+      });
     } on AppError catch (e) {
-      emit(AuthError(e.message));
+      if (e.apiResponse?.statusCode == ApiStatusCode.forbidden) {
+        emit(AuthUnverified(e.message));
+      } else {
+        emit(AuthError(e.message));
+      }
     } catch (e) {
       emit(AuthError(e.toString()));
     }
@@ -66,10 +72,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(AuthLoading());
       final response = await _repo.loginWithGoogle();
-      response.fold(
-        (authModel) => emit(AuthSuccess(authModel.user)),
-        (error) => emit(AuthError(error.message)),
-      );
+      response.fold((authModel) => emit(AuthSuccess(authModel.user)), (error) => emit(AuthError(error.message)));
     } on AppError catch (e) {
       emit(AuthError(e.message));
     } catch (e) {
@@ -88,10 +91,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(AuthLoading());
       final response = await _repo.loginWithApple();
-      response.fold(
-        (authModel) => emit(AuthSuccess(authModel.user)),
-        (error) => emit(AuthError(error.message)),
-      );
+      response.fold((authModel) => emit(AuthSuccess(authModel.user)), (error) => emit(AuthError(error.message)));
     } on AppError catch (e) {
       emit(AuthError(e.message));
     } catch (e) {
@@ -106,12 +106,12 @@ class AuthCubit extends Cubit<AuthState> {
   ///   params (RegisterParams): The `params` parameter in the `register` method likely contains
   /// information needed for user registration, such as username, email, password, etc. It is used to
   /// pass these registration details to the `_repo.register` method for processing.
-  Future<void> register(RegisterParams params) async {
+ Future<void> register(RegisterParams params) async {
     try {
       emit(AuthLoading());
       final response = await _repo.register(params);
       response.fold(
-        (authModel) => emit(AuthSuccess(authModel.user)),
+        (successMessage) => emit(RegisterSuccess(successMessage)),
         (error) => emit(AuthError(error.message)),
       );
     } on AppError catch (e) {
@@ -131,10 +131,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(ForgetPasswordLoading());
       final response = await _repo.forgetPassword(email);
-      response.fold(
-        (function) => emit(ForgetPasswordSentOTP()),
-        (error) => emit(AuthError(error.message)),
-      );
+      response.fold((function) => emit(ForgetPasswordSentOTP()), (error) => emit(ForgetPasswordError(error.message)));
     } on AppError catch (e) {
       emit(ForgetPasswordError(e.message));
     } catch (e) {
@@ -154,14 +151,78 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(ResetPasswordLoading());
       final response = await _repo.resetPassword(params);
-      response.fold(
-        (function) => emit(ResetPasswordSentOTP()),
-        (error) => emit(AuthError(error.message)),
-      );
+      response.fold((function) => emit(ResetPasswordSuccess()), (error) => emit(AuthError(error.message)));
     } on AppError catch (e) {
       emit(ResetPasswordError(e.message));
     } catch (e) {
       emit(ResetPasswordError(e.toString()));
+    }
+  }
+
+  /// The `verifyRegistration` function handles the verification of user registration by calling the repository
+  /// method and emitting appropriate states based on the response.
+  ///
+  /// Args:
+  ///   params (VerifyParams): Contains the verification details needed for registration verification,
+  /// such as verification code or token.
+  Future<void> verifyRegistration(VerifyParams params) async {
+    try {
+      emit(AuthLoading());
+      final response = await _repo.verifyRegistration(params);
+      response.fold((authModel) => emit(AuthSuccess(authModel.user)), (error) => emit(AuthError(error.message)));
+    } on AppError catch (e) {
+      emit(AuthError(e.message));
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  /// The `verifyPasswordReset` function handles the verification of password reset by calling the repository
+  /// method and emitting appropriate states based on the response.
+  ///
+  /// Args:
+  ///   params (VerifyParams): Contains the verification details needed for password reset verification,
+  /// such as verification code or token.
+  Future<void> verifyPasswordReset(VerifyParams params) async {
+    try {
+      emit(AuthLoading());
+      final response = await _repo.verifyPasswordReset(params);
+      response.fold((authModel) => emit(ResetPasswordSentOTP()), (error) => emit(AuthError(error.message)));
+    } on AppError catch (e) {
+      emit(AuthError(e.message));
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  /// The `resendOTP` function handles resending OTP verification code by calling the repository
+  /// method and emitting appropriate states based on the response.
+  ///
+  /// Args:
+  ///   phone (String): The phone number to which the OTP should be resent
+  Future<void> resendOTP(String phone) async {
+    try {
+      emit(ResendOTPLoading());
+      final response = await _repo.resendOTP(phone);
+      response.fold((message) => emit(ResendOTPSuccess(message)), (error) => emit(ResendOTPError(error.message)));
+    } on AppError catch (e) {
+      emit(ResendOTPError(e.message));
+    } catch (e) {
+      emit(ResendOTPError(e.toString()));
+    }
+  }
+
+  /// The `deleteAccount` function handles the deletion of a user's account by calling the repository
+  /// method and emitting appropriate states based on the response.
+  Future<void> deleteAccount() async {
+    try {
+      emit(DeleteAccountLoading());
+      final response = await _repo.deleteAccount();
+      response.fold((_) => emit(DeleteAccountSuccess()), (error) => emit(DeleteAccountError(error.message)));
+    } on AppError catch (e) {
+      emit(DeleteAccountError(e.message));
+    } catch (e) {
+      emit(DeleteAccountError(e.toString()));
     }
   }
 }
