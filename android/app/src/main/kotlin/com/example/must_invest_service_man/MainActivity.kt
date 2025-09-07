@@ -1,4 +1,4 @@
-package com.example.must_invest_service_man
+package com.tqniait.mustServiceMan
 
 import io.flutter.embedding.android.FlutterActivity
 
