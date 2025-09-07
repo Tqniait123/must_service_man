@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
@@ -37,7 +39,9 @@ class UserDetailsHeader extends StatelessWidget {
                 iconAsset: AppIcons.cameraIc,
                 color: const Color(0xffEAEAF3),
                 iconColor: AppColors.primary,
-                onPressed: () {},
+                onPressed: () {
+                  context.push(Routes.scanQr);
+                },
               ),
               10.gap,
               NotificationsButton(color: const Color(0xffEAEAF3), iconColor: AppColors.primary),
