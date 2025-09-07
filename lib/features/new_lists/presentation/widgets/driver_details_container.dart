@@ -18,18 +18,12 @@ class DriverDetailsContainer extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            AppColors.primary.withOpacity(0.1),
-            AppColors.primary.withOpacity(0.05),
-          ],
+          colors: [AppColors.primary.withOpacity(0.1), AppColors.primary.withOpacity(0.05)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColors.primary.withOpacity(0.2),
-          width: 1,
-        ),
+        border: Border.all(color: AppColors.primary.withOpacity(0.2), width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,10 +33,7 @@ class DriverDetailsContainer extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: AppColors.primary,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             ),
             child: Row(
               children: [
@@ -52,24 +43,17 @@ class DriverDetailsContainer extends StatelessWidget {
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 20,
-                  ),
+                  child: Icon(Icons.person, color: Colors.white, size: 20),
                 ),
                 12.gap,
                 Text(
                   LocaleKeys.driver_details.tr(),
-                  style: context.titleMedium.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.titleMedium.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
           ),
-          
+
           // Content
           Padding(
             padding: const EdgeInsets.all(20),
@@ -80,11 +64,7 @@ class DriverDetailsContainer extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
-                      BoxShadow(
-                        color: AppColors.primary.withOpacity(0.3),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
+                      BoxShadow(color: AppColors.primary.withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 4)),
                     ],
                   ),
                   child: ClipRRect(
@@ -94,24 +74,21 @@ class DriverDetailsContainer extends StatelessWidget {
                       height: 80,
                       width: 80,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => Container(
-                        height: 80,
-                        width: 80,
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Icon(
-                          Icons.person,
-                          size: 40,
-                          color: AppColors.primary,
-                        ),
-                      ),
+                      errorBuilder:
+                          (context, error, stackTrace) => Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Icon(Icons.person, size: 40, color: AppColors.primary),
+                          ),
                     ),
                   ),
                 ),
                 20.gap,
-                
+
                 // Driver Information
                 Expanded(
                   child: Column(
@@ -145,15 +122,15 @@ class DriverDetailsContainer extends StatelessWidget {
                           value: user.user!.city!,
                         ),
                       ],
-                      if (user.user?.points != null) ...[
-                        12.gap,
-                        _buildInfoItem(
-                          icon: Icons.stars_outlined,
-                          label: LocaleKeys.points.tr(),
-                          value: user.user!.points!.toStringAsFixed(0),
-                          valueColor: AppColors.primary,
-                        ),
-                      ],
+                      // if (user.user?.points != null) ...[
+                      //   12.gap,
+                      //   _buildInfoItem(
+                      //     icon: Icons.stars_outlined,
+                      //     label: LocaleKeys.points.tr(),
+                      //     value: user.user!.points!.toStringAsFixed(0),
+                      //     valueColor: AppColors.primary,
+                      //   ),
+                      // ],
                     ],
                   ),
                 ),
@@ -177,29 +154,15 @@ class DriverDetailsContainer extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Icon(
-            icon,
-            size: 14,
-            color: AppColors.primary,
-          ),
+          decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+          child: Icon(icon, size: 14, color: AppColors.primary),
         ),
         8.gap,
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              Text(label, style: TextStyle(fontSize: 11, color: Colors.grey[600], fontWeight: FontWeight.w500)),
               2.gap,
               Text(
                 value,
