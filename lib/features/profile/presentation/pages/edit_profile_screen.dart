@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
@@ -18,6 +19,7 @@ import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevat
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_phone_field.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/image_picker_avatar.dart';
+import 'package:must_invest_service_man/features/auth/data/models/otp_screen_params.dart';
 import 'package:must_invest_service_man/features/profile/data/models/update_profile_params.dart';
 import 'package:must_invest_service_man/features/profile/presentation/cubit/profile_cubit.dart';
 
@@ -75,6 +77,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       final params = UpdateProfileParams(
         name: _fullNameController.text.trim(),
         image: selectedImage,
+        phone: _code + _phoneController.text.trim(),
+        countryCode: _countryCode,
         // entryGate: _entryGateController.text.trim(),
         // exitGate: _exitGateController.text.trim(),
       );
@@ -199,11 +203,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         bottomNavigationBar: BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
             if (state is UpdateProfileSuccess) {
-              // Update the current user in the app
-              context.setCurrentUser(state.user);
-              showSuccessToast(context, LocaleKeys.profile_updated_successfully.tr());
-              context.pop();
-            } else if (state is UpdateProfileError) {
+              if (state.user.approved == true) {
+                context.setCurrentUser(state.user);
+                showSuccessToast(context, LocaleKeys.profile_updated_successfully.tr());
+              } else {
+                showSuccessToast(context, state.message, seconds: 15);
+                context.go(
+                  Routes.otpScreen,
+                  extra: OtpScreenParams(otpFlow: OtpFlow.registration, phone: _code + _phoneController.text),
+                );
+              }
+            }
+            if (state is UpdateProfileError) {
               showErrorToast(context, state.message);
             }
           },

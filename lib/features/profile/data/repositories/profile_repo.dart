@@ -17,7 +17,7 @@ abstract class PagesRepo {
   Future<Either<AboutUsModel, AppError>> getAboutUs(String? lang);
   Future<Either<PrivacyPolicyModel, AppError>> getPrivacyPolicy(String? lang);
   Future<Either<ContactUsModel, AppError>> getContactUs(String? lang);
-  Future<Either<ParkingMan, AppError>> updateProfile(UpdateProfileParams params);
+  Future<Either<UserWithMessage, AppError>> updateProfile(UpdateProfileParams params);
 
   // Future<Either<User, AppError>> updateProfile(UpdateProfileParams params);
   // Future<Either<void, AppError>> startParking(ParkingProcessModel params);
@@ -110,7 +110,7 @@ class PagesRepoImpl implements PagesRepo {
   }
 
   @override
-  Future<Either<ParkingMan, AppError>> updateProfile(UpdateProfileParams params) async {
+  Future<Either<UserWithMessage, AppError>> updateProfile(UpdateProfileParams params) async {
     try {
       final token = _localDataSource.getToken();
       if (token == null || token.isEmpty) {
@@ -120,7 +120,7 @@ class PagesRepoImpl implements PagesRepo {
       final response = await _remoteDataSource.updateProfile(token, params);
 
       if (response.isSuccess) {
-        return Left(response.data!);
+        return Left(UserWithMessage(message: response.message, user: response.data!));
       } else {
         return Right(AppError(message: response.errorMessage, apiResponse: response, type: ErrorType.api));
       }

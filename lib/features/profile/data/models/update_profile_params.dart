@@ -4,9 +4,11 @@ import 'package:http_parser/http_parser.dart';
 
 class UpdateProfileParams {
   final String name;
+  final String? phone;
+  final String? countryCode;
   final PlatformFile? image;
 
-  UpdateProfileParams({required this.name, this.image});
+  UpdateProfileParams({required this.name, this.phone, this.countryCode, this.image});
 
   /// Convert to FormData for multipart requests
   Future<FormData> toFormData() async {
@@ -18,6 +20,14 @@ class UpdateProfileParams {
     // Add optional file fields
     if (image != null) {
       fields['image'] = await _createMultipartFile(image!, 'image');
+    }
+
+    // Add optional text fields
+    if (phone != null) {
+      fields['phone'] = phone;
+    }
+    if (countryCode != null) {
+      fields['country_code'] = countryCode;
     }
 
     return FormData.fromMap(fields);

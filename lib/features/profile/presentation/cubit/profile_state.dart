@@ -13,8 +13,9 @@ class UpdateProfileLoading extends ProfileState {}
 
 class UpdateProfileSuccess extends ProfileState {
   final ParkingMan user;
+  final String message;
 
-  const UpdateProfileSuccess(this.user);
+  const UpdateProfileSuccess({required this.message, required this.user});
 
   @override
   List<Object> get props => [user];

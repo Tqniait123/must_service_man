@@ -22,7 +22,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       emit(UpdateProfileLoading());
       final response = await _repo.updateProfile(params);
-      response.fold((user) => emit(UpdateProfileSuccess(user)), (error) => emit(UpdateProfileError(error.message)));
+      response.fold(
+        (userWithMessage) => emit(UpdateProfileSuccess(message: userWithMessage.message, user: userWithMessage.user)),
+        (error) => emit(UpdateProfileError(error.message)),
+      );
     } on AppError catch (e) {
       emit(UpdateProfileError(e.message));
     } catch (e) {

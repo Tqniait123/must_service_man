@@ -113,20 +113,24 @@ class ParkingMan extends AppUser {
   final String? points;
   final String? entranceGate;
   final String? exitGate;
+  final bool? approved;
 
   const ParkingMan({
     required super.id,
     required super.name,
     required super.email,
+
     super.photo,
     super.hasSubscription,
     super.address,
+
     super.isOnline,
     super.phoneNumber,
     this.phone,
     this.points,
     this.entranceGate,
     this.exitGate,
+    this.approved
   }) : super(type: UserType.parkingMan);
 
   factory ParkingMan.fromJson(Map<String, dynamic> json) {
@@ -142,6 +146,9 @@ class ParkingMan extends AppUser {
       points: json['points']?.toString(),
       entranceGate: json['entrance_gate'],
       exitGate: json['exit_gate'],
+           approved: json['approved'] != null ? json['approved'] == 1 : null,
+
+
     );
   }
 
@@ -177,6 +184,14 @@ class Car {
     return {'id': id, 'model': model, 'plate_number': plateNumber};
   }
 }
+
+class UserWithMessage {
+  final ParkingMan user;
+  final String message;
+
+  UserWithMessage({required this.user, required this.message});
+}
+
 
 // /// User model for the example
 // class User {

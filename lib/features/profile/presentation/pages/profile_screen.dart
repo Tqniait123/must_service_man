@@ -71,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
                               FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
-                                  '${context.user.name} Mohamed',
+                                  context.user.name,
                                   style: context.titleLarge.copyWith(
                                     color: AppColors.white,
                                     fontSize: 24,
