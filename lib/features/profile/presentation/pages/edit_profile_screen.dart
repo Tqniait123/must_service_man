@@ -10,13 +10,11 @@ import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
 import 'package:must_invest_service_man/core/extensions/widget_extensions.dart';
 import 'package:must_invest_service_man/core/services/di.dart';
-import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/dialogs/error_toast.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
-import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_phone_field.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/image_picker_avatar.dart';
@@ -101,12 +99,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       CustomBackButton(),
                       Text(LocaleKeys.edit_profile.tr(), style: context.titleLarge.copyWith()),
-                      CustomIconButton(
-                        color: Color(0xffEAEAF3),
-                        iconColor: AppColors.primary,
-                        iconAsset: AppIcons.qrCodeIc,
-                        onPressed: () {},
-                      ),
+                      51.gap,
+                      // CustomIconButton(
+                      //   color: Color(0xffEAEAF3),
+                      //   iconColor: AppColors.primary,
+                      //   iconAsset: AppIcons.qrCodeIc,
+                      //   onPressed: () {},
+                      // ),
                     ],
                   ),
                   40.gap,
