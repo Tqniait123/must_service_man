@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:must_invest_service_man/core/extensions/flipped_for_lcale.dart';
 import 'package:must_invest_service_man/core/extensions/sized_box.dart';
-import 'package:must_invest_service_man/core/functions/unfocus.dart';
 import 'package:must_invest_service_man/core/static/app_styles.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
@@ -42,6 +41,8 @@ class CustomTextFormField extends StatefulWidget {
     this.waitTyping = false, // New bool parameter
     this.isRequired = false,
     this.textAlign = TextAlign.start,
+    this.inputFormatters,
+    this.autofillHints,
     this.styleColor,
   });
 
@@ -71,6 +72,8 @@ class CustomTextFormField extends StatefulWidget {
   final TextAlign textAlign;
   final bool isRequired;
   final String gender;
+  final Iterable<String>? autofillHints;
+  final List<TextInputFormatter>? inputFormatters;
   final bool waitTyping; // New property to enable or disable debounce
 
   @override
@@ -151,11 +154,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             inputFormatters: widget.keyboardType == TextInputType.phone ? [FilteringTextInputFormatter.digitsOnly] : [],
             readOnly: widget.readonly,
             textAlign: widget.textAlign,
+            autofillHints: widget.autofillHints,
             textAlignVertical: TextAlignVertical.center,
             style: AppStyles.medium12black.copyWith(fontSize: 15.r, color: widget.styleColor ?? Colors.black),
             showCursor: !widget.readonly,
             onTap: widget.onTap,
-            onTapOutside: (_) => dismissKeyboard(),
 
             validator: _compositeValidator,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -192,10 +195,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
               ),
-              // errorStyle: const TextStyle(
-              //   height: 0.05,
-              //   fontSize: 15,
-              // ),
+              errorStyle: const TextStyle(fontSize: 12),
               errorMaxLines: 3,
               hintText: widget.hint,
               // labelText: widget.title,
@@ -282,3 +282,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return null;
   }
 }
+
+// First, add this to your pubspec.yaml:
+// dependencies:
+//   intl_phone_number_input: ^0.7.4
