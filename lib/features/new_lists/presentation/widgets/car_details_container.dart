@@ -5,6 +5,7 @@ import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
+import 'package:must_invest_service_man/core/utils/widgets/scrolling_text.dart';
 import 'package:must_invest_service_man/features/home/data/models/user_model.dart';
 
 class CarDetailsContainer extends StatelessWidget {
@@ -226,7 +227,7 @@ class CarDetailsContainer extends StatelessWidget {
               return Padding(
                 padding: EdgeInsetsDirectional.only(end: index < details.length - 1 ? 10 : 0),
                 child: SizedBox(
-                  width: 90, // Fixed smaller width
+                  width: 100, // Fixed smaller width
                   height: 100, // Fixed smaller height
                   child: _buildDetailCard(
                     icon: detail.icon,
@@ -272,12 +273,12 @@ class CarDetailsContainer extends StatelessWidget {
             6.gap,
 
             // Label
-            Text(
+            ScrollingText(
               label,
               style: TextStyle(fontSize: 9, color: Colors.grey[600], fontWeight: FontWeight.w500),
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+              // textAlign: TextAlign.center,
+              // maxLines: 1,
+              // overflow: TextOverflow.ellipsis,
             ),
 
             2.gap,
