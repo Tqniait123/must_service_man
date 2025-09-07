@@ -219,6 +219,8 @@
     "waiting_for_user_response": "في انتظار المستخدم لقبول أو رفض طلب الدفع...",
     "payment_accepted_message": "تم قبول الدفع. يمكنك الآن الخروج من الموقف.",
     "payment_declined_message": "تم رفض الدفع. يرجى المحاولة مرة أخرى أو التواصل مع الدعم.",
+    "please_enter_full_name": "يرجى إدخال اسمك الكامل",
+    "name_should_not_contain_special_characters": "يجب أن يحتوي الاسم على أحرف ومسافات فقط",
 
     "points_required": "النقاط المطلوبة",
     "simulate_decline": "محاكاة الرفض",

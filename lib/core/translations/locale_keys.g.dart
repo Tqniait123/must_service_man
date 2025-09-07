@@ -217,6 +217,8 @@ abstract class  LocaleKeys {
   static const waiting_for_user_response = 'waiting_for_user_response';
   static const payment_accepted_message = 'payment_accepted_message';
   static const payment_declined_message = 'payment_declined_message';
+  static const please_enter_full_name = 'please_enter_full_name';
+  static const name_should_not_contain_special_characters = 'name_should_not_contain_special_characters';
   static const points_required = 'points_required';
   static const simulate_decline = 'simulate_decline';
   static const simulate_accept = 'simulate_accept';

@@ -81,6 +81,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       margin: 0,
                       hint: LocaleKeys.full_name.tr(),
                       title: LocaleKeys.full_name.tr(),
+                      validator: (text) {
+                        if (text == null || text.isEmpty) {
+                          return LocaleKeys.please_enter_full_name.tr();
+                        }
+                        // Check if text contains special characters or numbers
+                        if (!RegExp(r'^[\p{L}\s]+$', unicode: true).hasMatch(text)) {
+                          return LocaleKeys.name_should_not_contain_special_characters.tr();
+                        }
+                        return null;
+                      },
                     ),
                     16.gap,
                     CustomTextFormField(

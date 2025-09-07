@@ -219,6 +219,8 @@
   "waiting_for_user_response": "Waiting for user to accept or decline the payment request...",
   "payment_accepted_message": "The payment has been accepted. You can now exit the parking.",
   "payment_declined_message": "The payment was declined. Please try again or contact support.",
+  "please_enter_full_name": "Please enter your full name",
+  "name_should_not_contain_special_characters": "Name should only contain letters and spaces",
 
   "points_required": "Points Required",
   "simulate_decline": "Simulate Decline",
