@@ -439,7 +439,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                   SliverPersistentHeader(
                     pinned: true,
                     delegate: CardsHeaderDelegate(
-                      minHeight: 80.0,
+                      minHeight: 60.0,
                       maxHeight: 160.0,
                       child: (context, shrinkOffset) {
                         return BlocBuilder<HomeCubit, HomeState>(

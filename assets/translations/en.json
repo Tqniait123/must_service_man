@@ -209,7 +209,7 @@
   "price": "Price",
   "hours_format": "{hours} hrs",
   "currency_format": "{amount}",
-  "points_format": "{points} pts",
+  "points_format": "{points}",
   "request_payment": "Request Payment",
   "already_exited": "Already Exited",
   "parking_entry_granted": "Parking entry granted",

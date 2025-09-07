@@ -30,21 +30,15 @@ class ParkingInfoContainer extends StatelessWidget {
         children: [
           ParkingInfoItem(
             label: LocaleKeys.duration.tr(),
-            value: LocaleKeys.hours_format.tr(
-              namedArgs: {'hours': parkingDuration.toString()},
-            ),
+            value: LocaleKeys.hours_format.tr(namedArgs: {'hours': parkingDuration.toString()}),
           ),
           ParkingInfoItem(
             label: LocaleKeys.price.tr(),
-            value: LocaleKeys.currency_format.tr(
-              namedArgs: {'amount': parkingPrice.toStringAsFixed(2)},
-            ),
+            value: LocaleKeys.currency_format.tr(namedArgs: {'amount': parkingPrice.toStringAsFixed(2)}),
           ),
           ParkingInfoItem(
             label: LocaleKeys.points.tr(),
-            value: LocaleKeys.points_format.tr(
-              namedArgs: {'points': pointsToRequest.toString()},
-            ),
+            value: LocaleKeys.points_format.tr(namedArgs: {'points': pointsToRequest.toString()}),
           ),
         ],
       ),
@@ -64,14 +58,7 @@ class ParkingInfoItem extends StatelessWidget {
     return Column(
       children: [
         Text(label, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: AppColors.primary,
-          ),
-        ),
+        Text(value, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.primary)),
       ],
     );
   }

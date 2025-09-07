@@ -209,7 +209,7 @@
 
     "hours_format": "{hours} ساعة",
     "currency_format": " {amount} ج.م",
-    "points_format": "{points} نقطة",
+    "points_format": "{points}",
     "request_payment": "طلب دفع",
     "already_exited": "خرج بالفعل",
     "parking_entry_granted": "تم السماح بدخول الموقف",
