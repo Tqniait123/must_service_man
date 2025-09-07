@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:html/parser.dart' as html_parser;
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/features/profile/data/models/about_us_model.dart';
 import 'package:must_invest_service_man/features/profile/presentation/cubit/pages_cubit.dart';
@@ -238,67 +239,85 @@ class _AboutUsScreenState extends State<AboutUsScreen> with TickerProviderStateM
   }
 
   Widget _buildAboutContent(String htmlContent) {
-    return FadeTransition(
-      opacity: _fadeAnimation,
-      child: Container(
-        margin: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 2))],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Html(
-            data: _cleanHtmlContent(htmlContent),
-            style: {
-              "body": Style(
-                fontSize: FontSize(16),
-                lineHeight: const LineHeight(1.6),
-                color: Colors.grey[800],
-                padding: HtmlPaddings.all(20),
-              ),
-              "h1": Style(
-                fontSize: FontSize(24),
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-                margin: Margins.only(bottom: 16),
-              ),
-              "h2": Style(
-                fontSize: FontSize(20),
-                fontWeight: FontWeight.w600,
-                color: Colors.grey[700],
-                margin: Margins.only(top: 20, bottom: 12),
-              ),
-              "h3": Style(
-                fontSize: FontSize(18),
-                fontWeight: FontWeight.w600,
-                color: Colors.grey[700],
-                margin: Margins.only(top: 16, bottom: 8),
-              ),
-              "p": Style(margin: Margins.only(bottom: 12)),
-              "ul": Style(margin: Margins.only(left: 16, bottom: 12)),
-              "ol": Style(margin: Margins.only(left: 16, bottom: 12)),
-              "li": Style(margin: Margins.only(bottom: 8)),
-              "a": Style(color: Theme.of(context).primaryColor, textDecoration: TextDecoration.underline),
-              "strong": Style(fontWeight: FontWeight.bold),
-              "em": Style(fontStyle: FontStyle.italic),
-              "blockquote": Style(
-                backgroundColor: Colors.grey[100],
-                padding: HtmlPaddings.all(16),
-                border: Border(left: BorderSide(color: Theme.of(context).primaryColor, width: 4)),
-                margin: Margins.only(left: 16, right: 16, bottom: 16),
-              ),
-            },
-            onLinkTap: (url, context, attributes) {
-              if (url != null) {
-                _launchUrl(url);
-              }
-            },
+    try {
+      final cleanedHtml = _cleanHtmlContent(htmlContent);
+      print('Cleaned HTML: $cleanedHtml'); // Debug: Log cleaned HTML
+
+      return FadeTransition(
+        opacity: _fadeAnimation,
+        child: Container(
+          margin: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 2))],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Html(
+              data: cleanedHtml,
+              style: {
+                "body": Style(
+                  fontSize: FontSize(16),
+                  lineHeight: const LineHeight(1.6),
+                  color: Colors.grey[800],
+                  padding: HtmlPaddings.all(20),
+                ),
+                "p": Style(margin: Margins.only(bottom: 12), fontSize: FontSize(16), color: Colors.grey[800]),
+                "strong": Style(fontWeight: FontWeight.bold),
+                "em": Style(fontStyle: FontStyle.italic),
+                "a": Style(color: Theme.of(context).primaryColor, textDecoration: TextDecoration.underline),
+                "h1": Style(
+                  fontSize: FontSize(24),
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor,
+                  margin: Margins.only(bottom: 16),
+                ),
+                "h2": Style(
+                  fontSize: FontSize(20),
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[700],
+                  margin: Margins.only(top: 20, bottom: 12),
+                ),
+                "h3": Style(
+                  fontSize: FontSize(18),
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[700],
+                  margin: Margins.only(top: 16, bottom: 8),
+                ),
+                "ul": Style(margin: Margins.only(left: 16, bottom: 12)),
+                "ol": Style(margin: Margins.only(left: 16, bottom: 12)),
+                "li": Style(margin: Margins.only(bottom: 8)),
+                "blockquote": Style(
+                  backgroundColor: Colors.grey[100],
+                  padding: HtmlPaddings.all(16),
+                  border: Border(left: BorderSide(color: Theme.of(context).primaryColor, width: 4)),
+                  margin: Margins.only(left: 16, right: 16, bottom: 16),
+                ),
+              },
+              onLinkTap: (url, context, attributes) {
+                if (url != null) {
+                  _launchUrl(url);
+                }
+              },
+              // // Handle unsupported tags or attributes
+              // onError: (error) {
+              //   print('flutter_html error: $error'); // Debug: Log rendering errors
+              // },
+              // // Support for custom rendering if needed
+              // customRender: {
+              //   "p": (context, child) {
+              //     return Padding(padding: const EdgeInsets.only(bottom: 12), child: child);
+              //   },
+              // },
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } catch (e) {
+      print('Error rendering HTML: $e'); // Debug: Log any exceptions
+      return _buildErrorWidget('Failed to render content: $e');
+    }
   }
 
   Widget _buildFloatingActionButton() {
@@ -313,7 +332,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> with TickerProviderStateM
   }
 
   String _cleanHtmlContent(String htmlContent) {
-    // Remove escape characters and clean the HTML
+    // Step 1: Replace escaped characters
     String cleaned = htmlContent
         .replaceAll('\\"', '"')
         .replaceAll('\\/', '/')
@@ -321,12 +340,34 @@ class _AboutUsScreenState extends State<AboutUsScreen> with TickerProviderStateM
         .replaceAll('&lt;', '<')
         .replaceAll('&gt;', '>')
         .replaceAll('&quot;', '"')
-        .replaceAll('&#39;', "'");
+        .replaceAll('&#39;', "'")
+        .replaceAll('\\r\\n', ''); // Remove \r\n sequences (or replace with '<br>' if line breaks are needed)
 
-    // Remove wrapping quotes if they exist
+    // Step 2: Remove wrapping quotes if they exist
     if (cleaned.startsWith('"') && cleaned.endsWith('"')) {
       cleaned = cleaned.substring(1, cleaned.length - 1);
     }
+
+    // Step 3: Parse HTML and remove custom attributes (e.g., data-start, data-end)
+    final document = html_parser.parse(cleaned);
+    document.querySelectorAll('*').forEach((element) {
+      element.attributes.removeWhere(
+        (key, value) => (key as String).startsWith('data-'),
+      ); // Remove custom data attributes
+    });
+
+    // Step 4: Convert back to HTML string
+    cleaned = document.body?.outerHtml ?? cleaned;
+
+    // Step 5: Decode HTML entities
+    cleaned = cleaned
+        .replaceAll('&ndash;', '–')
+        .replaceAll('&mdash;', '—')
+        .replaceAll('&nbsp;', ' ')
+        .replaceAll('&amp;', '&'); // Ensure all entities are decoded
+
+    // Step 6: Debug log to verify cleaned content
+    print('Cleaned HTML: $cleaned');
 
     return cleaned;
   }
