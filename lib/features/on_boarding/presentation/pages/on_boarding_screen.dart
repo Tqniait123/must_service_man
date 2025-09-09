@@ -266,6 +266,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       onDotClicked: _navigateToPage,
     );
   }
+  
 
   Widget _buildActionButtons() {
     return Padding(
