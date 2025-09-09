@@ -7,11 +7,7 @@ import 'package:must_invest_service_man/core/utils/widgets/long_press_effect.dar
 class CustomBackButton extends StatelessWidget {
   final Color? color;
   final VoidCallback? onTap;
-  const CustomBackButton({
-    super.key,
-    this.onTap,
-    this.color = const Color(0xffEAEAF3),
-  });
+  const CustomBackButton({super.key, this.onTap, this.color = const Color(0xffEAEAF3)});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +27,8 @@ class CustomBackButton extends StatelessWidget {
           },
           child: Container(
             padding: const EdgeInsets.all(9),
-            width: 51,
-            height: 51,
+            width: 46,
+            height: 46,
             decoration: ShapeDecoration(
               color: color ?? Colors.transparent,
               shape: RoundedRectangleBorder(
@@ -40,12 +36,7 @@ class CustomBackButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               shadows: const [
-                BoxShadow(
-                  color: Color(0x07000000),
-                  blurRadius: 4,
-                  offset: Offset(0, 3),
-                  spreadRadius: 0,
-                ),
+                BoxShadow(color: Color(0x07000000), blurRadius: 4, offset: Offset(0, 3), spreadRadius: 0),
               ],
             ),
             child: Center(

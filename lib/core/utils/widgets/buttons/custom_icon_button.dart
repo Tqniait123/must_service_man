@@ -23,8 +23,8 @@ class CustomIconButton extends StatefulWidget {
     this.iconColor,
     this.borderColor,
     this.isBordered = false,
-    this.width = 44.0,
-    this.height = 44.0,
+    this.width = 46.0,
+    this.height = 46.0,
     this.radius = 10.0,
     this.boxShadow,
   });
@@ -76,21 +76,12 @@ class _CustomIconButtonState extends State<CustomIconButton> {
               color: widget.color,
               borderRadius: BorderRadius.circular(widget.radius),
               boxShadow: widget.boxShadow != null ? [widget.boxShadow!] : null,
-              border:
-                  widget.isBordered
-                      ? Border.all(
-                        color: widget.borderColor ?? AppColors.greyED,
-                        width: 2.0,
-                      )
-                      : null,
+              border: widget.isBordered ? Border.all(color: widget.borderColor ?? AppColors.greyED, width: 2.0) : null,
             ),
             child: Center(
               child: SvgPicture.asset(
                 widget.iconAsset,
-                colorFilter:
-                    widget.iconColor != null
-                        ? ColorFilter.mode(widget.iconColor!, BlendMode.srcIn)
-                        : null,
+                colorFilter: widget.iconColor != null ? ColorFilter.mode(widget.iconColor!, BlendMode.srcIn) : null,
               ),
             ),
           ),
