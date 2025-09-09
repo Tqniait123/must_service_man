@@ -217,17 +217,16 @@ class CarDetailsContainer extends StatelessWidget {
     }
 
     // Use Row for horizontal layout with equal sized smaller cards
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children:
-            details.asMap().entries.map((entry) {
-              final index = entry.key;
-              final detail = entry.value;
-              return Padding(
+    return Row(
+      children:
+          details.asMap().entries.map((entry) {
+            final index = entry.key;
+            final detail = entry.value;
+            return Expanded(
+              child: Padding(
                 padding: EdgeInsetsDirectional.only(end: index < details.length - 1 ? 10 : 0),
                 child: SizedBox(
-                  width: 100, // Fixed smaller width
+                  // width: 90, // Fixed smaller width
                   height: 100, // Fixed smaller height
                   child: _buildDetailCard(
                     icon: detail.icon,
@@ -236,9 +235,9 @@ class CarDetailsContainer extends StatelessWidget {
                     isHighlighted: detail.isHighlighted,
                   ),
                 ),
-              );
-            }).toList(),
-      ),
+              ),
+            );
+          }).toList(),
     );
   }
 
