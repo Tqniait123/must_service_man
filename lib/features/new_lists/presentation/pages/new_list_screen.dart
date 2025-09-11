@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:must_invest_service_man/config/routes/routes.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/string_to_icon.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
@@ -53,7 +55,9 @@ class _NewListScreenState extends State<NewListScreen> {
                         iconAsset: AppIcons.cameraIc,
                         color: Color(0xffEAEAF3),
                         iconColor: AppColors.primary,
-                        onPressed: () {},
+                        onPressed: () {
+                          context.push(Routes.scanQr);
+                        },
                       ),
                       10.gap,
                       NotificationsButton(color: Color(0xffEAEAF3), iconColor: AppColors.primary),
