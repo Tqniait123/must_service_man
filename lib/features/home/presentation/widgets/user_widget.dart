@@ -18,12 +18,13 @@ class UserWidget extends StatelessWidget {
 
   const UserWidget({super.key, required this.user});
 
-  String _formatDateTime(String? dateTimeString) {
-    if (dateTimeString == null || dateTimeString.isEmpty) return LocaleKeys.unknown.tr();
-
+  String _formatDateTime(String? dateTimeString, context) {
+    if (dateTimeString == null || dateTimeString.isEmpty) {
+      return LocaleKeys.unknown.tr();
+    }
     try {
       final dateTime = DateTime.parse(dateTimeString);
-      return DateFormat('MMM dd, yyyy - hh:mm a').format(dateTime);
+      return DateFormat('MMM dd, yyyy • hh:mm a', context.locale.toString()).format(dateTime);
     } catch (e) {
       return dateTimeString;
     }
@@ -31,100 +32,109 @@ class UserWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      decoration: BoxDecoration(
-        color: Color(0xffF4F4FA),
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(0.1), blurRadius: 8, offset: Offset(0, 2))],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // User Info Row
-          Row(
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      height: 80,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.network(
-                          user.user?.image ?? Constants.placeholderProfileImage,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Image.network(Constants.placeholderProfileImage, fit: BoxFit.cover);
-                          },
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value:
-                                    loadingProgress.expectedTotalBytes != null
-                                        ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                        : null,
-                              ),
-                            );
-                          },
-                        ),
+    return GestureDetector(
+      onTap: () => context.push(Routes.userDetails, extra: user.id),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        // margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(color: AppColors.primary.withOpacity(0.08), blurRadius: 10, offset: const Offset(0, 4)),
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Profile Image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: SizedBox(
+                width: 100,
+                height: 100,
+                child: Image.network(
+                  user.user?.image ?? Constants.placeholderProfileImage,
+                  fit: BoxFit.cover,
+                  errorBuilder:
+                      (context, error, stackTrace) =>
+                          Image.network(Constants.placeholderProfileImage, fit: BoxFit.cover),
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value:
+                            loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                : null,
+                        strokeWidth: 2,
+                        color: AppColors.primary,
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            user.user?.name ?? LocaleKeys.unknown_user.tr(),
-                            style: context.textTheme.bodyMedium?.s16.bold.copyWith(color: AppColors.primary),
-                          ),
-                          const SizedBox(height: 4),
-                          if (user.user?.phone != null)
-                            Text(
-                              user.user!.phone!,
-                              style: context.textTheme.bodyMedium?.s12.regular.copyWith(
-                                color: AppColors.primary.withOpacity(0.5),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
-              CustomIconButton(
-                height: 30,
-                width: 30,
-                radius: 10,
-                color: Color(0xffE2E4FF),
-                iconAsset: AppIcons.arrowIc,
-                onPressed: () => context.push(Routes.userDetails, extra: user.id),
-              ).flippedForLocale(context),
-            ],
-          ),
+            ),
+            const SizedBox(width: 12),
+            // User Info
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        user.user?.name ?? LocaleKeys.unknown_user.tr(),
+                        style: context.textTheme.bodyLarge?.s16.bold.copyWith(color: AppColors.primary),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      CustomIconButton(
+                        height: 36,
+                        width: 36,
+                        radius: 10,
+                        color: AppColors.primary.withOpacity(0.1),
+                        iconAsset: AppIcons.arrowIc,
+                        onPressed: () => context.push(Routes.userDetails, extra: user.id),
+                      ).flippedForLocale(context),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Wrap(spacing: 8, runSpacing: 8, children: _buildInfoItems(context)),
+                ],
+              ),
+            ),
 
-          // Split Car and Parking Information
-          if (_buildInfoItems().isNotEmpty) ...[
-            const SizedBox(height: 8),
-            Wrap(spacing: 6, runSpacing: 6, children: _buildInfoItems()),
+            // Action Button
           ],
-        ],
-      ),
-    ).withPressEffect(onTap: () => context.push(Routes.userDetails, extra: user.id), onLongPress: () {});
+        ),
+      ).withPressEffect(onTap: () => context.push(Routes.userDetails, extra: user.id), onLongPress: () {}),
+    );
   }
 
-  List<Widget> _buildInfoItems() {
+  List<Widget> _buildInfoItems(BuildContext context) {
     final items = <Widget>[];
+
+    if (user.car?.name != null) {
+      final carText = '${user.car!.name}${user.car!.color != null ? ' • ${user.car!.color}' : ''}';
+      items.add(
+        InfoItemContainer(
+          icon: Icons.directions_car_outlined,
+          value: carText,
+          backgroundColor: AppColors.primary.withOpacity(0.05),
+          iconColor: AppColors.primary,
+        ),
+      );
+    }
 
     if (user.car?.metalPlate != null) {
       items.add(
         InfoItemContainer(
           icon: Icons.local_taxi_outlined,
           value: user.car!.metalPlate!,
-          backgroundColor: AppColors.primary.withOpacity(0.1),
+          backgroundColor: AppColors.primary.withOpacity(0.05),
           iconColor: AppColors.primary,
         ),
       );
@@ -134,20 +144,8 @@ class UserWidget extends StatelessWidget {
       items.add(
         InfoItemContainer(
           icon: Icons.schedule_outlined,
-          value: _formatDateTime(user.startTime),
-          backgroundColor: AppColors.primary.withOpacity(0.1),
-          iconColor: AppColors.primary,
-        ),
-      );
-    }
-
-    if (user.car?.name != null) {
-      final carText = '${user.car!.name}${user.car!.color != null ? ' • ${user.car!.color}' : ''}';
-      items.add(
-        InfoItemContainer(
-          icon: Icons.directions_car_outlined,
-          value: carText,
-          backgroundColor: AppColors.primary.withOpacity(0.1),
+          value: _formatDateTime(user.startTime, context),
+          backgroundColor: AppColors.primary.withOpacity(0.05),
           iconColor: AppColors.primary,
         ),
       );
@@ -173,36 +171,28 @@ class InfoItemContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {}, // Add functionality if needed
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 100),
-        curve: Curves.easeInOut,
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: iconColor.withOpacity(0.3), width: 0.5),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(color: iconColor.withOpacity(0.1), shape: BoxShape.circle),
-              child: Icon(icon, size: 14, color: iconColor),
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: iconColor.withOpacity(0.2), width: 0.5),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 16, color: iconColor),
+          const SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              value,
+              style: context.textTheme.bodySmall?.s12.medium.copyWith(color: iconColor),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
-            const SizedBox(width: 6),
-            Flexible(
-              child: Text(
-                value,
-                style: context.textTheme.bodyMedium?.s11.medium.copyWith(color: iconColor),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

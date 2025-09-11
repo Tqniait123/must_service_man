@@ -634,7 +634,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                         ),
                       );
                     }
-                    return RefreshIndicator(
+                    return RefreshIndicator.adaptive(
                       onRefresh: () async => _refreshData(),
                       color: AppColors.primary,
                       child: ListView.separated(
