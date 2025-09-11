@@ -136,6 +136,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       if (value == null || value.trim().isEmpty) {
                         return LocaleKeys.name_required.tr();
                       }
+                      // Check if text contains special characters or numbers
+                      if (!RegExp(r'^[\p{L}\s]+$', unicode: true).hasMatch(value)) {
+                        return LocaleKeys.name_should_not_contain_special_characters.tr();
+                      }
                       return null;
                     },
                   ),
