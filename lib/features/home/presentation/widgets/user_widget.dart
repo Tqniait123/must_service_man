@@ -18,7 +18,7 @@ class UserWidget extends StatelessWidget {
 
   const UserWidget({super.key, required this.user});
 
-  String _formatDateTime(String? dateTimeString, context) {
+  String _formatDateTime(String? dateTimeString, BuildContext context) {
     if (dateTimeString == null || dateTimeString.isEmpty) {
       return LocaleKeys.unknown.tr();
     }
