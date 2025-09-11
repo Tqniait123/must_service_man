@@ -7,6 +7,7 @@ import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/string_to_icon.dart';
 import 'package:must_invest_service_man/core/extensions/text_style_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
+import 'package:must_invest_service_man/core/functions/unfocus.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
@@ -129,6 +130,7 @@ class UserHomeHeaderWidget extends StatelessWidget {
                 iconAsset: AppIcons.cameraIc,
                 color: AppColors.primary,
                 onPressed: () {
+                  dismissKeyboard();
                   context.push(Routes.scanQr);
                 },
               ),
@@ -137,6 +139,7 @@ class UserHomeHeaderWidget extends StatelessWidget {
                 iconAsset: AppIcons.qrCodeIc,
                 color: AppColors.primary,
                 onPressed: () {
+                  dismissKeyboard();
                   context.push(Routes.myQrcode);
                 },
               ),
