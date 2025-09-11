@@ -208,7 +208,8 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                 height: finalHeight,
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: screenWidth * 0.035),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: Colors.white,
+                  // color: AppColors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: AppColors.primary.withOpacity(0.2)),
                 ),
@@ -265,7 +266,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                           height: screenWidth * 0.02,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.5),
+                            color: AppColors.primary.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: FractionallySizedBox(
@@ -367,7 +368,8 @@ class _HomeParkingManState extends State<HomeParkingMan> {
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
+                color: Colors.white,
+                // color: AppColors.primary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: AppColors.primary.withOpacity(0.2)),
               ),
@@ -440,7 +442,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                   SliverPersistentHeader(
                     pinned: true,
                     delegate: CardsHeaderDelegate(
-                      minHeight: 0.0,
+                      minHeight: 60,
                       maxHeight: 160.0,
                       child: (context, shrinkOffset) {
                         return BlocBuilder<HomeCubit, HomeState>(
@@ -463,12 +465,13 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                                 children: [
                                   // Determine which layout to show based on shrink offset
                                   shrinkOffset > 40
-                                      ? SizedBox.shrink()
-                                      // _buildCollapsedCardsSection(
-                                      //   currentCount: currentCount,
-                                      //   totalCapacity: totalCapacity,
-                                      //   screenWidth: MediaQuery.of(context).size.width,
-                                      // )
+                                      ?
+                                      // ? SizedBox.shrink()
+                                      _buildCollapsedCardsSection(
+                                        currentCount: currentCount,
+                                        totalCapacity: totalCapacity,
+                                        screenWidth: MediaQuery.of(context).size.width,
+                                      )
                                       : _buildExpandedCardsSection(
                                         currentCount: currentCount,
                                         totalCapacity: totalCapacity,
