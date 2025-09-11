@@ -91,88 +91,20 @@ class ProfileScreen extends StatelessWidget {
                 16.gap,
 
                 // Right side - Gate information in column
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      // Entrance Gate Container
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: AppColors.white.withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: AppColors.white.withOpacity(0.3), width: 1),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.white.withOpacity(0.2),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Icon(Icons.login, color: AppColors.white, size: 18),
-                                ),
-                                8.gap,
-                                Text(
-                                  context.user.entranceGate ?? 'Gate A1', // Replace with actual field
-                                  style: context.bodyMedium.copyWith(
-                                    color: AppColors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                // Expanded(
+                //   flex: 1,
+                //   child: Column(
+                //     children: [
+                //       // Entrance Gate Container
+                //       GateWidget(title: context.user.entranceGate ?? 'Gate A1', type: GateType.entrance),
 
-                      10.gap,
+                //       10.gap,
 
-                      // Exit Gate Container
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: AppColors.white.withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: AppColors.white.withOpacity(0.3), width: 1),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.white.withOpacity(0.2),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Icon(Icons.logout, color: AppColors.white, size: 18),
-                                ),
-                                8.gap,
-                                Text(
-                                  context.user.exitGate ?? 'Gate B2', // Replace with actual field
-                                  style: context.bodyMedium.copyWith(
-                                    color: AppColors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                //       // Exit Gate Container
+                //       GateWidget(title: context.user.exitGate ?? 'Gate B2', type: GateType.exit),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ],
@@ -272,6 +204,55 @@ class ProfileScreen extends StatelessWidget {
           //   onPressed: () {},
           //   title: LocaleKeys.how_can_we_help_you.tr(),
           // ),
+        ],
+      ),
+    );
+  }
+}
+
+enum GateType { entrance, exit }
+
+class GateWidget extends StatelessWidget {
+  final String title;
+  final GateType type;
+  const GateWidget({super.key, required this.title, required this.type});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.white.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.white.withOpacity(0.3), width: 1),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: type == GateType.entrance ? Colors.green.withAlpha(100) : Colors.red.withAlpha(100),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  type == GateType.entrance ? Icons.login : Icons.logout,
+                  color: AppColors.white,
+                  // color: type == GateType.entrance ? Colors.green : Colors.red,
+                  size: 18,
+                ),
+              ),
+              8.gap,
+              Text(
+                title,
+                // context.user.entranceGate ?? 'Gate A1', // Replace with actual field
+                style: context.bodyMedium.copyWith(color: AppColors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ],
       ),
     );

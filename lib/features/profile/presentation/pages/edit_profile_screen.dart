@@ -174,31 +174,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   16.gap,
 
-                  // Entry Gate Field
-                  CustomTextFormField(
-                    controller: _entryGateController,
-                    margin: 0,
-                    readonly: true,
-                    hint: LocaleKeys.entrance_gate.tr(),
-                    title: LocaleKeys.entrance_gate.tr(),
-                    //
-                  ),
-                  16.gap,
+                  // // Entry Gate Field
+                  // CustomTextFormField(
+                  //   controller: _entryGateController,
+                  //   margin: 0,
+                  //   readonly: true,
+                  //   hint: LocaleKeys.entrance_gate.tr(),
+                  //   title: LocaleKeys.entrance_gate.tr(),
+                  //   //
+                  // ),
+                  // 16.gap,
 
-                  // Exit Gate Field
-                  CustomTextFormField(
-                    controller: _exitGateController,
-                    margin: 0,
-                    readonly: true,
-                    hint: LocaleKeys.exit_gate.tr(),
-                    title: LocaleKeys.exit_gate.tr(),
-                    // validator: (value) {
-                    //   if (value == null || value.trim().isEmpty) {
-                    //     return 'بوابة الخروج مطلوبة';
-                    //   }
-                    //   return null;
-                    // },
-                  ),
+                  // // Exit Gate Field
+                  // CustomTextFormField(
+                  //   controller: _exitGateController,
+                  //   margin: 0,
+                  //   readonly: true,
+                  //   hint: LocaleKeys.exit_gate.tr(),
+                  //   title: LocaleKeys.exit_gate.tr(),
+                  //   // validator: (value) {
+                  //   //   if (value == null || value.trim().isEmpty) {
+                  //   //     return 'بوابة الخروج مطلوبة';
+                  //   //   }
+                  //   //   return null;
+                  //   // },
+                  // ),
                 ],
               ).paddingHorizontal(24),
             ),

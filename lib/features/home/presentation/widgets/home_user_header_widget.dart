@@ -14,6 +14,7 @@ import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_b
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/inputs/custom_form_field.dart';
 import 'package:must_invest_service_man/core/utils/widgets/long_press_effect.dart';
+import 'package:must_invest_service_man/features/profile/presentation/pages/profile_screen.dart';
 
 class UserHomeHeaderWidget extends StatelessWidget {
   const UserHomeHeaderWidget({super.key, required TextEditingController searchController})
@@ -98,7 +99,20 @@ class UserHomeHeaderWidget extends StatelessWidget {
             ),
           ],
         ),
-        40.gap,
+        10.gap,
+        Row(
+          children: [
+            // Entrance Gate Container
+            Expanded(child: GateWidget(title: context.user.entranceGate ?? 'Gate A1', type: GateType.entrance)),
+
+            10.gap,
+
+            // Exit Gate Container
+            Expanded(child: GateWidget(title: context.user.exitGate ?? 'Gate B2', type: GateType.exit)),
+          ],
+        ),
+        30.gap,
+
         CustomTextFormField(
           controller: _searchController,
           backgroundColor: Color(0xff6468AC),
