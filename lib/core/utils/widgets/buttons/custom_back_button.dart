@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:must_invest_service_man/core/extensions/flipped_for_lcale.dart';
 import 'package:must_invest_service_man/core/static/icons.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_icon_button.dart';
@@ -17,7 +18,7 @@ class CustomBackButton extends StatelessWidget {
     return Hero(
       tag: 'back',
       child: CustomIconButton(
-        iconAsset: AppIcons.arrowIc, 
+        iconAsset: AppIcons.arrowIc,
         iconColor:
             iconColor ??
             (color == AppColors.primary.withValues(alpha: 0.4)
@@ -37,7 +38,7 @@ class CustomBackButton extends StatelessWidget {
             }
           }
         },
-      ),
+      ).flippedForLocale(context, reverse: true),
     );
   }
 }
