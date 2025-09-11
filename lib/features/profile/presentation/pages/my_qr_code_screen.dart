@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:must_invest_service_man/core/extensions/is_logged_in.dart';
 import 'package:must_invest_service_man/core/extensions/num_extension.dart';
 import 'package:must_invest_service_man/core/extensions/theme_extension.dart';
@@ -12,7 +11,6 @@ import 'package:must_invest_service_man/core/static/app_assets.dart';
 import 'package:must_invest_service_man/core/theme/colors.dart';
 import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_back_button.dart';
-import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/notifications_button.dart';
 import 'package:must_invest_service_man/features/auth/data/models/user.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -154,30 +152,30 @@ class _MyQrCodeScreenState extends State<MyQrCodeScreen> {
           ],
         ).paddingHorizontal(24),
       ),
-      bottomNavigationBar: Row(
-        children: [
-          Expanded(
-            child: CustomElevatedButton(
-              heroTag: 'cancel',
-              onPressed: () {
-                context.pop();
-              },
-              title: LocaleKeys.cancel.tr(),
-              backgroundColor: Color(0xffF4F4FA),
-              textColor: AppColors.primary.withValues(alpha: 0.5),
-              isBordered: false,
-            ),
-          ),
-          16.gap,
-          Expanded(
-            child: CustomElevatedButton(
-              loading: _isRegenerating,
-              onPressed: _isRegenerating ? null : _regenerateQrCode,
-              title: _isRegenerating ? LocaleKeys.generating.tr() : LocaleKeys.re_generate.tr(),
-            ),
-          ),
-        ],
-      ).paddingAll(30),
+      // bottomNavigationBar: Row(
+      //   children: [
+      //     Expanded(
+      //       child: CustomElevatedButton(
+      //         heroTag: 'cancel',
+      //         onPressed: () {
+      //           context.pop();
+      //         },
+      //         title: LocaleKeys.cancel.tr(),
+      //         backgroundColor: Color(0xffF4F4FA),
+      //         textColor: AppColors.primary.withValues(alpha: 0.5),
+      //         isBordered: false,
+      //       ),
+      //     ),
+      //     16.gap,
+      //     Expanded(
+      //       child: CustomElevatedButton(
+      //         loading: _isRegenerating,
+      //         onPressed: _isRegenerating ? null : _regenerateQrCode,
+      //         title: _isRegenerating ? LocaleKeys.generating.tr() : LocaleKeys.re_generate.tr(),
+      //       ),
+      //     ),
+      //   ],
+      // ).paddingAll(30),
     );
   }
 
