@@ -16,6 +16,7 @@ import 'package:must_invest_service_man/core/translations/locale_keys.g.dart';
 import 'package:must_invest_service_man/core/utils/widgets/adaptive_layout/custom_layout.dart';
 import 'package:must_invest_service_man/core/utils/widgets/buttons/custom_elevated_button.dart';
 import 'package:must_invest_service_man/core/utils/widgets/long_press_effect.dart';
+import 'package:must_invest_service_man/core/utils/widgets/scrolling_text.dart';
 import 'package:must_invest_service_man/features/home/presentation/cubit/home_cubit.dart';
 import 'package:must_invest_service_man/features/home/presentation/cubit/home_state.dart';
 import 'package:must_invest_service_man/features/home/presentation/widgets/home_user_header_widget.dart';
@@ -234,7 +235,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                ScrollingText(
                                   LocaleKeys.parking_capacity.tr(),
                                   style: context.bodyMedium.copyWith(
                                     fontSize: screenWidth * 0.03,
