@@ -1209,7 +1209,21 @@
   "password_does_not_match": "Password does not match",
   "account_verification_required": "Account Verification Required",
   "account_verification_message": "Your account needs to be verified before you can login. Please verify your account to continue.",
-  "verify_now": "Verify Now"
+  "verify_now": "Verify Now",
+   "reception_employee": "Reception Employee",
+  "main_nasr_parking": "Main Nasr Parking",
+  "morning_shift": "Morning Shift (6:00 - 14:00)",
+  "evening_shift": "Evening Shift (14:00 - 22:00)",
+  "night_shift": "Night Shift (22:00 - 6:00)",
+  "qr_regenerated_successfully": "QR code regenerated successfully",
+  "certified_employee": "Certified Employee",
+  "active": "Active",
+  "generating_qr_code": "Generating QR code...",
+  "work_information": "Work Information",
+  "name_label": "Name:",
+  "location_label": "Location:",
+  "shift_label": "Shift:",
+  "time_label": "Time:"
 
 }
 

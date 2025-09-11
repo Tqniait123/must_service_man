@@ -1211,7 +1211,21 @@
   "password_does_not_match": "كلمة المرور غير متطابقة",
    "account_verification_required": "مطلوب التحقق من الحساب",
   "account_verification_message": "يجب التحقق من حسابك قبل تسجيل الدخول. يرجى التحقق من حسابك للمتابعة.",
-  "verify_now": "تحقق الآن"
+  "verify_now": "تحقق الآن",
+  "reception_employee": "موظف الاستقبال",
+  "main_nasr_parking": "موقف النصر الرئيسي",
+  "morning_shift": "الوردية الصباحية (6:00 - 14:00)",
+  "evening_shift": "الوردية المسائية (14:00 - 22:00)",
+  "night_shift": "الوردية الليلية (22:00 - 6:00)",
+  "qr_regenerated_successfully": "تم تجديد رمز الاستجابة السريعة بنجاح",
+  "certified_employee": "موظف معتمد",
+  "active": "نشط",
+  "generating_qr_code": "جاري إنشاء رمز الاستجابة السريعة...",
+  "work_information": "معلومات العمل",
+  "name_label": "الاسم:",
+  "location_label": "المكان:",
+  "shift_label": "الوردية:",
+  "time_label": "الوقت:"
 
 
 }

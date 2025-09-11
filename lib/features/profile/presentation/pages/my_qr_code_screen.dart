@@ -57,8 +57,8 @@ class _MyQrCodeScreenState extends State<MyQrCodeScreen> {
     try {
       // Get employee info (you might need to get this from your auth service)
       final employeeId = currentEmployee?.id ?? 'EMP_${Random().nextInt(999999).toString().padLeft(6, '0')}';
-      final employeeName = currentEmployee?.name ?? 'موظف الاستقبال';
-      // final parkingLocation = currentEmployee?.workLocation ?? 'موقف النصر الرئيسي';
+      final employeeName = currentEmployee?.name ?? LocaleKeys.reception_employee.tr();
+      // final parkingLocation = currentEmployee?.workLocation ?? LocaleKeys.main_nasr_parking.tr();
       // final shiftTime = _getCurrentShiftTime();
 
       // Generate QR code using ParkingQrService
@@ -83,11 +83,11 @@ class _MyQrCodeScreenState extends State<MyQrCodeScreen> {
     final hour = now.hour;
 
     if (hour >= 6 && hour < 14) {
-      return 'الوردية الصباحية (6:00 - 14:00)';
+      return LocaleKeys.morning_shift.tr();
     } else if (hour >= 14 && hour < 22) {
-      return 'الوردية المسائية (14:00 - 22:00)';
+      return LocaleKeys.evening_shift.tr();
     } else {
-      return 'الوردية الليلية (22:00 - 6:00)';
+      return LocaleKeys.night_shift.tr();
     }
   }
 
@@ -109,7 +109,7 @@ class _MyQrCodeScreenState extends State<MyQrCodeScreen> {
     // Show success message
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('تم تجديد رمز الاستجابة السريعة بنجاح'),
+        content: Text(LocaleKeys.qr_regenerated_successfully.tr()),
         backgroundColor: AppColors.primary,
         duration: const Duration(seconds: 2),
       ),
@@ -204,12 +204,12 @@ class _MyQrCodeScreenState extends State<MyQrCodeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'موظف معتمد',
+                  LocaleKeys.certified_employee.tr(),
                   style: context.titleMedium.copyWith(color: Colors.green, fontWeight: FontWeight.bold),
                 ),
                 4.gap,
                 Text(
-                  currentEmployee?.name ?? 'موظف الاستقبال',
+                  currentEmployee?.name ?? LocaleKeys.reception_employee.tr(),
                   style: context.bodyMedium.copyWith(color: Colors.green[700]),
                 ),
               ],
@@ -218,7 +218,10 @@ class _MyQrCodeScreenState extends State<MyQrCodeScreen> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(20)),
-            child: Text('نشط', style: context.bodySmall.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+            child: Text(
+              LocaleKeys.active.tr(),
+              style: context.bodySmall.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),
@@ -244,7 +247,7 @@ class _MyQrCodeScreenState extends State<MyQrCodeScreen> {
                 CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary)),
                 16.gap,
                 Text(
-                  'جاري إنشاء رمز الاستجابة السريعة...',
+                  LocaleKeys.generating_qr_code.tr(),
                   textAlign: TextAlign.center,
                   style: context.bodyMedium.copyWith(color: Colors.grey[600]),
                 ),
@@ -302,19 +305,22 @@ class _MyQrCodeScreenState extends State<MyQrCodeScreen> {
               Icon(Icons.work, color: AppColors.primary, size: 20),
               8.gap,
               Text(
-                'معلومات العمل',
+                LocaleKeys.work_information.tr(),
                 style: context.bodyMedium.copyWith(color: AppColors.primary, fontWeight: FontWeight.w600),
               ),
             ],
           ),
           12.gap,
-          _buildInfoRow('الاسم:', currentEmployee?.name ?? 'موظف الاستقبال'),
+          _buildInfoRow(LocaleKeys.name_label.tr(), currentEmployee?.name ?? LocaleKeys.reception_employee.tr()),
           4.gap,
-          // _buildInfoRow('المكان:', currentEmployee?.workLocation ?? 'موقف النصر الرئيسي'),
+          // _buildInfoRow(LocaleKeys.location_label.tr(), currentEmployee?.workLocation ?? LocaleKeys.main_nasr_parking.tr()),
           4.gap,
-          // _buildInfoRow('الوردية:', _getCurrentShiftTime()),
+          // _buildInfoRow(LocaleKeys.shift_label.tr(), _getCurrentShiftTime()),
           4.gap,
-          _buildInfoRow('الوقت:', DateFormat('HH:mm - dd/MM/yyyy').format(DateTime.now())),
+          _buildInfoRow(
+            LocaleKeys.time_label.tr(),
+            DateFormat('hh:mm a - dd/MM/yyyy', context.locale.toString()).format(DateTime.now()),
+          ),
         ],
       ),
     );

@@ -1158,7 +1158,21 @@ class CodegenLoader extends AssetLoader{
   "password_does_not_match": "Password does not match",
   "account_verification_required": "Account Verification Required",
   "account_verification_message": "Your account needs to be verified before you can login. Please verify your account to continue.",
-  "verify_now": "Verify Now"
+  "verify_now": "Verify Now",
+  "reception_employee": "Reception Employee",
+  "main_nasr_parking": "Main Nasr Parking",
+  "morning_shift": "Morning Shift (6:00 - 14:00)",
+  "evening_shift": "Evening Shift (14:00 - 22:00)",
+  "night_shift": "Night Shift (22:00 - 6:00)",
+  "qr_regenerated_successfully": "QR code regenerated successfully",
+  "certified_employee": "Certified Employee",
+  "active": "Active",
+  "generating_qr_code": "Generating QR code...",
+  "work_information": "Work Information",
+  "name_label": "Name:",
+  "location_label": "Location:",
+  "shift_label": "Shift:",
+  "time_label": "Time:"
 };
 static const Map<String,dynamic> _ar = {
   "field_is_required": {
@@ -2304,7 +2318,21 @@ static const Map<String,dynamic> _ar = {
   "password_does_not_match": "كلمة المرور غير متطابقة",
   "account_verification_required": "مطلوب التحقق من الحساب",
   "account_verification_message": "يجب التحقق من حسابك قبل تسجيل الدخول. يرجى التحقق من حسابك للمتابعة.",
-  "verify_now": "تحقق الآن"
+  "verify_now": "تحقق الآن",
+  "reception_employee": "موظف الاستقبال",
+  "main_nasr_parking": "موقف النصر الرئيسي",
+  "morning_shift": "الوردية الصباحية (6:00 - 14:00)",
+  "evening_shift": "الوردية المسائية (14:00 - 22:00)",
+  "night_shift": "الوردية الليلية (22:00 - 6:00)",
+  "qr_regenerated_successfully": "تم تجديد رمز الاستجابة السريعة بنجاح",
+  "certified_employee": "موظف معتمد",
+  "active": "نشط",
+  "generating_qr_code": "جاري إنشاء رمز الاستجابة السريعة...",
+  "work_information": "معلومات العمل",
+  "name_label": "الاسم:",
+  "location_label": "المكان:",
+  "shift_label": "الوردية:",
+  "time_label": "الوقت:"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": _en, "ar": _ar};
 }

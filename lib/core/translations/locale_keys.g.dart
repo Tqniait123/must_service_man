@@ -1144,5 +1144,19 @@ abstract class  LocaleKeys {
   static const account_verification_required = 'account_verification_required';
   static const account_verification_message = 'account_verification_message';
   static const verify_now = 'verify_now';
+  static const reception_employee = 'reception_employee';
+  static const main_nasr_parking = 'main_nasr_parking';
+  static const morning_shift = 'morning_shift';
+  static const evening_shift = 'evening_shift';
+  static const night_shift = 'night_shift';
+  static const qr_regenerated_successfully = 'qr_regenerated_successfully';
+  static const certified_employee = 'certified_employee';
+  static const active = 'active';
+  static const generating_qr_code = 'generating_qr_code';
+  static const work_information = 'work_information';
+  static const name_label = 'name_label';
+  static const location_label = 'location_label';
+  static const shift_label = 'shift_label';
+  static const time_label = 'time_label';
 
 }
