@@ -209,13 +209,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             if (state is UpdateProfileSuccess) {
               if (state.user.approved == true) {
                 context.setCurrentUser(state.user);
-                showSuccessToast(context, LocaleKeys.profile_updated_successfully.tr());
               } else {
-                showSuccessToast(context, state.message, seconds: 15);
-                context.go(
-                  Routes.otpScreen,
-                  extra: OtpScreenParams(otpFlow: OtpFlow.registration, phone: _code + _phoneController.text),
-                );
+                if (state.user.approved == false) {
+                  showSuccessToast(context, state.message, seconds: 15);
+                  context.go(
+                    Routes.otpScreen,
+                    extra: OtpScreenParams(otpFlow: OtpFlow.registration, phone: _code + _phoneController.text),
+                  );
+                } else {
+                  showSuccessToast(context, LocaleKeys.profile_updated_successfully.tr());
+                  context.setCurrentUser(state.user);
+                  context.pop();
+                }
               }
             }
             if (state is UpdateProfileError) {
