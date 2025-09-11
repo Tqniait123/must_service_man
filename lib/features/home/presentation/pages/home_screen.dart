@@ -430,7 +430,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
         scrollPhysics: const NeverScrollableScrollPhysics(),
         upperContent: UserHomeHeaderWidget(searchController: _searchController),
         children: [
-          32.gap,
+          // 32.gap,
           // Points and Capacity Cards Row with NestedScrollView
           Expanded(
             child: NestedScrollView(
@@ -440,7 +440,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                   SliverPersistentHeader(
                     pinned: true,
                     delegate: CardsHeaderDelegate(
-                      minHeight: 60.0,
+                      minHeight: 0.0,
                       maxHeight: 160.0,
                       child: (context, shrinkOffset) {
                         return BlocBuilder<HomeCubit, HomeState>(
@@ -459,15 +459,16 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                             return Container(
                               color: Theme.of(context).scaffoldBackgroundColor,
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   // Determine which layout to show based on shrink offset
                                   shrinkOffset > 40
-                                      ? _buildCollapsedCardsSection(
-                                        currentCount: currentCount,
-                                        totalCapacity: totalCapacity,
-                                        screenWidth: MediaQuery.of(context).size.width,
-                                      )
+                                      ? SizedBox.shrink()
+                                      // _buildCollapsedCardsSection(
+                                      //   currentCount: currentCount,
+                                      //   totalCapacity: totalCapacity,
+                                      //   screenWidth: MediaQuery.of(context).size.width,
+                                      // )
                                       : _buildExpandedCardsSection(
                                         currentCount: currentCount,
                                         totalCapacity: totalCapacity,
@@ -491,7 +492,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                         color: Theme.of(context).scaffoldBackgroundColor,
                         child: Column(
                           children: [
-                            24.gap,
+                            // 24.gap,
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
                               child: Row(
