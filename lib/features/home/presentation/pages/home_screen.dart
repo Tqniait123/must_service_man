@@ -88,6 +88,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
     final cardHeight = cardWidth * 0.85;
     final minHeight = 120.0;
     final finalHeight = math.max(cardHeight, minHeight);
+    final bool isCapacityFull = currentCount >= totalCapacity;
 
     return SizedBox(
       width: double.infinity,
@@ -208,10 +209,22 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                 height: finalHeight,
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: screenWidth * 0.035),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  // color: AppColors.primary.withOpacity(0.1),
+                  color: isCapacityFull ? Colors.red.shade50 : Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                  border: Border.all(
+                    color: isCapacityFull ? Colors.red.withOpacity(0.3) : AppColors.primary.withOpacity(0.2),
+                  ),
+                  boxShadow:
+                      isCapacityFull
+                          ? [
+                            BoxShadow(
+                              color: Colors.red.withOpacity(0.1),
+                              spreadRadius: 0,
+                              blurRadius: 15,
+                              offset: const Offset(0, 4),
+                            ),
+                          ]
+                          : null,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,10 +238,14 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                           Container(
                             padding: EdgeInsets.all(screenWidth * 0.02),
                             decoration: BoxDecoration(
-                              color: AppColors.primary.withOpacity(0.2),
+                              color: isCapacityFull ? Colors.red.withOpacity(0.2) : AppColors.primary.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Icon(Icons.local_parking, color: AppColors.primary, size: screenWidth * 0.05),
+                            child: Icon(
+                              Icons.local_parking,
+                              color: isCapacityFull ? Colors.red : AppColors.primary,
+                              size: screenWidth * 0.05,
+                            ),
                           ),
                           SizedBox(width: screenWidth * 0.025),
                           Expanded(
@@ -240,7 +257,10 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                                   LocaleKeys.parking_capacity.tr(),
                                   style: context.bodyMedium.copyWith(
                                     fontSize: screenWidth * 0.03,
-                                    color: AppColors.primary.withOpacity(0.7),
+                                    color:
+                                        isCapacityFull
+                                            ? Colors.red.withOpacity(0.7)
+                                            : AppColors.primary.withOpacity(0.7),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -250,7 +270,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                                   style: context.bodyMedium.copyWith(
                                     fontSize: screenWidth * 0.045,
                                     fontWeight: FontWeight.bold,
-                                    color: AppColors.primary,
+                                    color: isCapacityFull ? Colors.red : AppColors.primary,
                                   ),
                                 ),
                               ],
@@ -266,7 +286,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                           height: screenWidth * 0.02,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.2),
+                            color: isCapacityFull ? Colors.red.withOpacity(0.2) : AppColors.primary.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: FractionallySizedBox(
@@ -274,7 +294,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                             widthFactor: totalCapacity > 0 ? (currentCount / totalCapacity).clamp(0.0, 1.0) : 0.0,
                             child: Container(
                               decoration: BoxDecoration(
-                                color: AppColors.primary,
+                                color: isCapacityFull ? Colors.red : AppColors.primary,
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),
@@ -297,6 +317,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
     required int totalCapacity,
     required double screenWidth,
   }) {
+    final bool isCapacityFull = currentCount >= totalCapacity;
     return SizedBox(
       width: double.infinity,
       // padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -368,20 +389,32 @@ class _HomeParkingManState extends State<HomeParkingMan> {
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.white,
-                // color: AppColors.primary.withOpacity(0.1),
+                color: isCapacityFull ? Colors.red.shade50 : Colors.white,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                border: Border.all(
+                  color: isCapacityFull ? Colors.red.withOpacity(0.3) : AppColors.primary.withOpacity(0.2),
+                ),
+                boxShadow:
+                    isCapacityFull
+                        ? [
+                          BoxShadow(
+                            color: Colors.red.withOpacity(0.1),
+                            spreadRadius: 0,
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ]
+                        : null,
               ),
               child: Row(
                 children: [
                   Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.2),
+                      color: isCapacityFull ? Colors.red.withOpacity(0.2) : AppColors.primary.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(Icons.local_parking, color: AppColors.primary, size: 16),
+                    child: Icon(Icons.local_parking, color: isCapacityFull ? Colors.red : AppColors.primary, size: 16),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -393,7 +426,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                           LocaleKeys.parking_capacity.tr(),
                           style: context.bodyMedium.copyWith(
                             fontSize: 10,
-                            color: AppColors.primary.withOpacity(0.7),
+                            color: isCapacityFull ? Colors.red.withOpacity(0.7) : AppColors.primary.withOpacity(0.7),
                             fontWeight: FontWeight.w500,
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -403,7 +436,7 @@ class _HomeParkingManState extends State<HomeParkingMan> {
                           style: context.bodyMedium.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.primary,
+                            color: isCapacityFull ? Colors.red : AppColors.primary,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
